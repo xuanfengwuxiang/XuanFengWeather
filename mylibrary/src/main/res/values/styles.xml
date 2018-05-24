@@ -1,0 +1,8 @@
+<resources>
+
+    <!--ContentWithSpaceEditText的自定义属性-->
+    <declare-styleable name="ContentWithSpaceEditText">
+        <attr name="type" format="integer" />
+    </declare-styleable>
+
+</resources>

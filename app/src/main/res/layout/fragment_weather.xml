@@ -1,0 +1,63 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.xuanfeng.xuanfengweather.module.weather.fragment.WeatherFragment"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_weather_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.xuanfeng.xuanfengweather.module.weather.fragment.WeatherFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.xuanfeng.xuanfengweather.widget.RotateImageView
+                        android:id="@+id/riv_rotate"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/ic_logo"/>
+
+                    <TextView
+                        android:id="@+id/tv_today_temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{listener.onClick}"
+                        android:text="最近5天的天气预报"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        />
+
+
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_broadcast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>
+

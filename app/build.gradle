@@ -1,0 +1,149 @@
+apply plugin: 'com.android.application'
+apply plugin: 'bugly'
+
+bugly {
+    appId = '1641d599d2' // 注册时分配的App ID
+    appKey = '52ba93b6-333b-4f90-b80b-a44a9a38c6b0' // 注册时分配的App Key
+}
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+    //多渠道打包
+    productFlavors {
+        huawei {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'developer.huawei.com')
+        }
+        other {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'other')
+        }
+        baidu {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'app.baidu.com')
+        }
+        oppo {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.oppomobile.com')
+        }
+        vivo {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.vivo.com.cn')
+        }
+        xiaomi {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.xiaomi.com')
+        }
+        qiku360 {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.360.cn')
+        }
+        pp {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.pp.cn')
+        }
+        flyme {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.flyme.cn')
+        }
+        qq {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.qq.com')
+        }
+        jinli {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.appgionee.com')
+        }
+        letv {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.letv.com')
+        }
+        anzhi {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.anzhi.com')
+        }
+        lenovo {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.lenovo.com')
+        }
+        google {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.google.com')
+        }
+        meizu {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.meizu.com')
+        }
+    }
+    defaultConfig {
+        applicationId "com.xuanfeng.xuanfengweather"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 2
+        versionName "2.0"
+        flavorDimensions "versionCode"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // 设置MultiDex可用
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //将release版本的包名重命名是否去除无效的资源文件，加上版本及日期
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('release.apk')) {
+                        def fileName = "${variant.productFlavors[0].name}_${defaultConfig.applicationId}_${defaultConfig.versionName}_${defaultConfig.versionCode}_${releaseTime()}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
+        }
+    }
+
+    // 保证其他的lib没有被preDex
+    dexOptions {
+        javaMaxHeapSize "4g"
+        preDexLibraries = false
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java-gen']
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+apply plugin: 'replugin-host-gradle'
+
+dependencies {
+    provided fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile files('libs/BaiduLBS_Android.jar')
+    compile project(':android-jungle-mediaplayer')
+
+    compile project(':daogenerator')
+    //compile 'com.airbnb.android:lottie:2.2.5'
+    compile('com.airbnb.android:lottie:2.2.5', {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    })
+    compile project(':mylibrary')
+    // compile 'io.netty:netty-all:5.0.0.Alpha2'
+    compile files('libs/netty-all-4.1.4.Final.jar')
+    compile 'com.android.support:appcompat-v7:25.3.1'
+
+
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'de.greenrobot:greendao-generator:2.1.0'
+    compile 'de.greenrobot:greendao:2.1.0'
+
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+
+    compile 'com.qihoo360.replugin:replugin-host-lib:2.2.2'
+
+    //butterknife
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}

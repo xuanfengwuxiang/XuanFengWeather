@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xuanfeng.xuanfengweather.MainActivity"
+    tools:openDrawer="start"
+    >
+
+    <LinearLayout
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <include layout="@layout/include_title_bar_one"/>
+
+        <com.xuanfeng.mylibrary.widget.NoScrollViewPager
+            android:id="@+id/vp_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <!--导航按钮-->
+        <RadioGroup
+            android:id="@+id/rg_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@color/color_light_blue">
+
+            <RadioButton
+                android:gravity="center"
+                android:button="@null"
+                android:id="@+id/rb_weather"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@drawable/radio_text_selector"
+                android:drawableTop="@drawable/radio_weather"
+                android:text="天气"/>
+
+            <RadioButton
+                android:gravity="center"
+                android:button="@null"
+                android:id="@+id/rb_shijing"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@drawable/radio_text_selector"
+                android:drawableTop="@drawable/radio_shijing"
+                android:text="多媒体"/>
+
+            <RadioButton
+                android:gravity="center"
+                android:button="@null"
+                android:id="@+id/rb_me"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@drawable/radio_text_selector"
+                android:drawableTop="@drawable/radio_me"
+                android:text="新闻"/>
+        </RadioGroup>
+    </LinearLayout>
+
+    <fragment
+        android:layout_gravity="start"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.xuanfeng.xuanfengweather.module.menu.MenuFragment"
+        tools:layout="@layout/fragment_menu"
+        android:id="@+id/left_menu"/>
+
+</android.support.v4.widget.DrawerLayout>
