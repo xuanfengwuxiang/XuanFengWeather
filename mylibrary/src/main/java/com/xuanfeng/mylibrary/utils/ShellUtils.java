@@ -14,89 +14,37 @@ public class ShellUtils {
     public static final String COMMAND_EXIT     = "exit\n";
     public static final String COMMAND_LINE_END = "\n";
 
-    /**
-     * check whether has root permission
-     * 
-     * @return
-     */
+    //check whether has root permission
     public static boolean checkRootPermission() {
         return execCommand("echo root", true, false).result == 0;
     }
 
-    /**
-     * execute shell command, default return result msg
-     * 
-     * @param command command
-     * @param isRoot whether need to run with root
-     * @return
-     * @see ShellUtils#execCommand(String[], boolean, boolean)
-     */
+    //execute shell command, default return result msg
     public static CommandResult execCommand(String command, boolean isRoot) {
         return execCommand(new String[] { command }, isRoot, true);
     }
 
-    /**
-     * execute shell commands, default return result msg
-     * 
-     * @param commands command list
-     * @param isRoot whether need to run with root
-     * @return
-     * @see ShellUtils#execCommand(String[], boolean, boolean)
-     */
+    //execute shell commands, default return result msg
     public static CommandResult execCommand(List<String> commands, boolean isRoot) {
         return execCommand(commands == null ? null : commands.toArray(new String[] {}), isRoot, true);
     }
 
-    /**
-     * execute shell commands, default return result msg
-     * 
-     * @param commands command array
-     * @param isRoot whether need to run with root
-     * @return
-     * @see ShellUtils#execCommand(String[], boolean, boolean)
-     */
+    //execute shell commands, default return result msg
     public static CommandResult execCommand(String[] commands, boolean isRoot) {
         return execCommand(commands, isRoot, true);
     }
 
-    /**
-     * execute shell command
-     * 
-     * @param command command
-     * @param isRoot whether need to run with root
-     * @param isNeedResultMsg whether need result msg
-     * @return
-     * @see ShellUtils#execCommand(String[], boolean, boolean)
-     */
+    //execute shell command
     public static CommandResult execCommand(String command, boolean isRoot, boolean isNeedResultMsg) {
         return execCommand(new String[] { command }, isRoot, isNeedResultMsg);
     }
 
-    /**
-     * execute shell commands
-     * 
-     * @param commands command list
-     * @param isRoot whether need to run with root
-     * @param isNeedResultMsg whether need result msg
-     * @return
-     * @see ShellUtils#execCommand(String[], boolean, boolean)
-     */
+    //execute shell commands
     public static CommandResult execCommand(List<String> commands, boolean isRoot, boolean isNeedResultMsg) {
         return execCommand(commands == null ? null : commands.toArray(new String[] {}), isRoot, isNeedResultMsg);
     }
 
-    /**
-     * execute shell commands
-     * 
-     * @param commands command array
-     * @param isRoot whether need to run with root
-     * @param isNeedResultMsg whether need result msg
-     * @return <ul>
-     * <li>if isNeedResultMsg is false, {@link CommandResult#successMsg} is null and {@link CommandResult#errorMsg} is
-     * null.</li>
-     * <li>if {@link CommandResult#result} is -1, there maybe some excepiton.</li>
-     * </ul>
-     */
+    //execute shell commands
     public static CommandResult execCommand(String[] commands, boolean isRoot, boolean isNeedResultMsg) {
         int result = -1;
         if (commands == null || commands.length == 0) {
@@ -168,17 +116,7 @@ public class ShellUtils {
             : errorMsg.toString());
     }
 
-    /**
-     * result of command
-     * <ul>
-     * <li>{@link CommandResult#result} means result of command, 0 means normal, else means error, same to excute in
-     * linux shell</li>
-     * <li>{@link CommandResult#successMsg} means success message of command result</li>
-     * <li>{@link CommandResult#errorMsg} means error message of command result</li>
-     * </ul>
-     * 
-     * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-5-16
-     */
+    //means result of command, 0 means normal, else means error
     public static class CommandResult {
 
         /** result of command **/
