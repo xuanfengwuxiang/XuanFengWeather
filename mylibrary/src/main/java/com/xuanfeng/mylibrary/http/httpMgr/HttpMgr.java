@@ -14,7 +14,7 @@ import rx.schedulers.Schedulers;
  * 描述：网络请求管理基类，实现网络请求与回调的绑定
  */
 
-public class BaseHttpMgr {
+public class HttpMgr {
 
 
     //将网络请求与回调进行绑定，与设置监听器同理

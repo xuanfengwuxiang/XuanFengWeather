@@ -1,6 +1,6 @@
 package com.xuanfeng.xuanfengweather.http.httpMgr;
 
-import com.xuanfeng.mylibrary.http.httpMgr.BaseHttpMgr;
+import com.xuanfeng.mylibrary.http.httpMgr.HttpMgr;
 import com.google.gson.JsonObject;
 import com.xuanfeng.mylibrary.http.HttpLoader;
 import com.xuanfeng.mylibrary.http.HttpResponse;
@@ -16,7 +16,7 @@ import rx.Observable;
  * 描述：天气模块的http请求管理
  */
 
-public class WeatherHttpMgr extends BaseHttpMgr {
+public class WeatherHttpMgr extends HttpMgr {
     public static void getWeather(String city, HttpResponse<JsonObject> httpResponse){
         LinkedHashMap<String,String> params = new LinkedHashMap<>();
         params.put("city",city);
