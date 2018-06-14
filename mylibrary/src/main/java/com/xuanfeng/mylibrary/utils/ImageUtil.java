@@ -1,11 +1,15 @@
 package com.xuanfeng.mylibrary.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,6 +19,14 @@ import java.io.FileOutputStream;
  */
 
 public class ImageUtil {
+
+    public static void loadImage(Context context, String url, ImageView imageView) {
+        Glide.with(context).load(url).into(imageView);
+    }
+
+    public static void loadImage(Context context, int resId, ImageView imageView) {
+        Glide.with(context).load(resId).into(imageView);
+    }
 
     //修改控件的图片颜色   R  G   B范围0-255
     public static Bitmap getColorBitmap(Bitmap bitmap, float R, float G, float B, float A) {

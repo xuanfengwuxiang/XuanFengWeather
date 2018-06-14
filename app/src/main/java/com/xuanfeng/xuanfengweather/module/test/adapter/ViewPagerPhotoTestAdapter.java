@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
 import com.xuanfeng.xuanfengweather.R;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class ViewPagerPhotoTestAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.item_photo, container, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_photo, container, false);
         ImageView mIvPhoto = (ImageView) view.findViewById(R.id.iv_photo);
         //Picasso.with(mContext).load(mUrls.get(position)).into(mIvPhoto);
         mIvPhoto.setImageResource(mUrls.get(position));

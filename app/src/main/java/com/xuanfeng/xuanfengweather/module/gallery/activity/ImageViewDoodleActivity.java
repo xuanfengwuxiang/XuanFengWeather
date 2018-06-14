@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.xuanfeng.mylibrary.utils.FileUtil;
 import com.xuanfeng.mylibrary.utils.ImageUtil;
-import com.squareup.picasso.Picasso;
 import com.xuanfeng.xuanfengweather.R;
 import com.xuanfeng.xuanfengweather.mvvm.BaseActivity;
 import com.xuanfeng.xuanfengweather.widget.DoodleImageView;
@@ -42,7 +41,7 @@ public class ImageViewDoodleActivity extends BaseActivity {
 
     @Override
     public void initData(Bundle bundle) {
-        Picasso.with(this).load(R.drawable.ic_scenery1).into(mDoodleImageView);
+        ImageUtil.loadImage(this, R.drawable.ic_scenery1, mDoodleImageView);
     }
 
     @Override

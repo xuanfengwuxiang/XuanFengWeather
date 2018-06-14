@@ -5,14 +5,20 @@ import android.content.res.Configuration;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.qihoo360.replugin.RePlugin;
 import com.qihoo360.replugin.RePluginConfig;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.xuanfeng.mylibrary.utils.HttpsImageUtil;
 import com.xuanfeng.xuanfengweather.exception.ExceptionHandler;
 import com.xuanfeng.xuanfengweather.utils.SystemPropertyUtil;
 import com.xuanfeng.mylibrary.utils.SystemUtils;
 import com.xuanfeng.xuanfengweather.constant.Constant;
 import com.xuanfeng.xuanfengweather.variable.Variable;
+
+import java.io.InputStream;
 
 /**
  * Created by zhujh on 2017/7/25.
@@ -48,6 +54,7 @@ public class XuanFengApplication extends MultiDexApplication {
             SystemPropertyUtil.initSystemProperties(getApplicationContext());
         }
         initBugly();
+        initHttpsImage();
     }
 
     //初始化bugly
@@ -72,6 +79,11 @@ public class XuanFengApplication extends MultiDexApplication {
         // 初始化Bugly
         CrashReport.initCrashReport(getApplicationContext(), Constant.Bugly_App_ID, BuildConfig.DEBUG, strategy);
 
+    }
+
+    //初始化加载https的图片
+    private void initHttpsImage() {
+        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(HttpsImageUtil.getOkHttpClient()));
     }
 
     public static XuanFengApplication getApplication() {
