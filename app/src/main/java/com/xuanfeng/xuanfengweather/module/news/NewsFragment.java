@@ -150,6 +150,8 @@ public class NewsFragment extends BaseFragment {
         //支持自动加载图片
         mWebSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
 
+        mWebSettings.setDomStorageEnabled(true);//DOM缓存
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
