@@ -67,7 +67,7 @@ android {
     defaultConfig {
         applicationId "com.xuanfeng.xuanfengweather"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 22
         versionCode 2
         versionName "2.0"
         flavorDimensions "versionCode"

@@ -165,10 +165,6 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> implem
         Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onConnectHotSpotMessage(String s, int i) {
-
-    }
 
     @Override
     public void onResume() {
