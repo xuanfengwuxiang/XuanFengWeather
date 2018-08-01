@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.qihoo360.replugin.RePlugin;
-import com.qihoo360.replugin.model.PluginInfo;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
 import com.xuanfeng.mylibrary.widget.popupmenu.adapter.PopupMenuAdapter;
 import com.xuanfeng.xuanfengweather.R;
@@ -105,31 +103,8 @@ public class TestActivity extends BaseActivity {
                 break;
 
             case R.id.tv_test_for_plugin://内置插件
-                if (RePlugin.isPluginInstalled("webview")) {
-                    RePlugin.startActivity(this, RePlugin.createIntent("webview", "com.xuanfeng.myapplication.MainActivity"));
-
-                } else {
-                    Toast.makeText(this, "You must install webview first!", Toast.LENGTH_SHORT).show();
-                }
                 break;
             case R.id.tv_test_for_out_plugin://外置插件
-                if (RePlugin.isPluginInstalled("fuck")) {//SDK 的bug。外置插件，不能使用别名，只能使用appid
-
-                    RePlugin.startActivity(this, RePlugin.createIntent("fuck", "com.xuanfeng.myapplication6666.MainActivity"));
-                } else {
-                    String pluginFilePath = Environment.getExternalStorageDirectory() + File.separator + "out.apk";
-                    File pluginFile = new File(pluginFilePath);
-                    PluginInfo info = null;
-                    if (pluginFile.exists()) {
-                        info = RePlugin.install(pluginFilePath);
-                    }
-
-                    if (info != null) {
-                        RePlugin.startActivity(this, RePlugin.createIntent("fuck", "com.xuanfeng.myapplication6666.MainActivity"));
-                    } else {
-                        Toast.makeText(this, "install external plugin failed", Toast.LENGTH_SHORT).show();
-                    }
-                }
 
 
                 break;

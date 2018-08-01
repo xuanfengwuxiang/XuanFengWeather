@@ -12,7 +12,7 @@ def releaseTime() {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     //多渠道打包
     productFlavors {
         huawei {
@@ -121,17 +121,16 @@ dependencies {
     compile project(':android-jungle-mediaplayer')
 
     compile project(':daogenerator')
-    //compile 'com.airbnb.android:lottie:2.2.5'
     compile('com.airbnb.android:lottie:2.2.5', {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     })
     compile project(':mylibrary')
     // compile 'io.netty:netty-all:5.0.0.Alpha2'
     compile files('libs/netty-all-4.1.4.Final.jar')
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
 
 
-    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:support-v4:26.1.0'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'de.greenrobot:greendao-generator:2.1.0'
@@ -140,8 +139,6 @@ dependencies {
 
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-
-    compile 'com.qihoo360.replugin:replugin-host-lib:2.2.2'
 
     //butterknife
     compile 'com.jakewharton:butterknife:8.8.1'

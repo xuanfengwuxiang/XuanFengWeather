@@ -1,5 +1,6 @@
 package com.xuanfeng.xuanfengweather.module.weather.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,8 +33,7 @@ public class SelectCityActivity extends BaseActivity {
     LinearLayout mLyRight;
     @BindView(R.id.rl_header)
     RelativeLayout mRlHeader;
-    @BindView(R.id.activity_select_city)
-    RelativeLayout mActivitySelectCity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class SelectCityActivity extends BaseActivity {
     @Override
     protected void initViews() {
         mTvTitle.setText("切换城市");
+        mTvTitle.setTextColor(Color.BLACK);
     }
 
     @Override
