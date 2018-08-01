@@ -133,7 +133,6 @@ public class GalleryFragment extends BaseFragment {
                 actionBar.show();
             }
         }
-        ((MainActivity) mContext).fullScreenOrNot(mIsFullScreenNow);
         updateVideoZoneSize(fullScreen);
     }
 
@@ -149,16 +148,6 @@ public class GalleryFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    public void onBackPressed() {
-        if (mJmpVideo != null && mJmpVideo.isFullscreen()) {
-            mJmpVideo.switchFullScreen(false);
-            mJmpVideo.autoUnLock();
-            return;
-        } else {
-            RxBus.getInstance().send(new RxBean(RxConstant.EXIT_APP));
-        }
     }
 
     @Override

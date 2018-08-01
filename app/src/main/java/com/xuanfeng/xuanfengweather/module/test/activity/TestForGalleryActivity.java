@@ -58,10 +58,7 @@ public class TestForGalleryActivity extends BaseActivity {
         setViewPager();
     }
 
-    @Override
-    public void onClick(View v) {
 
-    }
 
     private void setViewPager() {
         List<Integer> photoUrls = new ArrayList<>();

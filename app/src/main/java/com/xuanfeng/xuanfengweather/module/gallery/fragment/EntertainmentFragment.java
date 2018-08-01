@@ -130,10 +130,6 @@ public class EntertainmentFragment extends BaseFragment {
 
     }
 
-    public void onBackPressed() {
-        mGalleryFragment.onBackPressed();
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

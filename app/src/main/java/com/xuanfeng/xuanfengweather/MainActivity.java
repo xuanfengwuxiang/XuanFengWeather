@@ -5,11 +5,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -21,34 +21,57 @@ import android.widget.Toast;
 import com.xuanfeng.mylibrary.rxbus.RxBean;
 import com.xuanfeng.mylibrary.rxbus.RxBus;
 import com.xuanfeng.mylibrary.utils.ImageUtil;
+import com.xuanfeng.mylibrary.utils.StatusBarUtil;
+import com.xuanfeng.mylibrary.widget.NoScrollViewPager;
 import com.xuanfeng.xuanfengweather.base.BaseActivity;
 import com.xuanfeng.xuanfengweather.constant.RxConstant;
 import com.xuanfeng.xuanfengweather.module.gallery.fragment.EntertainmentFragment;
 import com.xuanfeng.xuanfengweather.module.news.NewsFragment;
 import com.xuanfeng.xuanfengweather.module.weather.activity.SelectCityActivity;
 import com.xuanfeng.xuanfengweather.module.weather.fragment.WeatherFragment;
-import com.xuanfeng.mylibrary.utils.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.functions.Action1;
 
 public class MainActivity extends BaseActivity {
 
+
+    @BindView(R.id.iv_left_1)
     ImageView mIvLeft1;
+    @BindView(R.id.iv_left_2)
     ImageView mIvLeft2;
+    @BindView(R.id.tv_left_3)
+   public TextView mTvLeft3;
+    @BindView(R.id.ly_left)
     LinearLayout mLyLeft;
+    @BindView(R.id.tv_title)
     TextView mTvTitle;
+    @BindView(R.id.tv_right_1)
     TextView mTvRight1;
+    @BindView(R.id.iv_right_2)
+    ImageView mIvRight2;
+    @BindView(R.id.ly_right)
+    LinearLayout mLyRight;
+    @BindView(R.id.rl_header)
     RelativeLayout mRlHeader;
-    ViewPager mVpMain;
+    @BindView(R.id.vp_main)
+    NoScrollViewPager mVpMain;
+    @BindView(R.id.rb_weather)
     RadioButton mRbWeather;
+    @BindView(R.id.rb_shijing)
     RadioButton mRbShijing;
+    @BindView(R.id.rb_me)
     RadioButton mRbMe;
-    ViewGroup mActivityMain;
-    public TextView mTvLeft3;
+    @BindView(R.id.rg_parent)
     RadioGroup mRgParent;
+    @BindView(R.id.activity_main)
+    LinearLayout mActivityMain;
+
     private List<Fragment> mFragmentList;
     private EntertainmentFragment mEntertainmentFragment;
     private long mExitTime = 0;
@@ -58,6 +81,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         initViews();
         setListeners();
         initData();
@@ -65,19 +89,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mIvLeft1 = (ImageView) findViewById(R.id.iv_left_1);
-        mIvLeft2 = (ImageView) findViewById(R.id.iv_left_2);
-        mLyLeft = (LinearLayout) findViewById(R.id.ly_left);
-        mTvTitle = (TextView) findViewById(R.id.tv_title);
-        mTvRight1 = (TextView) findViewById(R.id.tv_right_1);
-        mRlHeader = (RelativeLayout) findViewById(R.id.rl_header);
-        mRbWeather = (RadioButton) findViewById(R.id.rb_weather);
-        mRbShijing = (RadioButton) findViewById(R.id.rb_shijing);
-        mVpMain = (ViewPager) findViewById(R.id.vp_main);
-        mRbMe = (RadioButton) findViewById(R.id.rb_me);
-        mActivityMain = (ViewGroup) findViewById(R.id.activity_main);
-        mTvLeft3 = (TextView) findViewById(R.id.tv_left_3);
-        mRgParent = (RadioGroup) findViewById(R.id.rg_parent);
+
         mIvLeft1.setVisibility(View.GONE);
         mVpMain.setCurrentItem(0);
         mActivityMain.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_sunny_day));
@@ -93,11 +105,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void setListeners() {
-        mIvLeft1.setOnClickListener(this);
-        mRbWeather.setOnClickListener(this);
-        mRbShijing.setOnClickListener(this);
-        mRbMe.setOnClickListener(this);
-        mTvLeft3.setOnClickListener(this);
         mVpMain.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -182,8 +189,9 @@ public class MainActivity extends BaseActivity {
         mVpMain.setOffscreenPageLimit(2);
     }
 
-    @Override
-    public void onClick(View view) {
+
+    @OnClick({R.id.rb_weather, R.id.rb_shijing, R.id.rb_me, R.id.tv_left_3, R.id.iv_left_1})
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rb_weather:
                 mVpMain.setCurrentItem(0, false);
@@ -214,21 +222,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (mVpMain.getCurrentItem() == 1) {
-            mEntertainmentFragment.onBackPressed();
-        } else {
-            exitApp();
-        }
-    }
-
-    public void fullScreenOrNot(boolean isFull) {
-        if (isFull) {
-            mRgParent.setVisibility(View.GONE);
-            mRlHeader.setVisibility(View.GONE);
-        } else {
-            mRgParent.setVisibility(View.VISIBLE);
-            mRlHeader.setVisibility(View.VISIBLE);
-        }
+        exitApp();
     }
 
     @Override
@@ -250,12 +244,13 @@ public class MainActivity extends BaseActivity {
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                android.os.Process.killProcess(android.os.Process.myPid());//从操作系统中结束掉当前程序的进程
+                Process.killProcess(Process.myPid());//从操作系统中结束掉当前程序的进程
                 System.exit(0);//退出JVM
             } catch (Exception e) {
-                android.os.Process.killProcess(android.os.Process.myPid());
+                Process.killProcess(Process.myPid());
                 e.printStackTrace();
             }
         }
     }
+
 }

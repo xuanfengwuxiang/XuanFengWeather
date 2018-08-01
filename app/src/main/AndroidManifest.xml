@@ -24,6 +24,15 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+
     <application
         android:name=".XuanFengApplication"
         android:allowBackup="true"
@@ -68,9 +77,6 @@
         <activity android:name=".module.weather.activity.SelectCityActivity"/>
         <activity android:name=".module.test.activity.TestActivity"/>
         <activity android:name=".module.test.activity.TestForEditTextActivity"/>
-
-        <service android:name=".module.test.netty.PadTcpService"/>
-        <service android:name=".module.test.netty.TvTcpService"/>
 
         <activity android:name=".module.test.activity.TestForGalleryActivity">
         </activity>

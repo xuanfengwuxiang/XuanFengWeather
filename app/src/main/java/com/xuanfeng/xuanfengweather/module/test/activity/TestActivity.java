@@ -2,7 +2,6 @@ package com.xuanfeng.xuanfengweather.module.test.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,7 +11,6 @@ import com.xuanfeng.mylibrary.widget.popupmenu.adapter.PopupMenuAdapter;
 import com.xuanfeng.xuanfengweather.R;
 import com.xuanfeng.xuanfengweather.base.BaseActivity;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,11 +62,6 @@ public class TestActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
 
