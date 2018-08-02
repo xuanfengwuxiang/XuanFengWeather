@@ -9,9 +9,11 @@ import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -31,6 +33,7 @@ import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.xuanfeng.mylibrary.utils.ToastUtil;
 import com.xuanfeng.xuanfengweather.R;
 
 import java.util.List;
@@ -49,7 +52,7 @@ public class WeatherUtil {
         }
         String key = mEtInput.getText().toString();
         if (TextUtils.isEmpty(key)) {
-            Toast.makeText(context, "请输入关键词", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast(context, "请输入关键词");
             return;
         }
         PoiSearch mPoiSearch = PoiSearch.newInstance();
@@ -158,5 +161,15 @@ public class WeatherUtil {
         ImageSpan imageSpan = new ImageSpan(drawable);
         spannableString.setSpan(imageSpan, text.length() - 2, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         textView.setText(spannableString);
+    }
+
+    public static void setTittleBar(Context context, TextView mTvLeft, ImageView mIvLeft, RelativeLayout mRlHeader) {
+        mTvLeft.setVisibility(View.VISIBLE);
+        mTvLeft.setTextColor(Color.WHITE);
+        Drawable img = context.getResources().getDrawable(R.drawable.ic_add);
+        img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+        mTvLeft.setCompoundDrawables(img, null, null, null);
+        mIvLeft.setVisibility(View.GONE);
+        mRlHeader.setBackgroundColor(context.getResources().getColor(R.color.color_transparent));
     }
 }

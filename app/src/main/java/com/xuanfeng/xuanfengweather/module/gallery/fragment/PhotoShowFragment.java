@@ -100,10 +100,6 @@ public class PhotoShowFragment extends BaseFragment {
         mTablayout.setupWithViewPager(mVpPhoto);
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     public void onDestroyView() {

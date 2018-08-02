@@ -12,7 +12,7 @@ import rx.Subscription;
 import rx.functions.Action1;
 
 //todo 等待完善
-public abstract class BaseFragment extends Fragment implements View.OnClickListener{
+public abstract class BaseFragment extends Fragment {
     protected View mContentView;
     protected Context mContext;
     private Subscription mSubscription;

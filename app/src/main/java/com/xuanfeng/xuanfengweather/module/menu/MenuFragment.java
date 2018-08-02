@@ -56,10 +56,7 @@ public class MenuFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onClick(View view) {
 
-    }
 
     @Override
     public void onDestroyView() {

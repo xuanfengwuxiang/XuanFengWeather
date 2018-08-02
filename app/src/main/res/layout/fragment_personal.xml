@@ -11,6 +11,8 @@
         android:background="@color/white"
         android:orientation="vertical">
 
+        <include layout="@layout/include_title_bar_one"/>
+
         <net.lucode.hackware.magicindicator.MagicIndicator
             android:id="@+id/magic_indicator"
             android:layout_width="match_parent"

@@ -15,8 +15,6 @@
         android:orientation="vertical"
         >
 
-        <include layout="@layout/include_title_bar_one"/>
-
         <com.xuanfeng.mylibrary.widget.NoScrollViewPager
             android:id="@+id/vp_main"
             android:layout_width="match_parent"

@@ -66,10 +66,7 @@ public class GalleryFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onClick(View view) {
 
-    }
 
     private void initMediaPlayer() {
         DisplayMetrics metrics = getResources().getDisplayMetrics();

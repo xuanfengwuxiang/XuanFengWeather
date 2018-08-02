@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xuanfeng.xuanfengweather.R;
 import com.xuanfeng.xuanfengweather.ViewPagerAdapter;
@@ -38,6 +41,12 @@ public class EntertainmentFragment extends BaseFragment {
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
     Unbinder unbinder;
+    @BindView(R.id.iv_left)
+    ImageView mIvLeft;
+    @BindView(R.id.tv_tittle)
+    TextView mTvTittle;
+    @BindView(R.id.rl_header)
+    RelativeLayout mRlHeader;
     private GalleryFragment mGalleryFragment;
     private List<String> mTitleDataList;
     private List<Fragment> mFragmentList;
@@ -55,7 +64,9 @@ public class EntertainmentFragment extends BaseFragment {
 
     @Override
     protected void initViews() {
-
+        mIvLeft.setVisibility(View.GONE);
+        mRlHeader.setBackgroundColor(getResources().getColor(R.color.baseThemeColor));
+        mTvTittle.setText("多媒体");
     }
 
     @Override
@@ -68,6 +79,7 @@ public class EntertainmentFragment extends BaseFragment {
         setViewPagerAdapter();
         initMagicIndicator();
     }
+
     //设置ViewPager的适配器
     private void setViewPagerAdapter() {
         mFragmentList = new ArrayList<>();
@@ -79,6 +91,7 @@ public class EntertainmentFragment extends BaseFragment {
         mViewPager.setAdapter(fragmentPagerAdapter);
         mViewPager.setOffscreenPageLimit(1);
     }
+
     //初始化设置ViewPager的适配器指示器
     private void initMagicIndicator() {
         mTitleDataList = new ArrayList<>();
@@ -125,10 +138,7 @@ public class EntertainmentFragment extends BaseFragment {
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
-    @Override
-    public void onClick(View view) {
 
-    }
 
     @Override
     public void onDestroyView() {
