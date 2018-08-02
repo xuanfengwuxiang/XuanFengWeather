@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/baseThemeColor"
     android:orientation="vertical"
     >
 
@@ -32,8 +33,10 @@
             android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:text="搜索"
+            android:textColor="@color/colorAccent"
             app:solid_press_color="@color/baseThemeColor"
             app:stroke_color="@color/colorAccent"
+            app:stroke_press_color="@color/white"
             app:stroke_radius="5dp"
             app:stroke_width="1dp"
             app:text_press_color="@color/white"/>

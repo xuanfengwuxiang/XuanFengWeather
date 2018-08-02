@@ -20,20 +20,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
     protected abstract void initViews();
 
     protected abstract void setListeners();
 
     protected abstract void initData();
 
+    @Override
     protected void onResume() {
         super.onResume();
-        StatusBarUtil.setStatusBarColor(this, R.color.white, true);
+        StatusBarUtil.setStatusBarColor(this, R.color. baseThemeColor, true);
     }
 
     //注册rxbus接收监听

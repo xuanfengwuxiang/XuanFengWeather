@@ -25,18 +25,22 @@ public class StatusBarUtil {
         if (activity == null) {
             return;
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//6.0以上
-            setStatusBarColorForM(activity, colorResId);
-            setStatusBarIconColorForM(activity, isIconDark);
-        } else {//6.0以下
-            setStatusBarTransparent(activity);
-            switch (SystemUtils.getPhoneBrand()) {
-                case "Meizu":
-                    FlymeSetStatusBarLightMode(activity.getWindow(), isIconDark);
-                case "Xiaomi":
-                    MIUISetStatusBarLightMode(activity.getWindow(), isIconDark);
-                    break;
-            }
+        switch (SystemUtils.getPhoneBrand()) {
+            case "Meizu"://魅族
+                setStatusBarTransparent(activity);
+                FlymeSetStatusBarLightMode(activity.getWindow(), isIconDark);
+            case "Xiaomi"://小米
+                setStatusBarTransparent(activity);
+                MIUISetStatusBarLightMode(activity.getWindow(), isIconDark);
+                break;
+            default://其他
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//6.0以上
+                    setStatusBarColorForM(activity, colorResId);
+                    setStatusBarIconColorForM(activity, isIconDark);
+                } else {//6.0以下
+                    setStatusBarTransparent(activity);
+                }
+                break;
         }
     }
 

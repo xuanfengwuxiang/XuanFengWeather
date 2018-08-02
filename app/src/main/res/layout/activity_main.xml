@@ -24,54 +24,54 @@
             android:layout_weight="1"/>
         <!--导航按钮-->
         <RadioGroup
-            android:id="@+id/rg_parent"
-            android:layout_alignParentBottom="true"
+            android:id="@+id/rb_parent"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:background="@color/color_light_blue">
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_light_blue"
+            android:orientation="horizontal">
 
             <RadioButton
-                android:gravity="center"
-                android:button="@null"
-                android:id="@+id/rb_weather"
+                android:id="@+id/rb_one"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="@drawable/radio_text_selector"
+                android:button="@null"
                 android:drawableTop="@drawable/radio_weather"
-                android:text="天气"/>
+                android:gravity="center"
+                android:text="天气"
+                android:textColor="@drawable/radio_text_selector"/>
 
             <RadioButton
-                android:gravity="center"
-                android:button="@null"
-                android:id="@+id/rb_shijing"
+                android:id="@+id/rb_two"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="@drawable/radio_text_selector"
+                android:button="@null"
                 android:drawableTop="@drawable/radio_shijing"
-                android:text="多媒体"/>
+                android:gravity="center"
+                android:text="多媒体"
+                android:textColor="@drawable/radio_text_selector"/>
 
             <RadioButton
-                android:gravity="center"
-                android:button="@null"
-                android:id="@+id/rb_me"
+                android:id="@+id/rb_three"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="@drawable/radio_text_selector"
+                android:button="@null"
                 android:drawableTop="@drawable/radio_me"
-                android:text="新闻"/>
+                android:gravity="center"
+                android:text="新闻"
+                android:textColor="@drawable/radio_text_selector"/>
         </RadioGroup>
     </LinearLayout>
 
     <fragment
-        android:layout_gravity="start"
+        android:id="@+id/left_menu"
+        android:name="com.xuanfeng.xuanfengweather.module.menu.MenuFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.xuanfeng.xuanfengweather.module.menu.MenuFragment"
-        tools:layout="@layout/fragment_menu"
-        android:id="@+id/left_menu"/>
+        android:layout_gravity="start"
+        tools:layout="@layout/fragment_menu"/>
 
 </android.support.v4.widget.DrawerLayout>

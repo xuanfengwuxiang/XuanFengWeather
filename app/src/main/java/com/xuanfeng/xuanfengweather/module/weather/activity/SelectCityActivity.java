@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,26 +23,21 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SelectCityActivity extends BaseActivity {
-    @BindView(R.id.iv_left_1)
-    ImageView mIvLeft1;
-    @BindView(R.id.iv_left_2)
-    ImageView mIvLeft2;
-    @BindView(R.id.tv_left_3)
-    TextView mTvLeft3;
-    @BindView(R.id.ly_left)
-    LinearLayout mLyLeft;
-    @BindView(R.id.tv_title)
+    @BindView(R.id.iv_left)
+    ImageView mIvLeft;
+
+    @BindView(R.id.tv_left)
+    TextView mTvLeft;
+
+    @BindView(R.id.tv_tittle)
     TextView mTvTitle;
-    @BindView(R.id.tv_right_1)
-    TextView mTvRight1;
-    @BindView(R.id.iv_right_2)
-    ImageView mIvRight2;
-    @BindView(R.id.ly_right)
-    LinearLayout mLyRight;
+
     @BindView(R.id.rl_header)
     RelativeLayout mRlHeader;
+
     @BindView(R.id.et_input)
     EditText mEtInput;
+
     @BindView(R.id.mapView)
     MapView mMapView;
 
@@ -62,7 +56,6 @@ public class SelectCityActivity extends BaseActivity {
     @Override
     protected void initViews() {
         mTvTitle.setText("切换城市");
-        mTvTitle.setTextColor(Color.BLACK);
     }
 
     @Override
@@ -77,10 +70,10 @@ public class SelectCityActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_search, R.id.iv_left_1})
+    @OnClick({R.id.tv_search, R.id.iv_left})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_left_1://退出
+            case R.id.iv_left://退出
                 finish();
                 break;
             case R.id.tv_search://搜索
