@@ -26,7 +26,8 @@
             android:paddingTop="4dp"
             android:scaleType="centerInside"
             android:soundEffectsEnabled="false"
-            android:src="@drawable/ic_back"/>
+            android:src="@drawable/ic_back"
+            android:tint="@color/white"/>
 
         <TextView
             android:id="@+id/tv_left"
