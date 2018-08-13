@@ -11,8 +11,8 @@ def releaseTime() {
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '27.0.3'
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
     //多渠道打包
     productFlavors {
         huawei {
@@ -66,10 +66,10 @@ android {
     }
     defaultConfig {
         applicationId "com.xuanfeng.xuanfengweather"
-        minSdkVersion 19
-        targetSdkVersion 22
-        versionCode 2
-        versionName "2.0"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         flavorDimensions "versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // 设置MultiDex可用
@@ -107,13 +107,21 @@ android {
     dataBinding {
         enabled = true
     }
+
+    signingConfigs {
+        config {
+            keyAlias 'xfw'
+            keyPassword 'zjh5437901'
+            storeFile file('../xfw.jks')
+            storePassword 'zjh5437901'
+        }
+    }
 }
 
-apply plugin: 'replugin-host-gradle'
 
 dependencies {
     provided fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
@@ -127,10 +135,8 @@ dependencies {
     implementation project(':mylibrary')
     // compile 'io.netty:netty-all:5.0.0.Alpha2'
     implementation files('libs/netty-all-4.1.4.Final.jar')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-
-
-    implementation 'com.android.support:support-v4:26.1.0'
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["support-v4"]
     implementation 'com.android.support:multidex:1.0.0'
     implementation 'com.tencent.bugly:crashreport:latest.release'
     implementation 'de.greenrobot:greendao-generator:2.1.0'
@@ -138,7 +144,7 @@ dependencies {
 
 
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
     //butterknife
     implementation 'com.jakewharton:butterknife:8.8.1'
