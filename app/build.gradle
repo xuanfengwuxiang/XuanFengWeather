@@ -75,22 +75,27 @@ android {
         // 设置MultiDex可用
         multiDexEnabled true
     }
-    /*   buildTypes {
+       buildTypes {
            release {
+               // 关闭混淆
                minifyEnabled false
                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
                //将release版本的包名重命名是否去除无效的资源文件，加上版本及日期
                applicationVariants.all { variant ->
-                   variant.outputs.each { output ->
-                       def outputFile = output.outputFile
-                       if (outputFile != null && outputFile.name.endsWith('release.apk')) {
-                           def fileName = "${variant.productFlavors[0].name}_${defaultConfig.applicationId}_${defaultConfig.versionName}_${defaultConfig.versionCode}_${releaseTime()}.apk"
-                           output.outputFile = new File(outputFile.parent, fileName)
+                   variant.outputs.all { output ->
+                       if (!variant.buildType.isDebuggable()) {
+                           //获取签名的名字 variant.signingConfig.name
+                           //要被替换的源字符串
+                           def sourceFile = "-${variant.flavorName}-${variant.buildType.name}"
+                           //替换的字符串
+                           def replaceFile = "${variant.productFlavors[0].name}_${defaultConfig.applicationId}_${defaultConfig.versionName}_${defaultConfig.versionCode}_${releaseTime()}.apk"
+                           outputFileName = output.outputFile.name.replace(sourceFile, replaceFile)
+                           //遗留问题：如何获取当前module的name，如CodeBooke这个名字怎么获取到
                        }
                    }
                }
            }
-       }*/
+       }
 
     // 保证其他的lib没有被preDex
     dexOptions {
