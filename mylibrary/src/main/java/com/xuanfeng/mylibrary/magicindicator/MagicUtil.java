@@ -2,9 +2,11 @@ package com.xuanfeng.mylibrary.magicindicator;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
@@ -22,7 +24,8 @@ import java.util.List;
 public class MagicUtil {
 
     //设置MagicIndicator的适配器
-    public static void setMagicAdapter(Context context, final List<MagicBean> mTitleList, MagicIndicator indicator, final int textColor, final int indicatorColor, final MagicListener listener) {
+    public static void setMagicAdapter(Context context, final List<MagicBean> mTitleList, MagicIndicator indicator, final int textColor,
+                                       final int indicatorColor, ViewPager viewPager, final MagicListener listener) {
         if (context == null || mTitleList == null || indicator == null || listener == null) {
             return;
         }
@@ -66,5 +69,8 @@ public class MagicUtil {
             }
         });
         indicator.setNavigator(commonNavigator);
+        if (viewPager != null) {
+            ViewPagerHelper.bind(indicator, viewPager);
+        }
     }
 }

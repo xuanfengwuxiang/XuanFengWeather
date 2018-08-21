@@ -5,13 +5,13 @@ package com.xuanfeng.mylibrary.mvp;
  * 数据管理者
  */
 
-public abstract class BasePresenter<V extends IBaseBiew>  {
+public abstract class BasePresenter<V extends BaseView, T extends BaseModel> {
     public V mView;
+    public T mModel;
 
-    public BasePresenter(V view) {
+    public BasePresenter(V view, T model) {
         mView = view;
-        initModel();
+        mModel = model;
     }
 
-    public abstract void initModel();
 }

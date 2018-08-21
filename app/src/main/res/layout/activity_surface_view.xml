@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xuanfeng.xuanfengweather.module.gallery.activity.SurfaceViewActivity">
+    tools:context="com.xuanfeng.xuanfengweather.module.media.activity.SurfaceViewActivity">
 
     <com.xuanfeng.xuanfengweather.widget.SurfaceViewL
         android:layout_width="match_parent"

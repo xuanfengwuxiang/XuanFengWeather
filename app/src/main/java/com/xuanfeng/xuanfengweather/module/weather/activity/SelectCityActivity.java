@@ -1,6 +1,5 @@
 package com.xuanfeng.xuanfengweather.module.weather.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -14,12 +13,11 @@ import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiResult;
+import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.xuanfengweather.R;
-import com.xuanfeng.xuanfengweather.base.BaseActivity;
 import com.xuanfeng.xuanfengweather.module.weather.utils.WeatherUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SelectCityActivity extends BaseActivity {
@@ -44,29 +42,8 @@ public class SelectCityActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
-        setContentView(R.layout.activity_select_city);
-        ButterKnife.bind(this);
-        initViews();
-        setListeners();
-        initData();
-    }
-
-    @Override
-    protected void initViews() {
-        mTvTitle.setText("切换城市");
-    }
-
-    @Override
-    protected void setListeners() {
-
-    }
-
-
-    @Override
-    protected void initData() {
-
+        super.onCreate(savedInstanceState);
     }
 
 
@@ -101,9 +78,11 @@ public class SelectCityActivity extends BaseActivity {
 
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
+        if (mMapView != null) {
+            mMapView.onDestroy();
+        }
         super.onDestroy();
-        mMapView.onDestroy();
     }
 
     @Override
@@ -117,5 +96,27 @@ public class SelectCityActivity extends BaseActivity {
         super.onPause();
         mMapView.onPause();
     }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_select_city;
+    }
+
+    @Override
+    public void initPresenter() {
+
+    }
+
+
+    @Override
+    public void initData(Bundle bundle) {
+        mTvTitle.setText("切换城市");
+    }
+
+    @Override
+    public int getStatusBarColorResId() {
+        return R.color.baseThemeColor;
+    }
+
 
 }

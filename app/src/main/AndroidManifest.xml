@@ -64,8 +64,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".base.BaseActivity"/>
-        <!-- 百度定位 -->
+         <!-- 百度定位 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -80,13 +79,13 @@
 
         <activity android:name=".module.test.activity.TestForGalleryActivity">
         </activity>
-        <activity android:name=".module.gallery.activity.CameraActivity"/>
+        <activity android:name=".module.media.activity.CameraActivity"/>
         <activity android:name=".mvvm.BaseActivity"/>
-        <activity android:name=".module.gallery.activity.SurfaceViewActivity"/>
+        <activity android:name=".module.media.activity.SurfaceViewActivity"/>
         <activity
-            android:name=".module.gallery.activity.CameraHorientalActivity"
+            android:name=".module.media.activity.CameraHorientalActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".module.gallery.activity.ImageViewDoodleActivity"/>
+        <activity android:name=".module.media.activity.ImageViewDoodleActivity"/>
     </application>
 
 </manifest>

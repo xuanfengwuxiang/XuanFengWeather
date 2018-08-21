@@ -1,31 +1,33 @@
 package com.xuanfeng.xuanfengweather.module.test.activity;
 
 import android.os.Bundle;
-import android.view.View;
 
+import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.xuanfengweather.R;
-import com.xuanfeng.xuanfengweather.base.BaseActivity;
 
 public class TestForEditTextActivity extends BaseActivity {
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_for_edit_text);
+    public int getLayoutId() {
+        return R.layout.activity_test_for_edit_text;
     }
 
     @Override
-    protected void initViews() {
+    public void initPresenter() {
+
+    }
+
+
+    @Override
+    public void initData(Bundle bundle) {
 
     }
 
     @Override
-    protected void setListeners() {
-
+    public int getStatusBarColorResId() {
+        return R.color.white;
     }
 
-    @Override
-    protected void initData() {
 
-    }
 }

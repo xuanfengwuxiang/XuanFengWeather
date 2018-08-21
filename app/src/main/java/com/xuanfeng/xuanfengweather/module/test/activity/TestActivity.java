@@ -5,17 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
 import com.xuanfeng.mylibrary.widget.popupmenu.adapter.PopupMenuAdapter;
 import com.xuanfeng.xuanfengweather.R;
-import com.xuanfeng.xuanfengweather.base.BaseActivity;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TestActivity extends BaseActivity {
@@ -39,30 +35,6 @@ public class TestActivity extends BaseActivity {
     @BindView(R.id.tv_test_for_out_plugin)
     TextView mTvTestForOutPlugin;
     private PopupMenu mPopupMenu;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
-        ButterKnife.bind(this);
-        initViews();
-        setListeners();
-        initData();
-    }
-
-    @Override
-    protected void initViews() {
-
-    }
-
-    @Override
-    protected void setListeners() {
-
-    }
-
-    @Override
-    protected void initData() {
-    }
 
 
     @OnClick({R.id.tv_test_for_edittext, R.id.tv_test_for_popupmenu, R.id.tv_test_for_netty, R.id.tv_test_for_pad_send, R.id.tv_test_for_tv_start,
@@ -128,8 +100,30 @@ public class TestActivity extends BaseActivity {
 
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
+    }
+
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_test;
+    }
+
+    @Override
+    public void initPresenter() {
+
+    }
+
+
+    @Override
+    public void initData(Bundle bundle) {
+
+    }
+
+    @Override
+    public int getStatusBarColorResId() {
+        return R.color.white;
     }
 
 

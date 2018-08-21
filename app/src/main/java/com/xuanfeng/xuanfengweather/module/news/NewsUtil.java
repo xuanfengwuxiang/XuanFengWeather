@@ -50,7 +50,7 @@ public class NewsUtil {
         String currentUrl = "";
         List<MagicBean> magicList = getMagicList();
         int baseThemeColor = context.getResources().getColor(R.color.baseThemeColor);
-        MagicUtil.setMagicAdapter(context, magicList, mMagicIndicator, baseThemeColor, baseThemeColor, mTabListener);
+        MagicUtil.setMagicAdapter(context, magicList, mMagicIndicator, baseThemeColor, baseThemeColor, null, mTabListener);
         if (magicList != null && magicList.size() > 0) {
             currentUrl = magicList.get(0).getKey();
         }

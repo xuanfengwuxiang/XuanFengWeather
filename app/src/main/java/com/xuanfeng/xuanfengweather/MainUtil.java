@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.xuanfeng.mylibrary.widget.NoScrollViewPager;
-import com.xuanfeng.xuanfengweather.module.gallery.fragment.EntertainmentFragment;
+import com.xuanfeng.xuanfengweather.module.media.fragment.MediaFragment;
 import com.xuanfeng.xuanfengweather.module.news.NewsFragment;
 import com.xuanfeng.xuanfengweather.module.weather.fragment.WeatherFragment;
 
@@ -76,7 +76,7 @@ public class MainUtil {
     public static void setViewPagerAdapter(AppCompatActivity activity, NoScrollViewPager mVpMain) {
         List<Fragment> list = new ArrayList<>();
         list.add(new WeatherFragment());
-        list.add(new EntertainmentFragment());
+        list.add(new MediaFragment());
         list.add(new NewsFragment());
         FragmentPagerAdapter fragmentPagerAdapter = new ViewPagerAdapter(activity.getSupportFragmentManager(), list);
         mVpMain.setAdapter(fragmentPagerAdapter);

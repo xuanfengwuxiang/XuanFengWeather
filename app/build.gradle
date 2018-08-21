@@ -147,13 +147,12 @@ dependencies {
     implementation 'de.greenrobot:greendao-generator:2.1.0'
     implementation 'de.greenrobot:greendao:2.1.0'
 
-
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
 
-    //butterknife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
     implementation 'com.github.xuanfengwuxiang:CustomTextView:2.2'
+
+    //butterknife
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

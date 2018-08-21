@@ -1,10 +1,7 @@
 package com.xuanfeng.xuanfengweather.module.news;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,13 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xuanfeng.mylibrary.magicindicator.MagicListener;
+import com.xuanfeng.mylibrary.mvp.BaseFragment;
 import com.xuanfeng.xuanfengweather.R;
-import com.xuanfeng.xuanfengweather.base.BaseFragment;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -42,38 +38,6 @@ public class NewsFragment extends BaseFragment {
 
     private WebSettings mWebSettings;
     private String mCurrentUrl;
-
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
-            savedInstanceState) {
-        mContentView = inflater.inflate(R.layout.fragment_personal, container, false);
-        unbinder = ButterKnife.bind(this, mContentView);
-        initViews();
-        setListeners();
-        initData();
-        return mContentView;
-    }
-
-    @Override
-    protected void initViews() {
-        NewsUtil.setTittleBar(getContext(), mTvTittle, mIvLeft);
-        mWebSettings = NewsUtil.initWebViewSettings(webView);
-        NewsUtil.initPtrFrameLayout(getContext(), mPtrFrameLayout, webView);
-        webView.setWebViewClient(mWebViewClient);
-    }
-
-    @Override
-    protected void setListeners() {
-
-    }
-
-    @Override
-    protected void initData() {
-        mCurrentUrl = NewsUtil.initMagicIndicator(getContext(), mMagicIndicator, mMagicListener);
-        setWebViewUrl();
-    }
 
 
     //设置新的URL
@@ -113,13 +77,6 @@ public class NewsFragment extends BaseFragment {
         mWebSettings.setJavaScriptEnabled(false);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-
-    }
-
 
     @OnClick({R.id.iv_left, R.id.tv_left})
     public void onViewClicked(View view) {
@@ -130,5 +87,25 @@ public class NewsFragment extends BaseFragment {
             case R.id.tv_left:
                 break;
         }
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_personal;
+    }
+
+    @Override
+    public void initPresenter() {
+
+    }
+
+    @Override
+    public void initData(Bundle bundle) {
+        NewsUtil.setTittleBar(getContext(), mTvTittle, mIvLeft);
+        mWebSettings = NewsUtil.initWebViewSettings(webView);
+        NewsUtil.initPtrFrameLayout(getContext(), mPtrFrameLayout, webView);
+        webView.setWebViewClient(mWebViewClient);
+        mCurrentUrl = NewsUtil.initMagicIndicator(getContext(), mMagicIndicator, mMagicListener);
+        setWebViewUrl();
     }
 }

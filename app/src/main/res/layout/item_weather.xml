@@ -15,7 +15,7 @@
         android:layout_marginTop="15dp"
         android:orientation="vertical">
 
-        <include layout="@layout/include_seperate_line"/>
+        <include layout="@layout/include_horizental_line"/>
         <!--日期-->
         <TextView
             android:id="@+id/tv_date"

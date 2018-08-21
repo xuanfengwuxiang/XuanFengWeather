@@ -15,7 +15,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.xuanfeng.xuanfengweather.module.gallery.activity.CameraActivity;
+import com.xuanfeng.xuanfengweather.module.media.activity.CameraActivity;
 
 /**
  * Created by Administrator on 2017/5/9 0009.

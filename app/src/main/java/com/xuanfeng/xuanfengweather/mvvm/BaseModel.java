@@ -5,4 +5,5 @@ package com.xuanfeng.xuanfengweather.mvvm;
  */
 
 public class BaseModel {
+
 }
