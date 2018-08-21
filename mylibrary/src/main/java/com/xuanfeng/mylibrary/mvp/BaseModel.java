@@ -11,6 +11,7 @@ import rx.Observable;
 
 /**
  * Created by xuanfengwuxiang on 2018/3/1.
+ * MVP网络请求部分
  */
 
 public abstract class BaseModel extends BaseHttpMgr {

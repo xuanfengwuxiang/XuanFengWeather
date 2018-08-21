@@ -2,7 +2,7 @@ package com.xuanfeng.mylibrary.mvp;
 
 /**
  * Created by xuanfengwuxiang on 2018/3/1.
- * 数据管理者
+ * MVP网络请求与视图交互部分
  */
 
 public abstract class BasePresenter<V extends BaseView, T extends BaseModel> {

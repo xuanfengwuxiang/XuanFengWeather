@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 
 /**
  * Created by xuanfengwuxiang on 2018/8/20.
+ * 聊天网络请求
  */
 
 public class ChatModel extends BaseModel {

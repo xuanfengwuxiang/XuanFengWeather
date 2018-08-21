@@ -70,16 +70,6 @@ public class ChatFragment extends BaseFragment<ChatPresenter> implements ChatVie
     }
 
     @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
-
-    @Override
     public void onGetReply(String content) {
         if (!TextUtils.isEmpty(content)) {
             mRvChat.setData(new ChatBean("you", content));
