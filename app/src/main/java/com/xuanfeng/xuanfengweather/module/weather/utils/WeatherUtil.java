@@ -63,7 +63,6 @@ public class WeatherUtil {
                 .pageNum(10));
     }
 
-    //设置百度地图的位置
     public static void updateMapPosition(PoiResult result, MapView mMapView) {
         if (result == null || mMapView == null) {
             return;
@@ -74,27 +73,32 @@ public class WeatherUtil {
             if (poiInfo != null) {
                 LatLng latLng = poiInfo.location;
                 if (latLng != null) {
-                    // 开启定位图层
-                    try {
-                        BaiduMap mBaiduMap = mMapView.getMap();
-                        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher);
-                        //创建一个图层选项
-                        LatLng latlng = new LatLng(latLng.latitude, latLng.longitude);
-                        OverlayOptions options = new MarkerOptions().position(latlng).icon(bitmapDescriptor);
-                        mBaiduMap.addOverlay(options);
-                        MapStatus mMapStatus = new MapStatus.Builder()
-                                .target(latlng)
-                                .zoom(12)
-                                .build();
-                        //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
-                        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-                        //改变地图状态
-                        mBaiduMap.setMapStatus(mMapStatusUpdate);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    updateMapPosition(latLng.latitude, latLng.longitude, mMapView);
                 }
             }
+        }
+    }
+
+    //设置百度地图的位置
+    public static void updateMapPosition(double latitude, double longitude, MapView mMapView) {
+        // 开启定位图层
+        try {
+            BaiduMap mBaiduMap = mMapView.getMap();
+            BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher);
+            //创建一个图层选项
+            LatLng latlng = new LatLng(latitude, longitude);
+            OverlayOptions options = new MarkerOptions().position(latlng).icon(bitmapDescriptor);
+            mBaiduMap.addOverlay(options);
+            MapStatus mMapStatus = new MapStatus.Builder()
+                    .target(latlng)
+                    .zoom(12)
+                    .build();
+            //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+            MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+            //改变地图状态
+            mBaiduMap.setMapStatus(mMapStatusUpdate);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

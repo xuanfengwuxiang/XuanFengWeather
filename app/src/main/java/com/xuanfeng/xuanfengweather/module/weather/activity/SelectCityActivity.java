@@ -1,10 +1,9 @@
 package com.xuanfeng.xuanfengweather.module.weather.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -21,6 +20,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class SelectCityActivity extends BaseActivity {
+
+    public static final String LONGITUDE = "longitude";
+    public static final String LATITUDE = "latitude";
+
     @BindView(R.id.tv_tittle)
     TextView mTvTitle;
 
@@ -35,6 +38,17 @@ public class SelectCityActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SDKInitializer.initialize(getApplicationContext());
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void initData(Bundle bundle) {
+        mTvTitle.setText("切换城市");
+        Intent intent = getIntent();
+        if (intent != null) {
+            double lontitude = intent.getDoubleExtra(LONGITUDE, 0);
+            double latitude = intent.getDoubleExtra(LATITUDE, 0);
+            WeatherUtil.updateMapPosition(latitude, lontitude, mMapView);
+        }
     }
 
 
@@ -96,12 +110,6 @@ public class SelectCityActivity extends BaseActivity {
     @Override
     public void initPresenter() {
 
-    }
-
-
-    @Override
-    public void initData(Bundle bundle) {
-        mTvTitle.setText("切换城市");
     }
 
     @Override

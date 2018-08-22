@@ -49,6 +49,8 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     LocationClient mLocationClient;//百度定位
     private String mCity;//城市
     private WeatherViewModel mWeatherViewModel;
+    private double mLa;
+    private double mLo;
 
     @Override
     public void initData(Bundle bundle) {
@@ -65,6 +67,8 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
                 return;
             }
             mCity = bdLocation.getCity();
+            mLa = bdLocation.getLatitude();
+            mLo = bdLocation.getLongitude();
             mTvLeft.setText(mCity == null ? "" : mCity);
             getWeather(mCity);
         }
@@ -102,6 +106,8 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
         switch (view.getId()) {
             case R.id.tv_left:
                 Intent intent = new Intent(getContext(), SelectCityActivity.class);
+                intent.putExtra(SelectCityActivity.LATITUDE, mLa);
+                intent.putExtra(SelectCityActivity.LONGITUDE, mLo);
                 startActivity(intent);
                 break;
             case R.id.tv_today_temperature:

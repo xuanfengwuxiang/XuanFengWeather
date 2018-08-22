@@ -2,9 +2,6 @@ package com.xuanfeng.xuanfengweather.module.media.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,9 +15,7 @@ import com.xuanfeng.xuanfengweather.module.media.widget.ChatRecyclerView;
 import com.xuanfeng.xuanfengweather.module.media.widget.ChatRecyclerView.ChatBean;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 //聊天界面
 public class ChatFragment extends BaseFragment<ChatPresenter> implements ChatView {
@@ -61,12 +56,7 @@ public class ChatFragment extends BaseFragment<ChatPresenter> implements ChatVie
 
     @Override
     public void initData(Bundle bundle) {
-
-    }
-
-    @Override
-    public int getStatusBarColorResId( ) {
-        return -1;
+        mRvChat.setData(new ChatBean("you", "嗨，我是陪聊师##__##"));
     }
 
     @Override

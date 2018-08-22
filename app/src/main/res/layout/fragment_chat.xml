@@ -4,6 +4,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/white"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
               android:orientation="vertical">
 
     <com.xuanfeng.xuanfengweather.module.media.widget.ChatRecyclerView
@@ -15,9 +17,9 @@
     <include layout="@layout/include_horizental_line"/>
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="10dp">
@@ -41,9 +43,9 @@
             android:paddingRight="15dp"
             android:paddingTop="5dp"
             android:text="发送"
-            app:solid_press_color="@color/colorAccent"
             android:textColor="@color/white"
             app:solid_color="@color/red"
+            app:solid_press_color="@color/colorAccent"
             app:stroke_radius="50dp"/>
     </LinearLayout>
 </LinearLayout>

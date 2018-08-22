@@ -9,9 +9,7 @@ import com.xuanfeng.mylibrary.utils.StringUtils;
 import com.xuanfeng.xuanfengweather.constant.HttpConstant;
 import com.xuanfeng.xuanfengweather.module.weather.view.WeatherView;
 import com.xuanfeng.xuanfengweather.module.weather.widget.WeatherRecyclerView.WeatherBean;
-import com.xuanfeng.xuanfengweather.module.weather.widget.WeatherRecyclerView.WeatherBean.DataBean.ForecastBean;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -23,12 +21,10 @@ public class WeatherViewModel {
 
     private Context mContext;
     private WeatherView mWeatherView;
-    private List<ForecastBean> mForecastBeanList;//预报的集合
 
     public WeatherViewModel(Context context, WeatherView weatherView) {
         mContext = context;
         mWeatherView = weatherView;
-        mForecastBeanList = new ArrayList<>();
     }
 
 
@@ -48,10 +44,9 @@ public class WeatherViewModel {
                 if (weatherBean != null) {
                     WeatherBean.DataBean dataBean = weatherBean.getData();
                     if (dataBean != null) {
-                        mForecastBeanList.clear();
-                        mForecastBeanList.addAll(dataBean.getForecast());
-                        if (mForecastBeanList != null && mForecastBeanList.size() > 0) {
-                            mWeatherView.onGetWeatherSuccess(mForecastBeanList);
+                        List<WeatherBean.DataBean.ForecastBean> list = dataBean.getForecast();
+                        if (list != null && list.size() > 0) {
+                            mWeatherView.onGetWeatherSuccess(list);
                         }
                     }
                 } else {
