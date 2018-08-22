@@ -2,8 +2,6 @@ package com.xuanfeng.xuanfengweather.module.weather.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -14,18 +12,16 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
-import com.xuanfeng.mylibrary.utils.AnimUtil;
 import com.xuanfeng.mylibrary.utils.StringUtils;
 import com.xuanfeng.xuanfengweather.R;
 import com.xuanfeng.xuanfengweather.module.weather.activity.SelectCityActivity;
-import com.xuanfeng.xuanfengweather.module.weather.adapter.WeatherAdapter;
-import com.xuanfeng.xuanfengweather.module.weather.bean.WeatherBean;
 import com.xuanfeng.xuanfengweather.module.weather.presenter.WeatherViewModel;
 import com.xuanfeng.xuanfengweather.module.weather.utils.WeatherUtil;
 import com.xuanfeng.xuanfengweather.module.weather.view.WeatherView;
+import com.xuanfeng.xuanfengweather.module.weather.widget.WeatherRecyclerView;
+import com.xuanfeng.xuanfengweather.module.weather.widget.WeatherRecyclerView.WeatherBean.DataBean.ForecastBean;
 import com.xuanfeng.xuanfengweather.widget.RotateImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,18 +45,16 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     @BindView(R.id.tv_today_temperature)
     TextView mTvTodayTemperature;
     @BindView(R.id.rv_broadcast)
-    RecyclerView mRvBroadcast;
-    private List<WeatherBean.DataBean.ForecastBean> mForecastBeanList;//预报的集合
+    WeatherRecyclerView mRvBroadcast;
     LocationClient mLocationClient;//百度定位
     private String mCity;//城市
-    private WeatherAdapter mRecyclerViewBaseAdapter;//适配器
     private WeatherViewModel mWeatherViewModel;
 
-    private void setAdapter() {
-        mForecastBeanList = new ArrayList<>();
-        mRecyclerViewBaseAdapter = new WeatherAdapter(getContext(), mForecastBeanList);
-        mRvBroadcast.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRvBroadcast.setAdapter(mRecyclerViewBaseAdapter);
+    @Override
+    public void initData(Bundle bundle) {
+        WeatherUtil.setTittleBar(getContext(), mTvLeft, mIvLeft, mRlHeader);
+        mLocationClient = WeatherUtil.getLocationClient(getContext(), mLocationListener);
+        WeatherUtil.setTittleSizeAndColor(getContext(), mTvTodayTemperature);
     }
 
     BDLocationListener mLocationListener = new BDLocationListener() {
@@ -83,12 +77,9 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     }
 
     @Override
-    public void onGetWeatherSuccess(List<WeatherBean.DataBean.ForecastBean> forecastBeanList) {
-        mForecastBeanList.clear();
-        mForecastBeanList.addAll(forecastBeanList);
-        if (mForecastBeanList != null && mForecastBeanList.size() > 0) {
-            mRecyclerViewBaseAdapter.notifyDataSetChanged();
-            AnimUtil.runLayoutAnimation(mRvBroadcast, R.anim.layout_animation_from_right);
+    public void onGetWeatherSuccess(List<ForecastBean> forecastBeanList) {
+        if (forecastBeanList != null && forecastBeanList.size() > 0) {
+            mRvBroadcast.setData(forecastBeanList);
         }
     }
 
@@ -101,12 +92,8 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     @Override
     public void onResume() {
         super.onResume();
-        if (mForecastBeanList == null || mForecastBeanList.isEmpty()) {
-            if (!StringUtils.isEmpty(mCity)) {
-                getWeather(mCity);
-            } else {
-                mLocationClient.requestLocation();
-            }
+        if (StringUtils.isEmpty(mCity)) {
+            mLocationClient.requestLocation();
         }
     }
 
@@ -134,11 +121,5 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
         mWeatherViewModel = new WeatherViewModel(getContext(), this);
     }
 
-    @Override
-    public void initData(Bundle bundle) {
-        WeatherUtil.setTittleBar(getContext(), mTvLeft, mIvLeft, mRlHeader);
-        setAdapter();
-        mLocationClient = WeatherUtil.getLocationClient(getContext(), mLocationListener);
-        WeatherUtil.setTittleSizeAndColor(getContext(), mTvTodayTemperature);
-    }
+
 }

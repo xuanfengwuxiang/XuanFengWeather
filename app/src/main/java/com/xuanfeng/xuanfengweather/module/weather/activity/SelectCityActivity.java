@@ -21,17 +21,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class SelectCityActivity extends BaseActivity {
-    @BindView(R.id.iv_left)
-    ImageView mIvLeft;
-
-    @BindView(R.id.tv_left)
-    TextView mTvLeft;
-
     @BindView(R.id.tv_tittle)
     TextView mTvTitle;
-
-    @BindView(R.id.rl_header)
-    RelativeLayout mRlHeader;
 
     @BindView(R.id.et_input)
     EditText mEtInput;

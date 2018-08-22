@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xuanfeng.mylibrary.widget.LoadingDialog;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -14,6 +16,7 @@ import butterknife.Unbinder;
 public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseView {
 
     Unbinder unbinder;
+    private LoadingDialog mLoadingDialog;
 
     @Nullable
     @Override
@@ -37,12 +40,17 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     @Override
     public void showProgress() {
-
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new LoadingDialog(getContext());
+        }
+        mLoadingDialog.show();
     }
 
     @Override
     public void hideProgress() {
-
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
     }
 
     @Override

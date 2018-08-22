@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import com.xuanfeng.mylibrary.rxbus.RxBean;
 import com.xuanfeng.mylibrary.rxbus.RxBus;
 import com.xuanfeng.mylibrary.utils.StatusBarUtil;
+import com.xuanfeng.mylibrary.widget.LoadingDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -18,6 +19,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     Unbinder unbinder;
     private Subscription mSubscription;
+    private LoadingDialog mLoadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +46,17 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override
     public void showProgress() {
-
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new LoadingDialog(this);
+        }
+        mLoadingDialog.show();
     }
 
     @Override
     public void hideProgress() {
-
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
     }
 
     //注册rxbus接收监听

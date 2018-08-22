@@ -35,7 +35,7 @@
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <com.xuanfeng.xuanfengweather.module.weather.widget.WeatherRecyclerView
             android:id="@+id/rv_broadcast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
