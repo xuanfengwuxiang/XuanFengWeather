@@ -23,8 +23,6 @@
     <uses-permission android:name="android.permission.READ_LOGS"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.CAMERA"/>
-
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
@@ -64,7 +62,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-         <!-- 百度定位 -->
+        <!-- 百度定位 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -76,7 +74,6 @@
         <activity android:name=".module.weather.activity.SelectCityActivity"/>
         <activity android:name=".module.test.activity.TestActivity"/>
         <activity android:name=".module.test.activity.TestForEditTextActivity"/>
-
         <activity android:name=".module.test.activity.TestForGalleryActivity">
         </activity>
         <activity android:name=".module.media.activity.CameraActivity"/>
@@ -86,6 +83,8 @@
             android:name=".module.media.activity.CameraHorientalActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".module.media.activity.ImageViewDoodleActivity"/>
+        <activity android:name=".module.test.activity.TestAIDLActivity">
+        </activity>
     </application>
 
 </manifest>

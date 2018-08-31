@@ -1,13 +1,18 @@
 package com.xuanfeng.xuanfengweather.module.test.activity;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
 import com.xuanfeng.mylibrary.widget.popupmenu.adapter.PopupMenuAdapter;
+import com.xuanfeng.server.IDemandManager;
 import com.xuanfeng.xuanfengweather.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +35,7 @@ public class TestActivity extends BaseActivity {
     TextView mTvTestForTvSend;
     @BindView(R.id.tv_test_for_gallery)
     TextView mTvTestForGallery;
-    @BindView(R.id.tv_test_for_plugin)
+    @BindView(R.id.tv_aidl)
     TextView mTvTestForPlugin;
     @BindView(R.id.tv_test_for_out_plugin)
     TextView mTvTestForOutPlugin;
@@ -38,7 +43,7 @@ public class TestActivity extends BaseActivity {
 
 
     @OnClick({R.id.tv_test_for_edittext, R.id.tv_test_for_popupmenu, R.id.tv_test_for_netty, R.id.tv_test_for_pad_send, R.id.tv_test_for_tv_start,
-            R.id.tv_test_for_tv_send, R.id.tv_test_for_gallery, R.id.tv_test_for_plugin, R.id.tv_test_for_out_plugin})
+            R.id.tv_test_for_tv_send, R.id.tv_test_for_gallery, R.id.tv_aidl, R.id.tv_test_for_out_plugin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_test_for_edittext://测试自定义EditText
@@ -67,7 +72,9 @@ public class TestActivity extends BaseActivity {
                 startActivity(intent);
                 break;
 
-            case R.id.tv_test_for_plugin://内置插件
+            case R.id.tv_aidl://AIDL通信
+                intent = new Intent(this, TestAIDLActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_test_for_out_plugin://外置插件
 
@@ -76,6 +83,8 @@ public class TestActivity extends BaseActivity {
 
         }
     }
+
+
 
     private void initPopupMenu() {
         final List<String> list = new ArrayList<>();

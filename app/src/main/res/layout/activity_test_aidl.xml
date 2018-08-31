@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".module.test.activity.TestAIDLActivity">
+
+    <include layout="@layout/include_title_bar_one"/>
+
+    <EditText
+        android:id="@+id/et_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"/>
+
+    <com.xuanfeng.customtextviewlib.CustomTextView
+        android:id="@+id/tv_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:text="发送数据到远程"
+        android:textColor="@color/baseThemeColor"
+        app:solid_press_color="@color/red"
+        app:stroke_color="@color/baseThemeColor"
+        app:stroke_press_color="@color/red"
+        app:stroke_radius="5dp"
+        app:stroke_width="1dp"
+        app:text_press_color="@color/white"/>
+
+    <com.xuanfeng.customtextviewlib.CustomTextView
+        android:id="@+id/tv_get_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:text="获取远程APP数据"
+        android:textColor="@color/baseThemeColor"
+        app:solid_press_color="@color/red"
+        app:stroke_color="@color/baseThemeColor"
+        app:stroke_press_color="@color/red"
+        app:stroke_radius="5dp"
+        app:stroke_width="1dp"
+        app:text_press_color="@color/white"/>
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:text="默认数据"/>
+
+</LinearLayout>

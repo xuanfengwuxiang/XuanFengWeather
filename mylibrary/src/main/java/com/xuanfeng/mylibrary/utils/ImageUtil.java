@@ -7,12 +7,15 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 
 /**
  * Created by xuanfengwuxiang on 2018/3/12.
@@ -64,5 +67,29 @@ public class ImageUtil {
             e.printStackTrace();
         }
         return isSuccessful;
+    }
+
+    //获取网络视频第一帧图片，待检验
+    public static Bitmap getBitmap(Context context,String url, boolean isSD) {
+        Bitmap bitmap = null;
+        //MediaMetadataRetriever 是android中定义好的一个类，提供了统一
+        //的接口，用于从输入的媒体文件中取得帧和元数据；
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            if (isSD){
+                //（）根据文件路径获取缩略图
+                retriever.setDataSource(context, Uri.fromFile(new File(url)));
+            }else {
+                //根据网络路径获取缩略图
+                retriever.setDataSource(url, new HashMap());
+            }
+            //获得第一帧图片
+            bitmap = retriever.getFrameAtTime();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } finally {
+            retriever.release();
+        }
+        return bitmap;
     }
 }

@@ -1,1 +1,1 @@
-include ':app', ':android-jungle-mediaplayer', ':daogenerator', ':mylibrary'
+include ':app', ':daogenerator', ':mylibrary'

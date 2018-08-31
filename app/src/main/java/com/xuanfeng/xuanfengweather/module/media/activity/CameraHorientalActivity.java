@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.Rect;
@@ -37,14 +38,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 人脸识别,相机界面
+ * 横屏预览人脸识别
  */
 public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorientalBinding> {
 
     private SurfaceHolder mSurfaceHolder;
     public static int cameraId;
     public Camera mCamera;
-    private SurfaceViewCallBack mSurfaceViewCallBack;
     private MainHandler mainHandler = new MainHandler();
     byte[] photoBytes;
     private boolean isBack = true;
@@ -80,9 +80,7 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
         cameraId = ImageUtil.findBackCamera();
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         mBinding.tvTurnCamera.setText("前置/后置------当前：后置");
-        mSurfaceViewCallBack = new SurfaceViewCallBack(this);
-        mSurfaceHolder.addCallback(mSurfaceViewCallBack);
-
+        mSurfaceHolder.addCallback(new SurfaceViewCallBack(this));
     }
 
     @Override
@@ -166,12 +164,12 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
     private void getCropFace(Camera.Face[] faces) {
 
         Camera.Face face = faces[0];
-        if (mData != null) {
+        if (mCameraData != null) {
             Camera.Size size = mCamera.getParameters().getPreviewSize();
             try {
                 int bitmapWidth = size.width;
                 int bitmapHeight = size.height;
-                YuvImage image = new YuvImage(mData, ImageFormat.NV21, bitmapWidth, bitmapHeight, null);
+                YuvImage image = new YuvImage(mCameraData, ImageFormat.NV21, bitmapWidth, bitmapHeight, null);
                 if (image != null) {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     image.compressToJpeg(new Rect(0, 0, bitmapWidth, bitmapHeight), 80, stream);
@@ -277,7 +275,7 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
             mCamera.release(); // 释放照相机
         }
         mCamera = Camera.open(cameraId);
-        mCamera.setPreviewCallback(previewCallback);
+        mCamera.setPreviewCallback(mCameraCallback);
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         setCameraParams(mCamera, 1080, 1920);
         try {
@@ -411,7 +409,7 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
             try {
                 if (mCamera == null) {
                     mCamera = Camera.open(cameraId);
-                    mCamera.setPreviewCallback(previewCallback);
+                    mCamera.setPreviewCallback(mCameraCallback);
                     mCamera.setPreviewDisplay(holder);
                     DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
                     //ImageUtil.setCameraParams(mCamera,displayMetrics.widthPixels, displayMetrics.heightPixels);
@@ -437,11 +435,11 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
         }
     }
 
-    byte[] mData = null;
-    Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
+    byte[] mCameraData = null;
+    Camera.PreviewCallback mCameraCallback = new Camera.PreviewCallback() {
         @Override
         public void onPreviewFrame(byte[] data, Camera camera) {
-            mData = data;
+            mCameraData = data;
         }
 
     };

@@ -88,12 +88,12 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/tv_test_for_plugin"
+            android:id="@+id/tv_aidl"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#ffff00"
             android:gravity="center"
-            android:text="打开内置插件"
+            android:text="AIDL通信"
             android:textColor="@color/black"
             android:textStyle="bold"/>
 

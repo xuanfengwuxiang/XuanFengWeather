@@ -16,7 +16,7 @@ import com.xuanfeng.xuanfengweather.R;
 import com.xuanfeng.xuanfengweather.ViewPagerAdapter;
 import com.xuanfeng.xuanfengweather.module.media.fragment.ChatFragment;
 import com.xuanfeng.xuanfengweather.module.media.fragment.FaceDetectorFragment;
-import com.xuanfeng.xuanfengweather.module.media.fragment.GalleryFragment;
+import com.xuanfeng.xuanfengweather.module.media.fragment.VideoFragment;
 import com.xuanfeng.xuanfengweather.module.media.fragment.PhotoShowFragment;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -48,7 +48,7 @@ public class MediaUtil {
     //设置ViewPager的适配器
     public static void setViewPagerAdapter(Fragment fragment, ViewPager viewPager) {
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new GalleryFragment());
+        fragmentList.add(new VideoFragment());
         fragmentList.add(new PhotoShowFragment());
         fragmentList.add(new FaceDetectorFragment());
         fragmentList.add(new ChatFragment());

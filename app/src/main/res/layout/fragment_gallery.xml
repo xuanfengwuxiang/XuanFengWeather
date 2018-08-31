@@ -2,22 +2,6 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.xuanfeng.xuanfengweather.module.media.fragment.GalleryFragment">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.jungle.mediaplayer.widgets.JungleMediaPlayer
-                android:id="@+id/jmp_video"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-    </ScrollView>
+                tools:context="com.xuanfeng.xuanfengweather.module.media.fragment.VideoFragment">
 
 </RelativeLayout>
