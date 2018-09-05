@@ -1,21 +1,19 @@
 package com.xuanfeng.xuanfengweather.module.test.activity;
 
 import android.content.ComponentName;
-import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.server.IDemandManager;
 import com.xuanfeng.server.MessageBean;
 import com.xuanfeng.xuanfengweather.R;
+import com.xuanfeng.xuanfengweather.module.test.utils.AidlUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,6 +31,8 @@ public class TestAIDLActivity extends BaseActivity {
     @BindView(R.id.et_input)
     EditText mEtInput;
 
+    private IDemandManager demandManager;//交互接口
+
 
     @Override
     public int getLayoutId() {
@@ -47,11 +47,7 @@ public class TestAIDLActivity extends BaseActivity {
     @Override
     public void initData(Bundle bundle) {
         mTvTittle.setText("AIDL客户端");
-        Intent intent = new Intent();
-        intent.setComponent(new ComponentName("com.xuanfeng.server", "com.xuanfeng.server.AIDLService"));
-        startService(intent);
-        boolean result = bindService(intent, connection, BIND_AUTO_CREATE);
-        Toast.makeText(this, "" + result, Toast.LENGTH_SHORT).show();
+        AidlUtil.startRemoteService(this, connection);
     }
 
     @Override
@@ -66,38 +62,30 @@ public class TestAIDLActivity extends BaseActivity {
             case R.id.iv_left:
                 finish();
                 break;
-            case R.id.tv_send:
-                String sendMsg = mEtInput.getText().toString();
-                if (TextUtils.isEmpty(sendMsg)) {
-                    Toast.makeText(this, "请输入发送内容", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (demandManager != null) {
-                    try {
-                        demandManager.setDemandIn(new MessageBean(sendMsg, 1));
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
+            case R.id.tv_send://发送消息到服务端
+                AidlUtil.sendToServer(mEtInput, this, demandManager);
                 break;
             case R.id.tv_get_msg:
-                try {
-                    if (demandManager != null) {
-                        MessageBean messageBean = demandManager.getDemand();
-                        if (messageBean != null) {
-                            mTvResult.setText("服务端数据:  " + messageBean.getContent());
-                        }
-                    }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+                getRemoteMsg();
                 break;
         }
     }
 
+    //获取远程信息
+    private void getRemoteMsg() {
+        try {
+            if (demandManager != null) {
+                MessageBean messageBean = demandManager.getDemand();
+                if (messageBean != null) {
+                    mTvResult.setText("服务端数据:  " + messageBean.getContent());
+                }
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
-    private IDemandManager demandManager;//交互接口
-
+    //service的链接
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
