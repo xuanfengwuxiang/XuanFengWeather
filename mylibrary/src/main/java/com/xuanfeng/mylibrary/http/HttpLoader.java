@@ -31,7 +31,7 @@ public class HttpLoader {
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())//Gson转换
                 .addConverterFactory(ScalarsConverterFactory.create())//String转换
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//请求回参设为RxJava
                 .baseUrl(BASE_URL)
                 .build()
                 .create(HttpService.class);
