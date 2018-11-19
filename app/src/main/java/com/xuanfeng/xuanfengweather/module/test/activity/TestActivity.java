@@ -1,18 +1,15 @@
 package com.xuanfeng.xuanfengweather.module.test.activity;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
+import com.xuanfeng.mylibrary.utils.SoftKeyBoardUtil;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
 import com.xuanfeng.mylibrary.widget.popupmenu.adapter.PopupMenuAdapter;
-import com.xuanfeng.server.IDemandManager;
 import com.xuanfeng.xuanfengweather.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +22,6 @@ public class TestActivity extends BaseActivity {
     TextView tvTestForEdittext;
     @BindView(R.id.tv_test_for_popupmenu)
     TextView mTvTestForPopupmenu;
-    @BindView(R.id.tv_test_for_netty)
-    TextView mTvTestForNetty;
     @BindView(R.id.tv_test_for_pad_send)
     TextView mTvTestForPadSend;
     @BindView(R.id.tv_test_for_tv_start)
@@ -42,7 +37,7 @@ public class TestActivity extends BaseActivity {
     private PopupMenu mPopupMenu;
 
 
-    @OnClick({R.id.tv_test_for_edittext, R.id.tv_test_for_popupmenu, R.id.tv_test_for_netty, R.id.tv_test_for_pad_send, R.id.tv_test_for_tv_start,
+    @OnClick({R.id.tv_test_for_edittext, R.id.tv_test_for_popupmenu, R.id.tv_test_for_keyboard, R.id.tv_test_for_pad_send, R.id.tv_test_for_tv_start,
             R.id.tv_test_for_tv_send, R.id.tv_test_for_gallery, R.id.tv_aidl, R.id.tv_test_for_out_plugin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -57,9 +52,6 @@ public class TestActivity extends BaseActivity {
                 if (!mPopupMenu.isShowing()) {
                     mPopupMenu.showAsDropDown(mTvTestForPopupmenu);
                 }
-                break;
-            case R.id.tv_test_for_netty://测试netty的socket通信
-                //connected();
                 break;
             case R.id.tv_test_for_pad_send:
                 break;
@@ -127,8 +119,20 @@ public class TestActivity extends BaseActivity {
 
     @Override
     public void initData(Bundle bundle) {
-
+        SoftKeyBoardUtil.setListener(this,mOnSoftKeyBoardChangeListener);
     }
+
+    SoftKeyBoardUtil.OnSoftKeyBoardChangeListener mOnSoftKeyBoardChangeListener = new SoftKeyBoardUtil.OnSoftKeyBoardChangeListener() {
+        @Override
+        public void keyBoardShow(int height) {
+
+        }
+
+        @Override
+        public void keyBoardHide(int height) {
+
+        }
+    };
 
     @Override
     public int getStatusBarColorResId() {

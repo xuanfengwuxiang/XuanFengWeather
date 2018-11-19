@@ -33,14 +33,15 @@
             android:textColor="@color/white"
             android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/tv_test_for_netty"
+        <EditText
+            android:id="@+id/tv_test_for_keyboard"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:background="#00bfff"
             android:gravity="center"
-            android:text="PAD启动"
+            android:hint="键盘监听"
+            android:textColorHint="#ffffff"
             android:textColor="@color/white"
             android:textStyle="bold"/>
 
