@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.google.gson.JsonObject;
 import com.xuanfeng.mylibrary.http.HttpResponse;
-import com.xuanfeng.mylibrary.http.httpMgr.HttpMgr;
+import com.xuanfeng.mylibrary.http.httpMgr.HttpManager;
 import com.xuanfeng.mylibrary.utils.StringUtils;
 import com.xuanfeng.xuanfengweather.constant.HttpConstant;
 import com.xuanfeng.xuanfengweather.module.weather.view.WeatherView;
@@ -32,7 +32,7 @@ public class WeatherViewModel {
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
         params.put("city", city);
         mWeatherView.showProgress();
-        HttpMgr.getJsonObjectByGet(HttpConstant.WEATHER_URL, params, new HttpResponse<JsonObject>() {
+        HttpManager.getJsonObjectByGet(HttpConstant.WEATHER_URL, params, new HttpResponse<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
                 mWeatherView.hideProgress();

@@ -5,12 +5,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
+import okhttp3.RequestBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 import rx.Observable;
@@ -81,5 +85,19 @@ public interface HttpService {
             @Url String url,
             @Header("Runbey-Secinfo") String runbeySecinfo,
             @FieldMap LinkedHashMap<String, String> params);
+
+
+    /**
+     * 多个文件上传
+     *
+     * @param url
+     * @param params
+     * @return
+     */
+    @Multipart
+    @POST
+    Observable<JsonObject> uploadFiles(
+            @Url String url,
+            @PartMap Map<String, RequestBody> params);
 
 }
