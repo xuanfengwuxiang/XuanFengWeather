@@ -14,4 +14,3 @@ allprojects {
 	}
 
 
-//测试SSH提交不用密码
