@@ -21,11 +21,11 @@ public class BaseHttpMgr {
     public static void subscribeAndObserve(Observable<?> observable, HttpResponse httpResponse) {
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(getOberver(httpResponse));
+                .subscribe(getObserver(httpResponse));
     }
 
     //将retrofit的回调改为自定义，方便后期切换框架
-    private static <W> Observer<W> getOberver(final HttpResponse httpResponse) {
+    public static <W> Observer<W> getObserver(final HttpResponse httpResponse) {
         Observer observer = new Observer<W>() {
 
             @Override

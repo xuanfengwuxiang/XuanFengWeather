@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.xuanfeng.mylibrary.http.HttpLoader;
 import com.xuanfeng.mylibrary.http.HttpResponse;
 import com.xuanfeng.mylibrary.http.HttpService;
+import com.xuanfeng.mylibrary.utils.FileUtil;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -13,7 +14,11 @@ import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by xuanfengwuxiang on 2018/8/20.
@@ -47,5 +52,40 @@ public class HttpManager extends BaseHttpMgr {
         HttpService service = HttpLoader.getInstance().getService();
         Observable observable = service.uploadFiles(url, params);
         subscribeAndObserve(observable, httpResponse);
+    }
+
+    //文件下载
+    public static void downloadFile(String url, final String savePath, final HttpResponse<String> httpResponse) {
+        HttpService service = HttpLoader.getInstance().getService();
+        Observable observable = service.downloadFile(url);
+        subscribeAndObserve(observable, new HttpResponse<ResponseBody>() {
+
+            @Override
+            public void onSuccess(final ResponseBody responseBody) {
+                Observable.create(new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        boolean result = FileUtil.writeResponseBodyToDisk(responseBody, savePath);
+                        if (result) {
+                            subscriber.onNext("success");
+                        } else {
+                            subscriber.onError(new Throwable("write to disk error"));
+                        }
+                    }
+                }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(getObserver(httpResponse));
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 }
