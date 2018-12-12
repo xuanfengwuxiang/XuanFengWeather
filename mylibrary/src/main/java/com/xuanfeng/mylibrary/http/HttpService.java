@@ -9,7 +9,7 @@ import java.util.Map;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -30,39 +30,21 @@ import rx.Observable;
 public interface HttpService {
 
 
-    /**
-     * 通用GET请求
-     *
-     * @param url
-     * @param params
-     * @return
-     */
+    //通用GET请求
     @GET
     Observable<JsonObject> callByGet(
             @Url String url,
             @QueryMap LinkedHashMap<String, String> params
     );
 
-    /**
-     * 通用GET请求
-     *
-     * @param url
-     * @param params
-     * @return
-     */
+    //通用GET请求,返回String
     @GET
     Observable<String> callByGetReturnString(
             @Url String url,
             @QueryMap LinkedHashMap<String, String> params
     );
 
-    /**
-     * 通用GET请求
-     *
-     * @param url
-     * @param params
-     * @return
-     */
+    //通用GET请求,返回JsonArray
     @GET
     Observable<JsonArray> callByGetReturnJsonArray(
             @Url String url,
@@ -70,18 +52,14 @@ public interface HttpService {
     );
 
 
-    /**
-     * 通用POST请求
-     */
+    //通用POST请求
     @POST
     @FormUrlEncoded
     Observable<JsonObject> callByPost(
             @Url String url,
             @FieldMap LinkedHashMap<String, String> params);
 
-    /**
-     * 通用POST请求(带头信息)
-     */
+    //通用POST请求(带头信息)
     @POST
     @FormUrlEncoded
     Observable<JsonObject> callByPostWithHeader(
@@ -89,27 +67,24 @@ public interface HttpService {
             @Header("Runbey-Secinfo") String runbeySecinfo,
             @FieldMap LinkedHashMap<String, String> params);
 
+    //通用POST请求(json格式上传)
+    @POST
+    Observable<JsonObject> callByPostUseJson(
+            @Url String url,
+            @Body RequestBody jsonBody);
 
-    /**
-     * 多个文件上传
-     *
-     * @param url
-     * @param params
-     * @return
-     */
+
+    //多个文件上传
     @Multipart
     @POST
     Observable<JsonObject> uploadFiles(
             @Url String url,
             @PartMap Map<String, RequestBody> params);
 
-    /**
-     * 文件下载
-     * @param url
-     * @return
-     */
+    //文件下载
     @Streaming
     @GET
     Observable<ResponseBody> downloadFile(@Url String url);
+
 
 }

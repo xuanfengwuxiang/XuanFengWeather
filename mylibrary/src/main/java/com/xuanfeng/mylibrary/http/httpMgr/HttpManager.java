@@ -2,6 +2,7 @@ package com.xuanfeng.mylibrary.http.httpMgr;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.xuanfeng.mylibrary.http.HttpLoader;
 import com.xuanfeng.mylibrary.http.HttpResponse;
@@ -33,6 +34,17 @@ public class HttpManager extends BaseHttpMgr {
         Observable observable = service.callByGet(url, params);
         subscribeAndObserve(observable, httpResponse);
     }
+
+    //post请求，入参使用json
+    public static <T> void getJsonObjectByPostJson(String url, T t, HttpResponse<JsonObject> httpResponse) {
+        String jsonString = new Gson().toJson(t);
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonString);
+        HttpService service = HttpLoader.getInstance().getService();
+        Observable observable = service.callByPostUseJson(url, body);
+        subscribeAndObserve(observable, httpResponse);
+
+    }
+
 
     //文件上传
     public static void uploadFiles(String url, List<String> filePaths, String token, HttpResponse<JsonObject> httpResponse) {
