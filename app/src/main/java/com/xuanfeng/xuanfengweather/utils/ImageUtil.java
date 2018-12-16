@@ -11,10 +11,13 @@ import android.util.Log;
 
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by xuanfengwuxiang on 2017/12/21.
@@ -23,11 +26,12 @@ import rx.schedulers.Schedulers;
 public class ImageUtil {
 
     //在给定的bitmap上，进行人脸检测，并画出人脸区域框框
-    public static void faceDetect(final Paint paint, final Bitmap bitmap, final int maxFaceNum, final Subscriber subscriber) {
+    public static void faceDetect(final Paint paint, final Bitmap bitmap, final int maxFaceNum, final Observer observer) {
 
-        Observable observable = Observable.create(new Observable.OnSubscribe<String>() {
+        Observable.create(new ObservableOnSubscribe<String>() {
+
             @Override
-            public void call(Subscriber<? super String> subscriber) {
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 //从bitmap获取人脸
                 FaceDetector faceDetector = new FaceDetector(bitmap.getWidth(), bitmap.getHeight(), maxFaceNum);
                 FaceDetector.Face[] faces = new FaceDetector.Face[maxFaceNum];
@@ -35,15 +39,15 @@ public class ImageUtil {
                 //对获取结果进行判断
                 if (realFaceNum > 0) {
                     drawFacesArea(faces, bitmap, paint);
-                    subscriber.onNext(realFaceNum + "");
+                    observer.onNext(realFaceNum + "");
                 } else {
-                    subscriber.onNext("");
+                    observer.onNext("");
                 }
+
             }
-        });
-        observable.subscribeOn(Schedulers.newThread())
+        }).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
     //根据检测出来的脸，画框框到bitmap上
@@ -102,7 +106,7 @@ public class ImageUtil {
      * @param width
      * @param height
      */
-    public static void setCameraParams(Camera mCamera,float width, float height) {
+    public static void setCameraParams(Camera mCamera, float width, float height) {
         Camera.Parameters parameters = mCamera.getParameters();
         // 获取摄像头支持的PictureSize列表
         List<Camera.Size> pictureSizeList = parameters.getSupportedPictureSizes();
@@ -125,7 +129,7 @@ public class ImageUtil {
         if (parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);// 连续对焦模式
         }
-       // mCamera.cancelAutoFocus();//自动对焦。
+        // mCamera.cancelAutoFocus();//自动对焦。
         mCamera.setDisplayOrientation(90);// 设置PreviewDisplay的方向，效果就是将捕获的画面旋转多少度显示
         mCamera.setParameters(parameters);
 

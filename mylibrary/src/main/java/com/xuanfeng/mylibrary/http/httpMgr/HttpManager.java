@@ -1,5 +1,6 @@
 package com.xuanfeng.mylibrary.http.httpMgr;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -13,13 +14,15 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+
 
 /**
  * Created by xuanfengwuxiang on 2018/8/20.
@@ -29,25 +32,25 @@ import rx.schedulers.Schedulers;
 public class HttpManager extends BaseHttpMgr {
 
     //get请求
-    public static void getJsonObjectByGet(String url, LinkedHashMap<String, String> params, HttpResponse<JsonObject> httpResponse) {
+    public static void getJsonObjectByGet(LifecycleOwner lifecycleOwner, String url, LinkedHashMap<String, String> params, HttpResponse<JsonObject> httpResponse) {
         HttpService service = HttpLoader.getInstance().getService();
         Observable observable = service.callByGet(url, params);
-        subscribeAndObserve(observable, httpResponse);
+        subscribeAndObserve(lifecycleOwner, observable, httpResponse);
     }
 
     //post请求，入参使用json
-    public static <T> void getJsonObjectByPostJson(String url, T t, HttpResponse<JsonObject> httpResponse) {
+    public static <T> void getJsonObjectByPostJson(LifecycleOwner lifecycleOwner, String url, T t, HttpResponse<JsonObject> httpResponse) {
         String jsonString = new Gson().toJson(t);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonString);
         HttpService service = HttpLoader.getInstance().getService();
         Observable observable = service.callByPostUseJson(url, body);
-        subscribeAndObserve(observable, httpResponse);
+        subscribeAndObserve(lifecycleOwner, observable, httpResponse);
 
     }
 
 
     //文件上传
-    public static void uploadFiles(String url, List<String> filePaths, String token, HttpResponse<JsonObject> httpResponse) {
+    public static void uploadFiles(LifecycleOwner lifecycleOwner, String url, List<String> filePaths, String token, HttpResponse<JsonObject> httpResponse) {
         if (filePaths == null || filePaths.size() == 0) {
             return;
         }
@@ -63,25 +66,27 @@ public class HttpManager extends BaseHttpMgr {
         }
         HttpService service = HttpLoader.getInstance().getService();
         Observable observable = service.uploadFiles(url, params);
-        subscribeAndObserve(observable, httpResponse);
+        subscribeAndObserve(lifecycleOwner, observable, httpResponse);
     }
 
     //文件下载
-    public static void downloadFile(String url, final String savePath, final HttpResponse<String> httpResponse) {
+    public static void downloadFile(LifecycleOwner lifecycleOwner, String url, final String savePath, final HttpResponse<String> httpResponse) {
         HttpService service = HttpLoader.getInstance().getService();
         Observable observable = service.downloadFile(url);
-        subscribeAndObserve(observable, new HttpResponse<ResponseBody>() {
+        subscribeAndObserve(lifecycleOwner, observable, new HttpResponse<ResponseBody>() {
 
             @Override
             public void onSuccess(final ResponseBody responseBody) {
-                Observable.create(new Observable.OnSubscribe<String>() {
+                Observable.create(new ObservableOnSubscribe<String>() {
+
                     @Override
-                    public void call(Subscriber<? super String> subscriber) {
+                    public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+
                         boolean result = FileUtil.writeResponseBodyToDisk(responseBody, savePath);
                         if (result) {
-                            subscriber.onNext("success");
+                            emitter.onNext("success");
                         } else {
-                            subscriber.onError(new Throwable("write to disk error"));
+                            emitter.onError(new Throwable("write to disk error"));
                         }
                     }
                 }).subscribeOn(Schedulers.io())

@@ -1,6 +1,8 @@
 package com.xuanfeng.xuanfengweather.module.media.model;
 
 
+import android.arch.lifecycle.LifecycleOwner;
+
 import com.xuanfeng.mylibrary.http.HttpResponse;
 import com.xuanfeng.mylibrary.mvp.BaseModel;
 import com.xuanfeng.mylibrary.mvp.BaseView;
@@ -19,9 +21,9 @@ public class ChatModel extends BaseModel {
         super(baseView);
     }
 
-    public void getReply(String msg, HttpResponse httpResponse) {
+    public void getReply(LifecycleOwner lifecycleOwner, String msg, HttpResponse httpResponse) {
         String url = HttpConstant.CHAT_URL;
         url = url.replace("##content##", msg);
-        get(url, new LinkedHashMap<String, String>(), httpResponse);
+        getJsonObjectByGet(lifecycleOwner, url, new LinkedHashMap<String, String>(), httpResponse);
     }
 }

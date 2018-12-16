@@ -1,5 +1,7 @@
 package com.xuanfeng.xuanfengweather.module.media.presenter;
 
+import android.arch.lifecycle.LifecycleOwner;
+
 import com.google.gson.JsonObject;
 import com.xuanfeng.mylibrary.http.HttpResponse;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
@@ -18,8 +20,8 @@ public class ChatPresenter extends BasePresenter<ChatView, ChatModel> {
         super(view, model);
     }
 
-    public void getReply(String msg) {
-        mModel.getReply(msg, new HttpResponse<JsonObject>() {
+    public void getReply(LifecycleOwner lifecycleOwner, String msg) {
+        mModel.getReply(lifecycleOwner,msg, new HttpResponse<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
                 if (jsonObject == null) {

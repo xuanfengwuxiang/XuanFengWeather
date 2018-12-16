@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
@@ -31,7 +31,7 @@ public class HttpLoader {
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())//Gson转换
                 .addConverterFactory(ScalarsConverterFactory.create())//String转换
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//请求回参设为RxJava
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//请求回参设为RxJava
                 .baseUrl(BASE_URL)
                 .build()
                 .create(HttpService.class);

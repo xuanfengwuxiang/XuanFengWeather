@@ -41,7 +41,7 @@ public class ChatFragment extends BaseFragment<ChatPresenter> implements ChatVie
         }
         mRvChat.setData(new ChatBean("me", content));
         mEtInput.getText().clear();
-        mChatPresenter.getReply(content);
+        mChatPresenter.getReply(this, content);
     }
 
     @Override

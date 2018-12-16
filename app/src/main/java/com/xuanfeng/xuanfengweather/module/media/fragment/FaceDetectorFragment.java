@@ -9,19 +9,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.xuanfeng.mylibrary.utils.StringUtils;
 import com.xuanfeng.xuanfengweather.R;
 import com.xuanfeng.xuanfengweather.databinding.FragmentFaceDetectorBinding;
 import com.xuanfeng.xuanfengweather.module.media.activity.CameraActivity;
 import com.xuanfeng.xuanfengweather.module.media.activity.CameraHorientalActivity;
 import com.xuanfeng.xuanfengweather.module.media.activity.ImageViewDoodleActivity;
 import com.xuanfeng.xuanfengweather.module.media.activity.SurfaceViewActivity;
-import com.xuanfeng.xuanfengweather.module.media.view.FaceDetectorView;
 import com.xuanfeng.xuanfengweather.module.media.presenter.FaceDetectorViewModel;
+import com.xuanfeng.xuanfengweather.module.media.view.FaceDetectorView;
 import com.xuanfeng.xuanfengweather.mvvm.BaseFragment;
 import com.xuanfeng.xuanfengweather.utils.ImageUtil;
-import com.xuanfeng.mylibrary.utils.StringUtils;
 
-import rx.Subscriber;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 人脸识别界面
@@ -86,17 +87,24 @@ public class FaceDetectorFragment extends BaseFragment<FragmentFaceDetectorBindi
 
     //人脸检测
     private void faceDetect() {
-        ImageUtil.faceDetect(paint, bm, MAX_FACE_NUM, mSubscriber);
+        ImageUtil.faceDetect(paint, bm, MAX_FACE_NUM, mObserver);
     }
 
     //人脸检测后的回调
-    Subscriber mSubscriber = new Subscriber() {
+    Observer mObserver = new Observer() {
+
+
         @Override
-        public void onCompleted() {
+        public void onComplete() {
         }
 
         @Override
         public void onError(Throwable e) {
+        }
+
+        @Override
+        public void onSubscribe(Disposable d) {
+
         }
 
         @Override

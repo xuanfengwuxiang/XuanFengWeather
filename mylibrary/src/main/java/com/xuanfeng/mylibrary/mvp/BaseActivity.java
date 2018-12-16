@@ -12,13 +12,14 @@ import com.xuanfeng.mylibrary.widget.LoadingDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import rx.Subscription;
-import rx.functions.Action1;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
 
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseView {
 
     Unbinder unbinder;
-    private Subscription mSubscription;
+    private Disposable mDisposable;
     private LoadingDialog mLoadingDialog;
 
     @Override
@@ -60,8 +61,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
     //注册rxbus接收监听
-    protected void registRxBus(Action1<RxBean> action1) {
-        mSubscription = RxBus.getInstance().toObserverable(RxBean.class).subscribe(action1);
+    protected void registRxBus(Consumer<RxBean> consumer) {
+        mDisposable = RxBus.getInstance().toObserverable(RxBean.class).subscribe(consumer);
     }
 
     @Override
@@ -78,8 +79,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         if (unbinder != null) {//解绑butterKnife
             unbinder.unbind();
         }
-        if (mSubscription != null && !mSubscription.isUnsubscribed()) {//解绑rxJava
-            mSubscription.unsubscribe();
+        if (mDisposable != null && !mDisposable.isDisposed()) {//解绑rxJava
+            mDisposable.dispose();
         }
     }
 }

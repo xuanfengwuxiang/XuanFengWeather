@@ -1,9 +1,9 @@
 package com.xuanfeng.mylibrary.rxbus;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
-import rx.subjects.SerializedSubject;
-import rx.subjects.Subject;
+
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 
 /**
  * Created by xuanfengwuxiang on 2017/10/7.
@@ -11,7 +11,7 @@ import rx.subjects.Subject;
 
 public class RxBus {
     private static RxBus rxBus;
-    private final Subject<Object, Object> _bus = new SerializedSubject<>(PublishSubject.create());
+    private final Subject<Object> _bus = PublishSubject.create().toSerialized();;
 
     private RxBus() {
     }

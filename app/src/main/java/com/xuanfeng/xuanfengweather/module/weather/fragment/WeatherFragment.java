@@ -77,7 +77,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
 
     //获取天气
     private void getWeather(String city) {
-        mWeatherViewModel.getWeather(city);
+        mWeatherViewModel.getWeather(this, city);
     }
 
     @Override

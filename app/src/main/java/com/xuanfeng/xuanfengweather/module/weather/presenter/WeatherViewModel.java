@@ -1,5 +1,6 @@
 package com.xuanfeng.xuanfengweather.module.weather.presenter;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 
 import com.google.gson.JsonObject;
@@ -28,11 +29,11 @@ public class WeatherViewModel {
     }
 
 
-    public void getWeather(String city) {
+    public void getWeather(LifecycleOwner lifecycleOwner, String city) {
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
         params.put("city", city);
         mWeatherView.showProgress();
-        HttpManager.getJsonObjectByGet(HttpConstant.WEATHER_URL, params, new HttpResponse<JsonObject>() {
+        HttpManager.getJsonObjectByGet(lifecycleOwner, HttpConstant.WEATHER_URL, params, new HttpResponse<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
                 mWeatherView.hideProgress();
