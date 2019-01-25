@@ -1,7 +1,10 @@
 package com.xuanfeng.xuanfengweather.module.weather.presenter;
 
+import android.arch.lifecycle.DefaultLifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.gson.JsonObject;
 import com.xuanfeng.mylibrary.http.HttpResponse;
@@ -18,12 +21,12 @@ import java.util.List;
  * Created by xuanfengwuxiang on 2017/12/13.
  */
 
-public class WeatherViewModel {
+public class WeatherPresenter implements DefaultLifecycleObserver {
 
     private Context mContext;
     private WeatherView mWeatherView;
 
-    public WeatherViewModel(Context context, WeatherView weatherView) {
+    public WeatherPresenter(Context context, WeatherView weatherView) {
         mContext = context;
         mWeatherView = weatherView;
     }
@@ -67,5 +70,14 @@ public class WeatherViewModel {
         });
     }
 
+    @Override
+    public void onResume(@NonNull LifecycleOwner owner) {
+        Log.i("WeatherPresenter", "onResume了");
+    }
 
+    @Override
+    public void onDestroy(@NonNull LifecycleOwner owner) {
+        Log.i("WeatherPresenter", "onDestroy走了");
+        mContext = null;
+    }
 }

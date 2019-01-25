@@ -15,7 +15,7 @@ import com.xuanfeng.mylibrary.mvp.BaseFragment;
 import com.xuanfeng.mylibrary.utils.StringUtils;
 import com.xuanfeng.xuanfengweather.R;
 import com.xuanfeng.xuanfengweather.module.weather.activity.SelectCityActivity;
-import com.xuanfeng.xuanfengweather.module.weather.presenter.WeatherViewModel;
+import com.xuanfeng.xuanfengweather.module.weather.presenter.WeatherPresenter;
 import com.xuanfeng.xuanfengweather.module.weather.utils.WeatherUtil;
 import com.xuanfeng.xuanfengweather.module.weather.view.WeatherView;
 import com.xuanfeng.xuanfengweather.module.weather.widget.WeatherRecyclerView;
@@ -48,7 +48,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     WeatherRecyclerView mRvBroadcast;
     LocationClient mLocationClient;//百度定位
     private String mCity;//城市
-    private WeatherViewModel mWeatherViewModel;
+    private WeatherPresenter mWeatherPresenter;
     private double mLa;
     private double mLo;
 
@@ -77,7 +77,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
 
     //获取天气
     private void getWeather(String city) {
-        mWeatherViewModel.getWeather(this, city);
+        mWeatherPresenter.getWeather(this, city);
     }
 
     @Override
@@ -124,7 +124,8 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
 
     @Override
     public void initPresenter() {
-        mWeatherViewModel = new WeatherViewModel(getContext(), this);
+        mWeatherPresenter = new WeatherPresenter(getContext(), this);
+        getLifecycle().addObserver(mWeatherPresenter);
     }
 
 
