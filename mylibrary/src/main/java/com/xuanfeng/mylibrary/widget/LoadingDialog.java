@@ -25,6 +25,7 @@ public class LoadingDialog extends Dialog {
         window.setDimAmount(0.2f);
         setContentView(R.layout.dialog_loading);
         setCanceledOnTouchOutside(false);
+        setCancelable(false);
         init();
     }
 
