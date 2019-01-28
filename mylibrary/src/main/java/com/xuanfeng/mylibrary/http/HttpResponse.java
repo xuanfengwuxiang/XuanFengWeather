@@ -6,7 +6,9 @@ package com.xuanfeng.mylibrary.http;
  */
 
 public interface HttpResponse<W> {
-    public void onSuccess(W w);
-    public void onError(Throwable e);
-    public void onComplete();
+    void onSuccess(W w);
+
+    void onError(Throwable e);
+
+    void onComplete();
 }
