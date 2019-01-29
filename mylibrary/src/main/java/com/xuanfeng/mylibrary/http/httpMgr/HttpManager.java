@@ -67,6 +67,13 @@ public class HttpManager {
     }
 
     //post请求，入参使用json
+    public <T> void getJsonObjectByPostJson(LifecycleOwner lifecycleOwner, String url, T t, HttpResponse<JsonObject> httpResponse) {
+        getJsonObjectByPostJson(lifecycleOwner, url, t, System.currentTimeMillis() + "", httpResponse);
+
+    }
+
+
+    //post请求，入参使用json
     public <T> void getJsonObjectByPostJson(LifecycleOwner lifecycleOwner, String url, T t, String cancelTag, HttpResponse<JsonObject> httpResponse) {
         String jsonString = new Gson().toJson(t);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonString);
