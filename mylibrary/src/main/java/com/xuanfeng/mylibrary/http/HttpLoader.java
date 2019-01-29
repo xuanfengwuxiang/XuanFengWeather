@@ -21,7 +21,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class HttpLoader {
     private static final int TIME_OUT = 20000;//超时
     private String BASE_URL = "http://api.mnks.cn/v1/jiaxiao/";
-    private static HttpLoader httpLoader;
+    private static volatile HttpLoader httpLoader;//强制编译器不重新排序
     private final HttpService mHttpService;
 
     private HttpLoader() {
@@ -38,9 +38,11 @@ public class HttpLoader {
 
 
     //单例、双重检验加锁
-    public static synchronized HttpLoader getInstance() {
-        if (httpLoader == null) {
-            synchronized (HttpLoader.class) {
+    public static HttpLoader getInstance() {
+
+        if (httpLoader == null) {//这里为了效率，已经初始化的直接返回实例，无需加锁
+
+            synchronized (HttpLoader.class) {//这里为了多线程安全，首次初始化加锁
                 if (httpLoader == null) {
                     httpLoader = new HttpLoader();
                 }

@@ -12,6 +12,7 @@ import com.xuanfeng.mylibrary.http.HttpResponse;
 import com.xuanfeng.mylibrary.utils.FileUtil;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -36,24 +37,47 @@ import static com.uber.autodispose.AutoDispose.autoDisposable;
 
 public class HttpManager {
 
+    private static volatile HttpManager mHttpManager;
+    private HashMap<String, Disposable> mDisposables = new HashMap<>();//请求取消集合
+
+
+    public static HttpManager getInstance() {
+
+        if (mHttpManager == null) {
+            synchronized (HttpManager.class) {
+                if (mHttpManager == null) {
+                    mHttpManager = new HttpManager();
+                }
+            }
+        }
+        return mHttpManager;
+    }
+
+
     //get请求
-    public static void getJsonObjectByGet(LifecycleOwner lifecycleOwner, String url, LinkedHashMap<String, String> params, HttpResponse<JsonObject> httpResponse) {
+    public void getJsonObjectByGet(LifecycleOwner lifecycleOwner, String url, LinkedHashMap<String, String> params, HttpResponse<JsonObject> httpResponse) {
+        getJsonObjectByGet(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
+    }
+
+
+    //get请求
+    public void getJsonObjectByGet(LifecycleOwner lifecycleOwner, String url, LinkedHashMap<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
         Observable observable = HttpLoader.getInstance().getService().callByGet(url, params);
-        observeOnUI(lifecycleOwner, observable, httpResponse);
+        observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
     }
 
     //post请求，入参使用json
-    public static <T> void getJsonObjectByPostJson(LifecycleOwner lifecycleOwner, String url, T t, HttpResponse<JsonObject> httpResponse) {
+    public <T> void getJsonObjectByPostJson(LifecycleOwner lifecycleOwner, String url, T t, String cancelTag, HttpResponse<JsonObject> httpResponse) {
         String jsonString = new Gson().toJson(t);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonString);
         Observable observable = HttpLoader.getInstance().getService().callByPostUseJson(url, body);
-        observeOnUI(lifecycleOwner, observable, httpResponse);
+        observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
 
     }
 
 
     //文件上传
-    public static void uploadFiles(LifecycleOwner lifecycleOwner, String url, List<String> filePaths, String token, HttpResponse<JsonObject> httpResponse) {
+    public void uploadFiles(LifecycleOwner lifecycleOwner, String url, List<String> filePaths, String token, String cancelTag, HttpResponse<JsonObject> httpResponse) {
         if (filePaths == null || filePaths.size() == 0) {
             return;
         }
@@ -68,11 +92,11 @@ public class HttpManager {
             }
         }
         Observable observable = HttpLoader.getInstance().getService().uploadFiles(url, params);
-        observeOnUI(lifecycleOwner, observable, httpResponse);
+        observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
     }
 
     //文件下载
-    public static void downloadFile(LifecycleOwner lifecycleOwner, String url, final String savePath, final HttpResponse<String> httpResponse) {
+    public void downloadFile(LifecycleOwner lifecycleOwner, String url, final String savePath, String cancelTag, final HttpResponse<String> httpResponse) {
         Observable observable = HttpLoader.getInstance().getService().downloadFile(url);
         observeOnUI(lifecycleOwner, observable, new HttpResponse<ResponseBody>() {
 
@@ -92,7 +116,7 @@ public class HttpManager {
                     }
                 }).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(getObserver(httpResponse));
+                        .subscribe(getObserver(httpResponse, cancelTag));
             }
 
             @Override
@@ -104,26 +128,38 @@ public class HttpManager {
             public void onComplete() {
 
             }
-        });
+        }, cancelTag);
+    }
+
+
+    //取消某个接口
+    public void cancelTag(String cancelTag) {
+
+        if (!mDisposables.containsKey(cancelTag)) {
+            return;
+        }
+        Disposable disposable = mDisposables.get(cancelTag);
+        if (disposable != null && !disposable.isDisposed()) disposable.dispose();
+        mDisposables.remove(cancelTag);
     }
 
 
     //1、子线程处理 主线程回调
-    public static void observeOnUI(LifecycleOwner lifecycleOwner, Observable<?> observable, HttpResponse httpResponse) {
+    public void observeOnUI(LifecycleOwner lifecycleOwner, Observable<?> observable, HttpResponse httpResponse, String cancelTag) {
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(autoDisposable(AndroidLifecycleScopeProvider.from(lifecycleOwner)))
-                .subscribe(getObserver(httpResponse));
+                .subscribe(getObserver(httpResponse, cancelTag));
 
     }
 
     //绑定自定义接口与Observer
-    public static <W> Observer<W> getObserver(final HttpResponse httpResponse) {
+    public <W> Observer<W> getObserver(final HttpResponse httpResponse, String cancelTag) {
         Observer observer = new Observer<W>() {
 
             @Override
             public void onSubscribe(Disposable d) {
-
+                mDisposables.put(cancelTag, d);
             }
 
             @Override
@@ -134,6 +170,10 @@ public class HttpManager {
             @Override
             public void onComplete() {
                 httpResponse.onComplete();
+
+                if (mDisposables.containsKey(cancelTag)) {
+                    mDisposables.remove(cancelTag);
+                }
             }
 
             @Override
