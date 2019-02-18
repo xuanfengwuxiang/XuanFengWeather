@@ -13,15 +13,16 @@ public class SoftKeyBoardUtil {
 
     private View mDecorView;//activity的根视图
     private int mWindowVisibleHeight;//纪录窗口的显示高度
-    private OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener;
+    private KeyBoardListener mKeyBoardListener;
     private String TAG = getClass().getSimpleName();
+    private ViewTreeObserver.OnGlobalLayoutListener mOnGlobalLayoutListener;
 
     public SoftKeyBoardUtil(Activity activity) {
 
         mDecorView = activity.getWindow().getDecorView();
 
         //监听视图树中全局布局发生改变或者视图树中的某个视图的可视状态发生改变
-        mDecorView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        mOnGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
 
@@ -46,8 +47,8 @@ public class SoftKeyBoardUtil {
 
                 //根视图显示高度变小超过200，可以看作软键盘显示了
                 if (mWindowVisibleHeight - visibleHeight > 200) {
-                    if (onSoftKeyBoardChangeListener != null) {
-                        onSoftKeyBoardChangeListener.keyBoardShow(mWindowVisibleHeight - visibleHeight);
+                    if (mKeyBoardListener != null) {
+                        mKeyBoardListener.keyBoardShow(mWindowVisibleHeight - visibleHeight);
                     }
                     mWindowVisibleHeight = visibleHeight;
                     return;
@@ -55,30 +56,39 @@ public class SoftKeyBoardUtil {
 
                 //根视图显示高度变大超过200，可以看作软键盘隐藏了
                 if (visibleHeight - mWindowVisibleHeight > 200) {
-                    if (onSoftKeyBoardChangeListener != null) {
-                        onSoftKeyBoardChangeListener.keyBoardHide(visibleHeight - mWindowVisibleHeight);
+                    if (mKeyBoardListener != null) {
+                        mKeyBoardListener.keyBoardHide(visibleHeight - mWindowVisibleHeight);
                     }
                     mWindowVisibleHeight = visibleHeight;
                     return;
                 }
 
             }
-        });
+        };
+        mDecorView.getViewTreeObserver().addOnGlobalLayoutListener(mOnGlobalLayoutListener);
     }
 
-    private void setOnSoftKeyBoardChangeListener(OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener) {
-        this.onSoftKeyBoardChangeListener = onSoftKeyBoardChangeListener;
+    private void setKeyBoardListener(KeyBoardListener keyBoardListener) {
+        this.mKeyBoardListener = keyBoardListener;
     }
 
-    public interface OnSoftKeyBoardChangeListener {
+    public interface KeyBoardListener {
         void keyBoardShow(int height);
 
         void keyBoardHide(int height);
     }
 
-    public static void setListener(Activity activity, OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener) {
+    public static SoftKeyBoardUtil setListener(Activity activity, KeyBoardListener keyBoardListener) {
         SoftKeyBoardUtil softKeyBoardListener = new SoftKeyBoardUtil(activity);
-        softKeyBoardListener.setOnSoftKeyBoardChangeListener(onSoftKeyBoardChangeListener);
+        softKeyBoardListener.setKeyBoardListener(keyBoardListener);
+        return softKeyBoardListener;
+    }
+
+    public void removeListener() {
+        mKeyBoardListener = null;
+        if (mDecorView != null && mDecorView.getViewTreeObserver() != null && mOnGlobalLayoutListener != null) {
+            mDecorView.getViewTreeObserver().removeOnGlobalLayoutListener(mOnGlobalLayoutListener);
+        }
     }
 }
 

@@ -1,18 +1,24 @@
 package com.xuanfeng.xuanfengweather.module.test.activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.util.Pair;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.utils.SoftKeyBoardUtil;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
 import com.xuanfeng.mylibrary.widget.popupmenu.adapter.PopupMenuAdapter;
 import com.xuanfeng.xuanfengweather.R;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -32,13 +38,16 @@ public class TestActivity extends BaseActivity {
     TextView mTvTestForGallery;
     @BindView(R.id.tv_aidl)
     TextView mTvTestForPlugin;
-    @BindView(R.id.tv_test_for_out_plugin)
-    TextView mTvTestForOutPlugin;
+    @BindView(R.id.tv_share_anim)
+    TextView mTvTestShareAnim;
+    @BindView(R.id.iv_share_anim)
+    ImageView ivShareAnim;
     private PopupMenu mPopupMenu;
+    private SoftKeyBoardUtil mSoftKeyBoardUtil;
 
 
     @OnClick({R.id.tv_test_for_edittext, R.id.tv_test_for_popupmenu, R.id.tv_test_for_keyboard, R.id.tv_test_for_pad_send, R.id.tv_test_for_tv_start,
-            R.id.tv_test_for_tv_send, R.id.tv_test_for_gallery, R.id.tv_aidl, R.id.tv_test_for_out_plugin})
+            R.id.tv_test_for_tv_send, R.id.tv_test_for_gallery, R.id.tv_aidl, R.id.ll_test_share_anim})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_test_for_edittext://测试自定义EditText
@@ -68,14 +77,13 @@ public class TestActivity extends BaseActivity {
                 intent = new Intent(this, TestAIDLActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.tv_test_for_out_plugin://外置插件
-
-
+            case R.id.ll_test_share_anim://share转场动画
+                intent = new Intent(this, TestShareAnimActivity.class);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this, Pair.create(mTvTestShareAnim, "fab"), Pair.create(ivShareAnim, "pic")).toBundle());
                 break;
 
         }
     }
-
 
 
     private void initPopupMenu() {
@@ -103,6 +111,7 @@ public class TestActivity extends BaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mSoftKeyBoardUtil.removeListener();
     }
 
 
@@ -119,10 +128,10 @@ public class TestActivity extends BaseActivity {
 
     @Override
     public void initData(Bundle bundle) {
-        SoftKeyBoardUtil.setListener(this,mOnSoftKeyBoardChangeListener);
+        mSoftKeyBoardUtil = SoftKeyBoardUtil.setListener(this, mKeyBoardListener);
     }
 
-    SoftKeyBoardUtil.OnSoftKeyBoardChangeListener mOnSoftKeyBoardChangeListener = new SoftKeyBoardUtil.OnSoftKeyBoardChangeListener() {
+    SoftKeyBoardUtil.KeyBoardListener mKeyBoardListener = new SoftKeyBoardUtil.KeyBoardListener() {
         @Override
         public void keyBoardShow(int height) {
 
@@ -139,5 +148,9 @@ public class TestActivity extends BaseActivity {
         return R.color.white;
     }
 
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setEnterTransition(new Explode());
+        super.onCreate(savedInstanceState);
+    }
 }

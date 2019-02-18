@@ -1,5 +1,6 @@
 package com.xuanfeng.xuanfengweather.module.media.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -68,8 +69,8 @@ public class FaceDetectorFragment extends BaseFragment<FragmentFaceDetectorBindi
             case R.id.tv_horiental_limit://横屏的人脸限制
                 startActivity(new Intent(mContext, CameraHorientalActivity.class));
                 break;
-            case R.id.tv_demo_imageview://SurfaceView示例
-                startActivity(new Intent(mContext, ImageViewDoodleActivity.class));
+            case R.id.tv_demo_imageview://ImageView画板
+                startActivity(new Intent(mContext, ImageViewDoodleActivity.class), ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 break;
         }
     }

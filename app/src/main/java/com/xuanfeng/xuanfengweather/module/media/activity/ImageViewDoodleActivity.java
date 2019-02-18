@@ -2,6 +2,7 @@ package com.xuanfeng.xuanfengweather.module.media.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.transition.Slide;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,5 +72,9 @@ public class ImageViewDoodleActivity extends BaseActivity {
         }
     }
 
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setEnterTransition(new Slide());
+        super.onCreate(savedInstanceState);
+    }
 }

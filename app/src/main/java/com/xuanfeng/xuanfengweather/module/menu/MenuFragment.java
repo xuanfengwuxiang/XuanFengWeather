@@ -1,5 +1,6 @@
 package com.xuanfeng.xuanfengweather.module.menu;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -25,7 +26,7 @@ public class MenuFragment extends BaseFragment {
     @OnClick(R.id.tv_test)
     public void onViewClicked() {
         Intent intent = new Intent(getContext(), TestActivity.class);
-        startActivity(intent);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
     }
 
     @Override
