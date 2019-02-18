@@ -74,7 +74,7 @@
         <activity android:name=".module.weather.activity.SelectCityActivity" />
         <activity android:name=".module.test.activity.TestActivity" />
         <activity android:name=".module.test.activity.TestForEditTextActivity" />
-        <activity android:name=".module.test.activity.TestForGalleryActivity"></activity>
+        <activity android:name=".module.test.activity.TestForGalleryActivity" />
         <activity android:name=".module.media.activity.CameraActivity" />
         <activity android:name=".mvvm.BaseActivity" />
         <activity android:name=".module.media.activity.SurfaceViewActivity" />
@@ -82,8 +82,8 @@
             android:name=".module.media.activity.CameraHorientalActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".module.media.activity.ImageViewDoodleActivity" />
-        <activity android:name=".module.test.activity.TestAIDLActivity"></activity>
-        <activity android:name=".module.test.activity.TestShareAnimActivity"></activity>
+        <activity android:name=".module.test.activity.TestAIDLActivity" />
+        <activity android:name=".module.test.activity.TestShareAnimActivity" />
     </application>
 
 </manifest>
