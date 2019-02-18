@@ -42,12 +42,14 @@ public class TestActivity extends BaseActivity {
     TextView mTvTestShareAnim;
     @BindView(R.id.iv_share_anim)
     ImageView ivShareAnim;
+    @BindView(R.id.tv_tittle)
+    TextView tvTittle;
     private PopupMenu mPopupMenu;
     private SoftKeyBoardUtil mSoftKeyBoardUtil;
 
 
     @OnClick({R.id.tv_test_for_edittext, R.id.tv_test_for_popupmenu, R.id.tv_test_for_keyboard, R.id.tv_test_for_pad_send, R.id.tv_test_for_tv_start,
-            R.id.tv_test_for_tv_send, R.id.tv_test_for_gallery, R.id.tv_aidl, R.id.ll_test_share_anim})
+            R.id.tv_test_for_tv_send, R.id.tv_test_for_gallery, R.id.tv_aidl, R.id.ll_test_share_anim, R.id.iv_left})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_test_for_edittext://测试自定义EditText
@@ -80,6 +82,9 @@ public class TestActivity extends BaseActivity {
             case R.id.ll_test_share_anim://share转场动画
                 intent = new Intent(this, TestShareAnimActivity.class);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this, Pair.create(mTvTestShareAnim, "fab"), Pair.create(ivShareAnim, "pic")).toBundle());
+                break;
+            case R.id.iv_left:
+                finishAfterTransition();
                 break;
 
         }
@@ -128,6 +133,7 @@ public class TestActivity extends BaseActivity {
 
     @Override
     public void initData(Bundle bundle) {
+        tvTittle.setText("测试界面");
         mSoftKeyBoardUtil = SoftKeyBoardUtil.setListener(this, mKeyBoardListener);
     }
 

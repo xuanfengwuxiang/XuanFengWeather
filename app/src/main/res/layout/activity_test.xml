@@ -12,6 +12,8 @@
         android:background="@color/white"
         android:orientation="vertical">
 
+        <include layout="@layout/include_title_bar_one"/>
+
         <TextView
             android:id="@+id/tv_test_for_edittext"
             android:layout_width="match_parent"
