@@ -33,8 +33,7 @@ public class WelcomeActivity extends BaseActivity {
                 startActivity(intent);
                 finish();
             }
-        });
-        countDownProgressBar.startCountDown();
+        }).startCountDown();
     }
 
     @Override
