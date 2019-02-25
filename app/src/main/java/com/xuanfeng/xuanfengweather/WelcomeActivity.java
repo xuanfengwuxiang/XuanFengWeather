@@ -3,7 +3,6 @@ package com.xuanfeng.xuanfengweather;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 
 import com.xuanfeng.countdownprogressview.CountDownProgressBar;
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
@@ -65,7 +64,6 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
 }

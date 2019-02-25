@@ -61,7 +61,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView, BDLoca
     }
 
     @Override//百度定位初始化完成后回调
-    public void accept(Object o) throws Exception {
+    public void accept(Object o) {
         if (o instanceof LocationClient) {
             mLocationClient = (LocationClient) o;
         }
