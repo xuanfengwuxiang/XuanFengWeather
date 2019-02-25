@@ -26,11 +26,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 /**
  * 天气界面
  */
-public class WeatherFragment extends BaseFragment implements WeatherView {
+public class WeatherFragment extends BaseFragment implements WeatherView, BDLocationListener, Consumer {
 
     @BindView(R.id.tv_left)
     TextView mTvLeft;
@@ -55,29 +56,30 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     @Override
     public void initData(Bundle bundle) {
         WeatherUtil.setTittleBar(getContext(), mTvLeft, mIvLeft, mRlHeader);
-        mLocationClient = WeatherUtil.getLocationClient(getContext(), mLocationListener);
+        WeatherUtil.getLocationClient(getContext(), this, this);
         WeatherUtil.setTittleSizeAndColor(getContext(), mTvTodayTemperature);
     }
 
-    BDLocationListener mLocationListener = new BDLocationListener() {
-        @Override//接受定位
-        public void onReceiveLocation(BDLocation bdLocation) {
-            if (bdLocation == null) {
-                mTvLeft.setText("定位失败！");
-                return;
-            }
-            mCity = bdLocation.getCity();
-            mLa = bdLocation.getLatitude();
-            mLo = bdLocation.getLongitude();
-            mTvLeft.setText(mCity == null ? "" : mCity);
-            getWeather(mCity);
+    @Override//百度定位初始化完成后回调
+    public void accept(Object o) throws Exception {
+        if (o instanceof LocationClient) {
+            mLocationClient = (LocationClient) o;
         }
-    };
+    }
 
 
-    //获取天气
-    private void getWeather(String city) {
-        mWeatherPresenter.getWeather(this, city);
+    @Override//接受定位
+    public void onReceiveLocation(BDLocation bdLocation) {
+        if (bdLocation == null) {
+            mTvLeft.setText("定位失败！");
+            return;
+        }
+        mCity = bdLocation.getCity();
+        mLa = bdLocation.getLatitude();
+        mLo = bdLocation.getLongitude();
+        mTvLeft.setText(mCity == null ? "" : mCity);
+        mWeatherPresenter.getWeather(getActivity(), mCity);
+
     }
 
     @Override
@@ -96,7 +98,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     @Override
     public void onResume() {
         super.onResume();
-        if (StringUtils.isEmpty(mCity)) {
+        if (StringUtils.isEmpty(mCity) && mLocationClient != null && mLocationClient.isStarted()) {
             mLocationClient.requestLocation();
         }
     }
@@ -124,9 +126,8 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
 
     @Override
     public void initPresenter() {
-        mWeatherPresenter = new WeatherPresenter(getContext(), this);
+        mWeatherPresenter = new WeatherPresenter(this);
         getLifecycle().addObserver(mWeatherPresenter);
     }
-
 
 }

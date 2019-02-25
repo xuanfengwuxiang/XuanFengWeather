@@ -23,11 +23,9 @@ import java.util.List;
 
 public class WeatherPresenter implements DefaultLifecycleObserver {
 
-    private Context mContext;
     private WeatherView mWeatherView;
 
-    public WeatherPresenter(Context context, WeatherView weatherView) {
-        mContext = context;
+    public WeatherPresenter(WeatherView weatherView) {
         mWeatherView = weatherView;
     }
 
@@ -78,6 +76,5 @@ public class WeatherPresenter implements DefaultLifecycleObserver {
     @Override
     public void onDestroy(@NonNull LifecycleOwner owner) {
         Log.i("WeatherPresenter", "onDestroy走了");
-        mContext = null;
     }
 }
