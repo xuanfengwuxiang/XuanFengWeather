@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,6 +88,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView, BDLoca
         if (forecastBeanList != null && forecastBeanList.size() > 0) {
             mRvBroadcast.setData(forecastBeanList);
         }
+        WeatherUtil.doAnim(mRvBroadcast);
     }
 
     @Override
@@ -129,5 +131,4 @@ public class WeatherFragment extends BaseFragment implements WeatherView, BDLoca
         mWeatherPresenter = new WeatherPresenter(this);
         getLifecycle().addObserver(mWeatherPresenter);
     }
-
 }

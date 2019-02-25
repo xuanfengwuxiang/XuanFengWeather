@@ -1,5 +1,6 @@
 package com.xuanfeng.xuanfengweather.module.weather.utils;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -10,9 +11,11 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocationListener;
@@ -191,6 +194,16 @@ public class WeatherUtil {
         mTvLeft.setCompoundDrawables(img, null, null, null);
         mIvLeft.setVisibility(View.GONE);
         mRlHeader.setBackgroundColor(context.getResources().getColor(R.color.color_transparent));
+    }
+
+    //做圆形动画
+    public static void doAnim(View view) {
+        if (view == null) {
+            return;
+        }
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, 0, 0, 0, (float) Math.hypot(view.getWidth(), view.getHeight()));
+        anim.setDuration(2000);
+        anim.start();
     }
 
 }
