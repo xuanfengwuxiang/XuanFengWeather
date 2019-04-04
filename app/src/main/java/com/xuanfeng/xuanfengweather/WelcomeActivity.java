@@ -9,6 +9,7 @@ import com.xuanfeng.mylibrary.mvp.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -28,11 +29,15 @@ public class WelcomeActivity extends BaseActivity {
         countDownProgressBar.setOnCountDownFinishListener(new CountDownProgressBar.OnCountDownFinishListener() {
             @Override
             public void countDownFinished() {
-                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                goToMainActivity();
             }
         }).startCountDown();
+    }
+
+    private void goToMainActivity() {
+        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -65,5 +70,11 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.countDownProgressBar)
+    public void onViewClicked() {
+        countDownProgressBar.removeOnCountDownFinishListener();
+        goToMainActivity();
     }
 }
