@@ -23,8 +23,6 @@ public class LoseWeightCalculatorActivity extends BaseActivity {
     EditText etStaticHeartRate;
     @BindView(R.id.tv_best_heart_rate)
     TextView tvBestHeartRate;
-    @BindView(R.id.et_sex)
-    EditText etSex;
     @BindView(R.id.et_weight)
     EditText etWeight;
     @BindView(R.id.et_height)
@@ -33,6 +31,8 @@ public class LoseWeightCalculatorActivity extends BaseActivity {
     TextView tvRee;
     @BindView(R.id.tv_bmr)
     TextView tvBmr;
+    @BindView(R.id.tv_sex)
+    TextView tvSex;
 
     @Override
     public int getLayoutId() {
@@ -60,7 +60,7 @@ public class LoseWeightCalculatorActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
     }
 
-    @OnClick({R.id.iv_left, R.id.bt_get_rate, R.id.bt_get_rmr, R.id.bt_get_bmr})
+    @OnClick({R.id.iv_left, R.id.bt_get_rate, R.id.bt_get_rmr, R.id.bt_get_bmr, R.id.tv_sex})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
@@ -70,10 +70,13 @@ public class LoseWeightCalculatorActivity extends BaseActivity {
                 LoseWeightUtil.getHeartRate(this, etAge, etStaticHeartRate, tvBestHeartRate);
                 break;
             case R.id.bt_get_rmr://获取REE
-                LoseWeightUtil.getREE(this, etSex, etAge, etWeight, etHeight, tvRee);
+                LoseWeightUtil.getREE(this, tvSex, etAge, etWeight, etHeight, tvRee);
                 break;
             case R.id.bt_get_bmr://获取REE
-                LoseWeightUtil.getBmr(this, etSex, etAge, etWeight, etHeight, tvBmr);
+                LoseWeightUtil.getBmr(this, tvSex, etAge, etWeight, etHeight, tvBmr);
+                break;
+            case R.id.tv_sex://设置性别
+                LoseWeightUtil.setSex(this, tvSex);
                 break;
         }
     }

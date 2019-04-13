@@ -2,10 +2,16 @@ package com.xuanfeng.xuanfengweather.module.loseweight;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xuanfeng.mylibrary.utils.ToastUtil;
+import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
+import com.xuanfeng.mylibrary.widget.popupmenu.adapter.PopupMenuAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //减肥计算器工具类
 public class LoseWeightUtil {
@@ -48,12 +54,12 @@ public class LoseWeightUtil {
      * 女性 REE = (10 × 体重) +(6.25 × 身高) - (5 × 年龄) - 161
      * 男性 REE = (10 × 体重) +(6.25 × 身高) - (5 × 年龄) + 5
      */
-    public static void getREE(Context context, EditText etSex, EditText etAge, EditText etWeight, EditText etHeight, TextView tvRee) {
+    public static void getREE(Context context, TextView tvSex, EditText etAge, EditText etWeight, EditText etHeight, TextView tvRee) {
 
-        if (context == null || etSex == null || etAge == null || etWeight == null || etHeight == null || tvRee == null) {
+        if (context == null || tvSex == null || etAge == null || etWeight == null || etHeight == null || tvRee == null) {
             return;
         }
-        String sex = etSex.getText().toString();
+        String sex = tvSex.getText().toString();
         String age = etAge.getText().toString();
         String weight = etWeight.getText().toString();
         String height = etHeight.getText().toString();
@@ -93,12 +99,12 @@ public class LoseWeightUtil {
      * 男性: BMR = 66+(13.7× 体重(kg))+(5×身高(cm)) – (6.8×年龄(岁))
      * 女性: BMR = 655+(9.6×体重(kg))+(1.8×身高(cm))–(4.7×年龄(岁))
      */
-    public static void getBmr(Context context, EditText etSex, EditText etAge, EditText etWeight, EditText etHeight, TextView tvBmr) {
+    public static void getBmr(Context context, TextView tvSex, EditText etAge, EditText etWeight, EditText etHeight, TextView tvBmr) {
 
-        if (context == null || etSex == null || etAge == null || etWeight == null || etHeight == null || tvBmr == null) {
+        if (context == null || tvSex == null || etAge == null || etWeight == null || etHeight == null || tvBmr == null) {
             return;
         }
-        String sex = etSex.getText().toString();
+        String sex = tvSex.getText().toString();
         String age = etAge.getText().toString();
         String weight = etWeight.getText().toString();
         String height = etHeight.getText().toString();
@@ -135,5 +141,21 @@ public class LoseWeightUtil {
         }
 
 
+    }
+
+
+    public static void setSex(Context context, TextView tvSex) {
+        List<String> list = new ArrayList<>();
+        list.add("男");
+        list.add("女");
+        PopupMenu popupMenu = new PopupMenu(context, tvSex.getWidth(), 200, list);
+        popupMenu.setOnItemClickListener(new PopupMenuAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                tvSex.setText(list.get(position));
+                popupMenu.dismiss();
+            }
+        });
+        popupMenu.showAsDropDown(tvSex);
     }
 }
