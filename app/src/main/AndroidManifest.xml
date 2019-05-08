@@ -88,6 +88,7 @@
         <activity
             android:name=".module.loseweight.LoseWeightCalculatorActivity"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".module.test.activity.TestTouchEventActivity"></activity>
     </application>
 
 </manifest>

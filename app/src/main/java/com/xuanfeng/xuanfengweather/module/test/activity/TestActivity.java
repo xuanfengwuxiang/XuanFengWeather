@@ -28,7 +28,7 @@ public class TestActivity extends BaseActivity {
     TextView tvTestForEdittext;
     @BindView(R.id.tv_test_for_popupmenu)
     TextView mTvTestForPopupmenu;
-    @BindView(R.id.tv_test_for_pad_send)
+    @BindView(R.id.tv_test_for_touch_dispatch)
     TextView mTvTestForPadSend;
     @BindView(R.id.tv_test_for_tv_start)
     TextView mTvTestForTvStart;
@@ -48,7 +48,7 @@ public class TestActivity extends BaseActivity {
     private SoftKeyBoardUtil mSoftKeyBoardUtil;
 
 
-    @OnClick({R.id.tv_test_for_edittext, R.id.tv_test_for_popupmenu, R.id.tv_test_for_keyboard, R.id.tv_test_for_pad_send, R.id.tv_test_for_tv_start,
+    @OnClick({R.id.tv_test_for_edittext, R.id.tv_test_for_popupmenu, R.id.tv_test_for_keyboard, R.id.tv_test_for_touch_dispatch, R.id.tv_test_for_tv_start,
             R.id.tv_test_for_tv_send, R.id.tv_test_for_gallery, R.id.tv_aidl, R.id.ll_test_share_anim, R.id.iv_left})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -64,7 +64,9 @@ public class TestActivity extends BaseActivity {
                     mPopupMenu.showAsDropDown(mTvTestForPopupmenu);
                 }
                 break;
-            case R.id.tv_test_for_pad_send:
+            case R.id.tv_test_for_touch_dispatch:
+                intent = new Intent(this, TestTouchEventActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_test_for_tv_start:
                 break;
