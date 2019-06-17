@@ -1,9 +1,8 @@
 package com.xuanfeng.xuanfengweather.module.weather.presenter;
 
-import android.arch.lifecycle.DefaultLifecycleObserver;
-import android.arch.lifecycle.LifecycleOwner;
-import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.JsonObject;

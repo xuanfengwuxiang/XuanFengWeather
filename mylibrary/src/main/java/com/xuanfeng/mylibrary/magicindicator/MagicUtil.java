@@ -2,7 +2,7 @@ package com.xuanfeng.mylibrary.magicindicator;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;

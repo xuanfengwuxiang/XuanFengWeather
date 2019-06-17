@@ -2,9 +2,9 @@ package com.xuanfeng.mylibrary.utils;
 
 import android.app.Activity;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.DrawerLayout;
+import androidx.annotation.RequiresApi;
+import androidx.core.view.ViewCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;

@@ -59,24 +59,24 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_test_for_tv_start"
+            android:id="@+id/tv_test_for_service"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:background="#00bfff"
             android:gravity="center"
-            android:text="TV启动"
+            android:text="Service启动测试"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_test_for_tv_send"
+            android:id="@+id/tv_test_for_close_service"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:background="#00bfff"
             android:gravity="center"
-            android:text="TV发送"
+            android:text="Service销毁测试"
             android:textColor="@color/white"
             android:textStyle="bold" />
 

@@ -1,15 +1,11 @@
 package com.xuanfeng.xuanfengweather.mvvm;
 
-import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Window;
 import android.view.WindowManager;
-
-import com.xuanfeng.xuanfengweather.R;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

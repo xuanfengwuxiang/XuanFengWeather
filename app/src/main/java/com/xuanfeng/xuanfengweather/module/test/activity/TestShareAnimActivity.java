@@ -1,13 +1,6 @@
 package com.xuanfeng.xuanfengweather.module.test.activity;
 
-import android.app.ActivityOptions;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
-import android.transition.ChangeBounds;
-import android.transition.ChangeTransform;
-import android.transition.Fade;
-import android.transition.TransitionSet;
-import android.util.Pair;
 import android.widget.ImageView;
 import android.widget.TextView;
 

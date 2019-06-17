@@ -23,12 +23,7 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
@@ -37,7 +32,8 @@
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
@@ -88,7 +84,12 @@
         <activity
             android:name=".module.loseweight.LoseWeightCalculatorActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".module.test.activity.TestTouchEventActivity"></activity>
+        <activity android:name=".module.test.activity.TestTouchEventActivity" />
+
+        <service
+            android:name=".module.test.service.TestService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

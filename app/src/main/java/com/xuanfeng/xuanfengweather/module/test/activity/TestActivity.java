@@ -1,8 +1,12 @@
 package com.xuanfeng.xuanfengweather.module.test.activity;
 
 import android.app.ActivityOptions;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.transition.Explode;
 import android.util.Pair;
 import android.view.View;
@@ -15,6 +19,7 @@ import com.xuanfeng.mylibrary.utils.SoftKeyBoardUtil;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
 import com.xuanfeng.mylibrary.widget.popupmenu.adapter.PopupMenuAdapter;
 import com.xuanfeng.xuanfengweather.R;
+import com.xuanfeng.xuanfengweather.module.test.service.TestService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +35,9 @@ public class TestActivity extends BaseActivity {
     TextView mTvTestForPopupmenu;
     @BindView(R.id.tv_test_for_touch_dispatch)
     TextView mTvTestForPadSend;
-    @BindView(R.id.tv_test_for_tv_start)
+    @BindView(R.id.tv_test_for_service)
     TextView mTvTestForTvStart;
-    @BindView(R.id.tv_test_for_tv_send)
+    @BindView(R.id.tv_test_for_close_service)
     TextView mTvTestForTvSend;
     @BindView(R.id.tv_test_for_gallery)
     TextView mTvTestForGallery;
@@ -48,8 +53,8 @@ public class TestActivity extends BaseActivity {
     private SoftKeyBoardUtil mSoftKeyBoardUtil;
 
 
-    @OnClick({R.id.tv_test_for_edittext, R.id.tv_test_for_popupmenu, R.id.tv_test_for_keyboard, R.id.tv_test_for_touch_dispatch, R.id.tv_test_for_tv_start,
-            R.id.tv_test_for_tv_send, R.id.tv_test_for_gallery, R.id.tv_aidl, R.id.ll_test_share_anim, R.id.iv_left})
+    @OnClick({R.id.tv_test_for_edittext, R.id.tv_test_for_popupmenu, R.id.tv_test_for_keyboard, R.id.tv_test_for_touch_dispatch, R.id.tv_test_for_service,
+            R.id.tv_test_for_close_service, R.id.tv_test_for_gallery, R.id.tv_aidl, R.id.ll_test_share_anim, R.id.iv_left})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_test_for_edittext://测试自定义EditText
@@ -68,9 +73,12 @@ public class TestActivity extends BaseActivity {
                 intent = new Intent(this, TestTouchEventActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.tv_test_for_tv_start:
+            case R.id.tv_test_for_service:
+
+                startService(service);
                 break;
-            case R.id.tv_test_for_tv_send:
+            case R.id.tv_test_for_close_service:
+                stopService(service);
                 break;
             case R.id.tv_test_for_gallery:
                 intent = new Intent(this, TestForGalleryActivity.class);
@@ -132,11 +140,24 @@ public class TestActivity extends BaseActivity {
 
     }
 
+    Intent service ;
+    ServiceConnection mServiceConnection =  new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @Override
     public void initData(Bundle bundle) {
         tvTittle.setText("测试界面");
         mSoftKeyBoardUtil = SoftKeyBoardUtil.setListener(this, mKeyBoardListener);
+        service =  new Intent(this, TestService.class);
     }
 
     SoftKeyBoardUtil.KeyBoardListener mKeyBoardListener = new SoftKeyBoardUtil.KeyBoardListener() {

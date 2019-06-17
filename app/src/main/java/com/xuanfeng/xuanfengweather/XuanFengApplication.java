@@ -1,7 +1,7 @@
 package com.xuanfeng.xuanfengweather;
 
 import android.content.Context;
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 import android.text.TextUtils;
 
 import com.bumptech.glide.Glide;

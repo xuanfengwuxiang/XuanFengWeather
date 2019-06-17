@@ -1,6 +1,6 @@
 package com.xuanfeng.xuanfengweather.module.media.presenter;
 
-import android.arch.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.google.gson.JsonObject;
 import com.xuanfeng.mylibrary.http.HttpResponse;

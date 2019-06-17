@@ -1,7 +1,7 @@
 package com.xuanfeng.mylibrary.utils;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 

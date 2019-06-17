@@ -1,7 +1,7 @@
 package com.xuanfeng.xuanfengweather.module.media.model;
 
 
-import android.arch.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.xuanfeng.mylibrary.http.HttpResponse;
 import com.xuanfeng.mylibrary.mvp.BaseModel;
