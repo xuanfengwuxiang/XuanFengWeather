@@ -6,7 +6,7 @@
     android:layout_height="100dp"
     android:clipChildren="false"
     android:id="@+id/container"
-    tools:context="com.xuanfeng.xuanfengweather.module.test.activity.TestForGalleryActivity">
+    tools:context="com.xuanfeng.weather.module.test.activity.TestForGalleryActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_photo"

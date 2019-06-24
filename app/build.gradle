@@ -88,7 +88,7 @@ android {
                         //要被替换的源字符串
                         def sourceFile = "-${variant.flavorName}-${variant.buildType.name}"
                         //替换的字符串
-                        def replaceFile = "${variant.productFlavors[0].name}_${defaultConfig.applicationId}_${defaultConfig.versionName}_${defaultConfig.versionCode}_${releaseTime()}.apk"
+                        def replaceFile = "${variant.productFlavors[0].name}_${variant.applicationId}_${variant.versionName}_${variant.versionCode}_${releaseTime()}.apk"
                         outputFileName = output.outputFile.name.replace(sourceFile, replaceFile)
                         //遗留问题：如何获取当前module的name，如CodeBooke这个名字怎么获取到
 

@@ -16,7 +16,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.xuanfeng.xuanfengweather.widget.RotateImageView
+            <com.xuanfeng.weather.widget.RotateImageView
                 android:id="@+id/riv_rotate"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -35,7 +35,7 @@
 
         </LinearLayout>
 
-        <com.xuanfeng.xuanfengweather.module.weather.widget.WeatherRecyclerView
+        <com.xuanfeng.weather.module.weather.widget.WeatherRecyclerView
             android:id="@+id/rv_broadcast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

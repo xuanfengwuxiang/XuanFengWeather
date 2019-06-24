@@ -8,7 +8,7 @@
               android:focusableInTouchMode="true"
               android:orientation="vertical">
 
-    <com.xuanfeng.xuanfengweather.module.media.widget.ChatRecyclerView
+    <com.xuanfeng.weather.module.media.widget.ChatRecyclerView
         android:id="@+id/rv_chat"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xuanfeng.xuanfengweather.MainActivity"
+    tools:context="com.xuanfeng.weather.MainActivity"
     tools:openDrawer="start">
 
     <LinearLayout
@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/left_menu"
-        android:name="com.xuanfeng.xuanfengweather.module.menu.MenuFragment"
+        android:name="com.xuanfeng.weather.module.menu.MenuFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"

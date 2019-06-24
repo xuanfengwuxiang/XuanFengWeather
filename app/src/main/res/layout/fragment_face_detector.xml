@@ -4,7 +4,7 @@
     <data>
         <variable
             name="listener"
-            type="com.xuanfeng.xuanfengweather.module.media.fragment.FaceDetectorFragment"/>
+            type="com.xuanfeng.weather.module.media.fragment.FaceDetectorFragment"/>
     </data>
 
     <RelativeLayout

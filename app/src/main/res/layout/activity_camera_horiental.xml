@@ -5,7 +5,7 @@
     <data>
         <variable
             name="listener"
-            type="com.xuanfeng.xuanfengweather.module.media.activity.CameraHorientalActivity"/>
+            type="com.xuanfeng.weather.module.media.activity.CameraHorientalActivity"/>
     </data>
 
     <RelativeLayout
@@ -40,7 +40,7 @@
             android:padding="15dp"
             android:text="前置/后置"/>
 
-        <com.xuanfeng.xuanfengweather.widget.FaceViewNormal
+        <com.xuanfeng.weather.widget.FaceViewNormal
             android:id="@+id/face_view1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_transparent"
-    tools:context="com.xuanfeng.xuanfengweather.WelcomeActivity">
+    tools:context="com.xuanfeng.weather.WelcomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

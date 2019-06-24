@@ -2,18 +2,18 @@
 
 
 
-    <com.xuanfeng.xuanfengweather.module.test.widget.TestTouchLinearLayout
+    <com.xuanfeng.weather.module.test.widget.TestTouchLinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".module.test.activity.TestTouchEventActivity">
 
-        <com.xuanfeng.xuanfengweather.module.test.widget.TestTouchView
+        <com.xuanfeng.weather.module.test.widget.TestTouchView
             android:id="@+id/button"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="#ffff00" />
 
-    </com.xuanfeng.xuanfengweather.module.test.widget.TestTouchLinearLayout>
+    </com.xuanfeng.weather.module.test.widget.TestTouchLinearLayout>
 
