@@ -41,7 +41,6 @@ public class XuanFengApplication extends MultiDexApplication {
             SystemPropertyUtil.initSystemProperties(getApplicationContext());
         }
         initBugly();
-        initHttpsImage();
     }
 
     //初始化bugly
@@ -66,11 +65,6 @@ public class XuanFengApplication extends MultiDexApplication {
         // 初始化Bugly
         CrashReport.initCrashReport(getApplicationContext(), Constant.Bugly_App_ID, BuildConfig.DEBUG, strategy);
 
-    }
-
-    //初始化加载https的图片
-    private void initHttpsImage() {
-        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(HttpsImageUtil.getOkHttpClient()));
     }
 
     public static XuanFengApplication getApplication() {
