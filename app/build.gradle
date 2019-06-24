@@ -65,7 +65,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.xuanfeng.xuanfengweather"
+        applicationId "com.xuanfeng.weather"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
