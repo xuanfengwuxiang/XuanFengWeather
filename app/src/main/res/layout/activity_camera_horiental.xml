@@ -13,14 +13,14 @@
         android:layout_height="match_parent">
 
         <SurfaceView
-            android:onClick="@{listener.onClick}"
+            android:onClick="@{listener::onClick}"
             android:id="@+id/surfaceView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"/>
 
         <TextView
-            android:onClick="@{listener.onClick}"
+            android:onClick="@{listener::onClick}"
             android:id="@+id/tv_take_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:text="拍照"/>
 
         <TextView
-            android:onClick="@{listener.onClick}"
+            android:onClick="@{listener::onClick}"
             android:id="@+id/tv_turn_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                 android:layout_alignParentTop="true"/>
 
             <TextView
-                android:onClick="@{listener.onClick}"
+                android:onClick="@{listener::onClick}"
                 android:id="@+id/tv_finish_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                 android:text="完成"/>
 
             <TextView
-                android:onClick="@{listener.onClick}"
+                android:onClick="@{listener::onClick}"
                 android:id="@+id/tv_cancel_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

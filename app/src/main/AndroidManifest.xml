@@ -69,9 +69,7 @@
             android:name="com.xuanfeng.weather.MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.xuanfeng.weather.module.weather.activity.SelectCityActivity" />
-        <activity android:name="com.xuanfeng.weather.module.test.activity.TestActivity" />
-        <activity android:name="com.xuanfeng.weather.module.test.activity.TestForEditTextActivity" />
-        <activity android:name="com.xuanfeng.weather.module.test.activity.TestForGalleryActivity" />
+
         <activity android:name="com.xuanfeng.weather.module.media.activity.CameraActivity" />
         <activity android:name="com.xuanfeng.weather.mvvm.BaseActivity" />
         <activity android:name="com.xuanfeng.weather.module.media.activity.SurfaceViewActivity" />
@@ -79,17 +77,9 @@
             android:name="com.xuanfeng.weather.module.media.activity.CameraHorientalActivity"
             android:screenOrientation="landscape" />
         <activity android:name="com.xuanfeng.weather.module.media.activity.ImageViewDoodleActivity" />
-        <activity android:name="com.xuanfeng.weather.module.test.activity.TestAIDLActivity" />
-        <activity android:name="com.xuanfeng.weather.module.test.activity.TestShareAnimActivity" />
         <activity
-            android:name="com.xuanfeng.weather.module.loseweight.LoseWeightCalculatorActivity"
+            android:name=".module.loseweight.LoseWeightCalculatorActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.xuanfeng.weather.module.test.activity.TestTouchEventActivity" />
-
-        <service
-            android:name="com.xuanfeng.weather.module.test.service.TestService"
-            android:enabled="true"
-            android:exported="true"></service>
     </application>
 
 </manifest>

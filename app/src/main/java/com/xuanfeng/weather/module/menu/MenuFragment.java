@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.module.loseweight.LoseWeightCalculatorActivity;
-import com.xuanfeng.weather.module.test.activity.TestActivity;
 
 import butterknife.OnClick;
 
@@ -39,8 +39,9 @@ public class MenuFragment extends BaseFragment {
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 break;
             case R.id.tv_test:
-                intent = new Intent(getContext(), TestActivity.class);
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+//                intent = new Intent(getContext(), TestActivity.class);
+//                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                ARouter.getInstance().build("/testcomponent/TestActivity").navigation();
                 break;
         }
     }

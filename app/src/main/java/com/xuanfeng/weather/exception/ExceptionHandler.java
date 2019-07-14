@@ -34,7 +34,7 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
     public void uncaughtException(Thread thread, Throwable ex) {
         ex.printStackTrace();//不能忘记打印异常信息
         Toast.makeText(XuanFengApplication.getApplication(), "程序异常,10秒之后自动重启~", Toast.LENGTH_SHORT).show();
-        restartActivity();
+//        restartActivity();
         // kill current process
         android.os.Process.killProcess(android.os.Process.myPid());
         System.exit(1);

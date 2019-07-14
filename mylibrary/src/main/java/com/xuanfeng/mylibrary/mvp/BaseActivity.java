@@ -1,7 +1,11 @@
 package com.xuanfeng.mylibrary.mvp;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -16,11 +20,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 
-public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseView {
+public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBinding> extends AppCompatActivity implements BaseView {
 
     Unbinder unbinder;
     private Disposable mDisposable;
     private LoadingDialog mLoadingDialog;
+    protected V mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +36,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+        mBinding = DataBindingUtil.setContentView(this, getLayoutId());
 
-        setContentView(getLayoutId());//布局
         unbinder = ButterKnife.bind(this);
         initPresenter();//数据请求
         initData(getIntent().getExtras());
@@ -81,6 +86,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         }
         if (mDisposable != null && !mDisposable.isDisposed()) {//解绑rxJava
             mDisposable.dispose();
+        }
+        if (mBinding != null) {
+            mBinding.unbind();
         }
     }
 }

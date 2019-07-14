@@ -2,6 +2,7 @@ package com.xuanfeng.mylibrary.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -189,5 +190,15 @@ public class SystemUtils {
     public static String getPhoneBrand() {
         String brand = Build.BRAND;
         return brand;
+    }
+
+    public static boolean isDebug(Context context){
+        try {
+            ApplicationInfo info = context.getApplicationInfo();
+            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

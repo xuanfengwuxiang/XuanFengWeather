@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.xuanfeng.testcomponent.activity.TestAIDLActivity" />
+    </data>
+
+    <LinearLayout
+        android:background="@color/baseThemeColor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_header_height"
+            android:background="@color/baseThemeColor"
+            android:gravity="center_vertical">
+
+
+            <ImageView
+                android:onClick="@{listener::onClick}"
+                android:id="@+id/iv_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/btn_press"
+                android:paddingBottom="4dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="4dp"
+                android:scaleType="centerInside"
+                android:soundEffectsEnabled="false"
+                android:src="@drawable/ic_back"
+                android:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_tittle"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxEms="9"
+                android:scaleType="fitXY"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/tittle_color"
+                android:textSize="@dimen/header_title_size"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <EditText
+                android:id="@+id/et_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp" />
+
+            <com.xuanfeng.customtextviewlib.CustomTextView
+                android:id="@+id/tv_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:onClick="@{listener::onClick}"
+                android:padding="10dp"
+                android:text="发送数据到远程"
+                android:textColor="@color/baseThemeColor"
+                app:solid_press_color="@color/red"
+                app:stroke_color="@color/baseThemeColor"
+                app:stroke_press_color="@color/red"
+                app:stroke_radius="5dp"
+                app:stroke_width="1dp"
+                app:text_press_color="@color/white" />
+
+            <com.xuanfeng.customtextviewlib.CustomTextView
+                android:id="@+id/tv_get_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:onClick="@{listener::onClick}"
+                android:padding="10dp"
+                android:text="获取远程APP数据"
+                android:textColor="@color/baseThemeColor"
+                app:solid_press_color="@color/red"
+                app:stroke_color="@color/baseThemeColor"
+                app:stroke_press_color="@color/red"
+                app:stroke_radius="5dp"
+                app:stroke_width="1dp"
+                app:text_press_color="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:text="默认数据" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</layout>
