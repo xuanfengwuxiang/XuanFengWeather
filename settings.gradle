@@ -1,1 +1,1 @@
-include ':app', ':daogenerator', ':mylibrary', ':testcomponent'
+include ':app',  ':mylibrary', ':testcomponent'

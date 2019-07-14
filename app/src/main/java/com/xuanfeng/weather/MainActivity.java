@@ -6,31 +6,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.StatusBarUtil;
 import com.xuanfeng.mylibrary.widget.NoScrollViewPager;
+import com.xuanfeng.weather.databinding.ActivityMainBinding;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity {
-
-
-    @BindView(R.id.vp_main)
-    NoScrollViewPager mVpMain;
-
-    @BindView(R.id.rb_one)
-    RadioButton mRbOne;
-
-    @BindView(R.id.rb_two)
-    RadioButton mRbTwo;
-
-    @BindView(R.id.rb_three)
-    RadioButton mRbThree;
-
-    @BindView(R.id.activity_main)
-    LinearLayout mActivityMain;
-
-    @BindView(R.id.rb_parent)
-    RadioGroup mRbParent;
+public class MainActivity extends BaseActivity<BasePresenter, ActivityMainBinding> {
 
 
     @Override
@@ -44,15 +27,15 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void initPresenter() {
-
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @Override
     public void initData(Bundle bundle) {
-        MainUtil.setCheckListener(mRbParent, this, mVpMain, mActivityMain);
-        MainUtil.setViewPagerAdapter(this, mVpMain);
-        mRbOne.setChecked(true);
+        MainUtil.setCheckListener(mBinding.rbParent, this, mBinding.vpMain, mBinding.activityMain);
+        MainUtil.setViewPagerAdapter(this, mBinding.vpMain);
+        mBinding.rbOne.setChecked(true);
         StatusBarUtil.setStatusBarColor(this, R.color.baseThemeColor, false);
     }
 

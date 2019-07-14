@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 
 import butterknife.BindView;
@@ -40,8 +41,8 @@ public class LoseWeightCalculatorActivity extends BaseActivity {
     }
 
     @Override
-    public void initPresenter() {
-
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @Override

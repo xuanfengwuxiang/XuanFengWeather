@@ -3,20 +3,23 @@ package com.xuanfeng.weather;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+
+import androidx.core.app.ActivityCompat;
 
 import com.xuanfeng.countdownprogressview.CountDownProgressBar;
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
+import com.xuanfeng.weather.databinding.ActivityWelcomeBinding;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WelcomeActivity extends BaseActivity {
+public class WelcomeActivity extends BaseActivity<BasePresenter, ActivityWelcomeBinding> {
 
     public static final String[] PERMISSIONS = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA};// 需要的权限
-    @BindView(R.id.countDownProgressBar)
-    CountDownProgressBar countDownProgressBar;
-
+    private static final int requestCode = 1;
 
     @Override//权限检查放在onresume里原因，从权限检查界面回来的时候不需要走result方法
     protected void onResume() {
@@ -26,15 +29,12 @@ public class WelcomeActivity extends BaseActivity {
 
     private void delayToNextActivity() {
 
-        countDownProgressBar.setOnCountDownFinishListener(new CountDownProgressBar.OnCountDownFinishListener() {
-            @Override
-            public void countDownFinished() {
-                goToMainActivity();
-            }
-        }).startCountDown();
+        mBinding.countDownProgressBar.setOnCountDownFinishListener(() -> goToMainActivity()).startCountDown();
     }
 
     private void goToMainActivity() {
+        ActivityCompat.requestPermissions(this, PERMISSIONS, requestCode);
+
         Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -46,8 +46,9 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     @Override
-    public void initPresenter() {
-
+    public BasePresenter initPresenter() {
+        mBinding.setListener(this);
+        return null;
     }
 
 
@@ -72,9 +73,8 @@ public class WelcomeActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.countDownProgressBar)
-    public void onViewClicked() {
-        countDownProgressBar.removeOnCountDownFinishListener();
+    public void onClick(View view) {
+        mBinding.countDownProgressBar.removeOnCountDownFinishListener();
         goToMainActivity();
     }
 }

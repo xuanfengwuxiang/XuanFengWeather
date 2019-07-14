@@ -13,7 +13,7 @@ public interface BaseView {
 
     int getLayoutId();//布局id
 
-    void initPresenter();//P层
+    BasePresenter initPresenter();//P层
 
     void initData(Bundle bundle);//初始化数据
 

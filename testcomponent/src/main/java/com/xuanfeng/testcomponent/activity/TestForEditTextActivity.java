@@ -3,6 +3,7 @@ package com.xuanfeng.testcomponent.activity;
 import android.os.Bundle;
 
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.testcomponent.R;
 
 public class TestForEditTextActivity extends BaseActivity {
@@ -14,7 +15,8 @@ public class TestForEditTextActivity extends BaseActivity {
     }
 
     @Override
-    public void initPresenter() {
+    public BasePresenter initPresenter() {
+        return null;
     }
 
 

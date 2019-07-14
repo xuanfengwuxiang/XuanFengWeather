@@ -9,7 +9,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
+import com.xuanfeng.weather.databinding.FragmentEntertainmentBinding;
 import com.xuanfeng.weather.module.media.util.MediaUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -18,7 +20,7 @@ import butterknife.BindView;
 import butterknife.Unbinder;
 
 //第二个模块的总fragment
-public class MediaFragment extends BaseFragment {
+public class MediaFragment extends BaseFragment<BasePresenter, FragmentEntertainmentBinding> {
 
     @BindView(R.id.magic_indicator)
     MagicIndicator mMagicIndicator;
@@ -42,8 +44,8 @@ public class MediaFragment extends BaseFragment {
         return R.layout.fragment_entertainment;
     }
 
-    public void initPresenter() {
-
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     public void initData(Bundle bundle) {

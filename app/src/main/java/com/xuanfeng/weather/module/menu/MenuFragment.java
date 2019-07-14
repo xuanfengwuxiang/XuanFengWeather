@@ -7,13 +7,15 @@ import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
+import com.xuanfeng.weather.databinding.FragmentMenuBinding;
 import com.xuanfeng.weather.module.loseweight.LoseWeightCalculatorActivity;
 
 import butterknife.OnClick;
 
 //侧滑界面
-public class MenuFragment extends BaseFragment {
+public class MenuFragment extends BaseFragment<BasePresenter, FragmentMenuBinding> {
 
     @Override
     public int getLayoutId() {
@@ -21,8 +23,8 @@ public class MenuFragment extends BaseFragment {
     }
 
     @Override
-    public void initPresenter() {
-
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @Override

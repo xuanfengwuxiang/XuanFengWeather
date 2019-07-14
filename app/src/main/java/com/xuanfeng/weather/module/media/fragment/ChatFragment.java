@@ -5,8 +5,12 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.databinding.ViewDataBinding;
+
 import com.xuanfeng.customtextviewlib.CustomTextView;
+import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.module.media.model.ChatModel;
 import com.xuanfeng.weather.module.media.presenter.ChatPresenter;
@@ -18,7 +22,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 //聊天界面
-public class ChatFragment extends BaseFragment<ChatPresenter> implements ChatView {
+public class ChatFragment extends BaseFragment<ChatPresenter, ViewDataBinding> implements ChatView {
 
 
     @BindView(R.id.rv_chat)
@@ -50,8 +54,9 @@ public class ChatFragment extends BaseFragment<ChatPresenter> implements ChatVie
     }
 
     @Override
-    public void initPresenter() {
+    public BasePresenter initPresenter() {
         mChatPresenter = new ChatPresenter(this, new ChatModel(this));
+        return mChatPresenter;
     }
 
     @Override

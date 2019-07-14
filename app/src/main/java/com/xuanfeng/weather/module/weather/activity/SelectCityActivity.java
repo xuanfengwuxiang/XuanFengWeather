@@ -13,6 +13,7 @@ import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.module.weather.utils.WeatherUtil;
 
@@ -108,8 +109,8 @@ public class SelectCityActivity extends BaseActivity {
     }
 
     @Override
-    public void initPresenter() {
-
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @Override

@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.xuanfeng.mylibrary.magicindicator.MagicListener;
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
+import com.xuanfeng.weather.databinding.FragmentPersonalBinding;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -20,7 +22,7 @@ import butterknife.Unbinder;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
 //新闻界面
-public class NewsFragment extends BaseFragment {
+public class NewsFragment extends BaseFragment<BasePresenter, FragmentPersonalBinding> {
 
     @BindView(R.id.magic_indicator)
     MagicIndicator mMagicIndicator;
@@ -95,8 +97,8 @@ public class NewsFragment extends BaseFragment {
     }
 
     @Override
-    public void initPresenter() {
-
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @Override

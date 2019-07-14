@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 import com.xuanfeng.mylibrary.http.HttpResponse;
 import com.xuanfeng.mylibrary.http.httpMgr.HttpManager;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.StringUtils;
 import com.xuanfeng.weather.constant.HttpConstant;
 import com.xuanfeng.weather.module.weather.view.WeatherView;
@@ -20,11 +21,12 @@ import java.util.List;
  * Created by xuanfengwuxiang on 2017/12/13.
  */
 
-public class WeatherPresenter implements DefaultLifecycleObserver {
+public class WeatherPresenter extends BasePresenter implements DefaultLifecycleObserver {
 
     private WeatherView mWeatherView;
 
     public WeatherPresenter(WeatherView weatherView) {
+        super(weatherView,null);
         mWeatherView = weatherView;
     }
 

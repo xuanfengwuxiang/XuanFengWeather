@@ -9,7 +9,7 @@ import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestShareAnimBinding;
 
 
-public class TestShareAnimActivity extends BaseActivity<BasePresenter, ActivityTestShareAnimBinding>implements View.OnClickListener {
+public class TestShareAnimActivity extends BaseActivity<BasePresenter, ActivityTestShareAnimBinding> implements View.OnClickListener {
 
 
     @Override
@@ -24,8 +24,9 @@ public class TestShareAnimActivity extends BaseActivity<BasePresenter, ActivityT
     }
 
     @Override
-    public void initPresenter() {
+    public BasePresenter initPresenter() {
         mBinding.setListener(this);
+        return null;
     }
 
     @Override

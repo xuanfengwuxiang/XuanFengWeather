@@ -6,7 +6,9 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
+import com.xuanfeng.weather.databinding.FragmentMaterialDesginBinding;
 import com.xuanfeng.weather.module.media.adapter.ViewPagerPhotoAdapter;
 import com.xuanfeng.weather.widget.ZoomOutPageTransformer;
 
@@ -17,7 +19,7 @@ import butterknife.BindView;
 import butterknife.Unbinder;
 
 
-public class PhotoShowFragment extends BaseFragment {
+public class PhotoShowFragment extends BaseFragment <BasePresenter, FragmentMaterialDesginBinding>{
 
     @BindView(R.id.tablayout)
     TabLayout mTablayout;
@@ -85,8 +87,8 @@ public class PhotoShowFragment extends BaseFragment {
     }
 
     @Override
-    public void initPresenter() {
-
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @Override

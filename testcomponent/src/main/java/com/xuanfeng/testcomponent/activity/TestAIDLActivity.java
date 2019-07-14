@@ -25,8 +25,9 @@ public class TestAIDLActivity extends BaseActivity<BasePresenter, ActivityTestAi
     }
 
     @Override
-    public void initPresenter() {
+    public BasePresenter initPresenter() {
         mBinding.setListener(this);
+        return null;
     }
 
     @Override

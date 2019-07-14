@@ -3,10 +3,12 @@ package com.xuanfeng.weather.module.media.fragment;
 import android.os.Bundle;
 
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
+import com.xuanfeng.weather.databinding.FragmentGalleryBinding;
 
 //todo 换新的视频播放
-public class VideoFragment extends BaseFragment {
+public class VideoFragment extends BaseFragment<BasePresenter, FragmentGalleryBinding> {
     //mVideoUrl = "http://200000594.vod.myqcloud.com/200000594_1617cc56708f11e596723b988fc18469.f20.mp4";
 
     @Override
@@ -15,8 +17,8 @@ public class VideoFragment extends BaseFragment {
     }
 
     @Override
-    public void initPresenter() {
-
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @Override

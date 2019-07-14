@@ -110,8 +110,9 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
     }
 
     @Override
-    public void initPresenter() {
+    public BasePresenter initPresenter() {
         mBinding.setListener(this);
+        return null;
     }
 
     Intent service;

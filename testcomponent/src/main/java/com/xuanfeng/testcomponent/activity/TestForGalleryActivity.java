@@ -49,7 +49,8 @@ public class TestForGalleryActivity extends BaseActivity<BasePresenter, Activity
     }
 
     @Override
-    public void initPresenter() {
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     public void initListener() {

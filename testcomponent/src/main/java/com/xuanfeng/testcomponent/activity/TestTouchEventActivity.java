@@ -11,8 +11,7 @@ import com.xuanfeng.testcomponent.databinding.ActivityTestTouchEventBinding;
 /**
  * 事件分发测试界面
  */
-public class TestTouchEventActivity extends BaseActivity <BasePresenter, ActivityTestTouchEventBinding>{
-
+public class TestTouchEventActivity extends BaseActivity<BasePresenter, ActivityTestTouchEventBinding> {
 
 
     @Override
@@ -21,8 +20,8 @@ public class TestTouchEventActivity extends BaseActivity <BasePresenter, Activit
     }
 
     @Override
-    public void initPresenter() {
-
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @Override
