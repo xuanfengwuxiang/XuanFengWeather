@@ -12,25 +12,15 @@ import com.xuanfeng.mylibrary.magicindicator.MagicListener;
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
-import com.xuanfeng.weather.databinding.FragmentPersonalBinding;
-
-import net.lucode.hackware.magicindicator.MagicIndicator;
+import com.xuanfeng.weather.databinding.FragmentNewsBinding;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 
 //新闻界面
-public class NewsFragment extends BaseFragment<BasePresenter, FragmentPersonalBinding> {
+public class NewsFragment extends BaseFragment<BasePresenter, FragmentNewsBinding> {
 
-    @BindView(R.id.magic_indicator)
-    MagicIndicator mMagicIndicator;
-    @BindView(R.id.webView)
-    WebView webView;
-    Unbinder unbinder;
-    @BindView(R.id.ptr_frame_layout)
-    PtrFrameLayout mPtrFrameLayout;
+
     @BindView(R.id.iv_left)
     ImageView mIvLeft;
 
@@ -44,7 +34,7 @@ public class NewsFragment extends BaseFragment<BasePresenter, FragmentPersonalBi
 
     //设置新的URL
     private void setWebViewUrl() {
-        webView.loadUrl(mCurrentUrl);
+        mBinding.webView.loadUrl(mCurrentUrl);
     }
 
     WebViewClient mWebViewClient = new WebViewClient() {
@@ -60,8 +50,8 @@ public class NewsFragment extends BaseFragment<BasePresenter, FragmentPersonalBi
     MagicListener mMagicListener = new MagicListener() {
         @Override
         public void onClick(int position, String key) {
-            mMagicIndicator.onPageSelected(position);
-            webView.clearHistory();
+            mBinding.magicIndicator.onPageSelected(position);
+            mBinding.webView.clearHistory();
             mCurrentUrl = key;
             setWebViewUrl();
         }
@@ -84,7 +74,7 @@ public class NewsFragment extends BaseFragment<BasePresenter, FragmentPersonalBi
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
-                NewsUtil.webViewGoBack(webView);
+                NewsUtil.webViewGoBack(mBinding.webView);
                 break;
             case R.id.tv_left:
                 break;
@@ -93,7 +83,7 @@ public class NewsFragment extends BaseFragment<BasePresenter, FragmentPersonalBi
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_personal;
+        return R.layout.fragment_news;
     }
 
     @Override
@@ -104,10 +94,10 @@ public class NewsFragment extends BaseFragment<BasePresenter, FragmentPersonalBi
     @Override
     public void initData(Bundle bundle) {
         NewsUtil.setTittleBar(getContext(), mTvTittle, mIvLeft);
-        mWebSettings = NewsUtil.initWebViewSettings(webView);
-        NewsUtil.initPtrFrameLayout(getContext(), mPtrFrameLayout, webView);
-        webView.setWebViewClient(mWebViewClient);
-        mCurrentUrl = NewsUtil.initMagicIndicator(getContext(), mMagicIndicator, mMagicListener);
+        mWebSettings = NewsUtil.initWebViewSettings(mBinding.webView);
+        NewsUtil.initPtrFrameLayout(getContext(), mBinding.ptrFrameLayout, mBinding.webView);
+        mBinding.webView.setWebViewClient(mWebViewClient);
+        mCurrentUrl = NewsUtil.initMagicIndicator(getContext(), mBinding.magicIndicator, mMagicListener);
         setWebViewUrl();
     }
 }

@@ -15,12 +15,13 @@ import com.baidu.mapapi.search.poi.PoiResult;
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
+import com.xuanfeng.weather.databinding.ActivitySelectCityBinding;
 import com.xuanfeng.weather.module.weather.utils.WeatherUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SelectCityActivity extends BaseActivity {
+public class SelectCityActivity extends BaseActivity<BasePresenter, ActivitySelectCityBinding> {
 
     public static final String LONGITUDE = "longitude";
     public static final String LATITUDE = "latitude";
@@ -28,11 +29,6 @@ public class SelectCityActivity extends BaseActivity {
     @BindView(R.id.tv_tittle)
     TextView mTvTitle;
 
-    @BindView(R.id.et_input)
-    EditText mEtInput;
-
-    @BindView(R.id.mapView)
-    MapView mMapView;
 
 
     @Override
@@ -48,7 +44,7 @@ public class SelectCityActivity extends BaseActivity {
         if (intent != null) {
             double lontitude = intent.getDoubleExtra(LONGITUDE, 0);
             double latitude = intent.getDoubleExtra(LATITUDE, 0);
-            WeatherUtil.updateMapPosition(latitude, lontitude, mMapView);
+            WeatherUtil.updateMapPosition(latitude, lontitude, mBinding.mapView);
         }
     }
 
@@ -60,7 +56,7 @@ public class SelectCityActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_search://搜索
-                WeatherUtil.searchFromBaidu(this, mEtInput, poiListener);
+                WeatherUtil.searchFromBaidu(this, mBinding.etInput, poiListener);
                 break;
         }
     }
@@ -69,7 +65,7 @@ public class SelectCityActivity extends BaseActivity {
     OnGetPoiSearchResultListener poiListener = new OnGetPoiSearchResultListener() {
 
         public void onGetPoiResult(PoiResult result) {
-            WeatherUtil.updateMapPosition(result, mMapView);
+            WeatherUtil.updateMapPosition(result, mBinding.mapView);
         }
 
         public void onGetPoiDetailResult(PoiDetailResult result) {
@@ -85,8 +81,8 @@ public class SelectCityActivity extends BaseActivity {
 
     @Override
     public void onDestroy() {
-        if (mMapView != null) {
-            mMapView.onDestroy();
+        if (mBinding.mapView != null) {
+            mBinding.mapView.onDestroy();
         }
         super.onDestroy();
     }
@@ -94,13 +90,13 @@ public class SelectCityActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mMapView.onResume();
+        mBinding.mapView.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mMapView.onPause();
+        mBinding.mapView.onPause();
     }
 
     @Override

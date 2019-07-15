@@ -3,6 +3,9 @@
 
     <data>
 
+        <variable
+            name="listener"
+            type="com.xuanfeng.weather.module.menu.MenuFragment" />
     </data>
 
     <RelativeLayout
@@ -25,6 +28,7 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:onClick="@{listener::onClick}"
                 android:gravity="center"
                 android:id="@+id/tv_lose_weight"
                 android:text="减肥计算器"
@@ -32,21 +36,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
 
-            <LinearLayout
-                android:gravity="bottom"
+            <TextView
+                android:onClick="@{listener::onClick}"
+                android:gravity="center"
+                android:id="@+id/tv_test"
+                android:textColor="@color/white"
+                android:background="@color/baseThemeColor"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:gravity="center"
-                    android:id="@+id/tv_test"
-                    android:textColor="@color/white"
-                    android:background="@color/baseThemeColor"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="进入测试" />
-            </LinearLayout>
+                android:text="进入测试" />
 
         </LinearLayout>
 

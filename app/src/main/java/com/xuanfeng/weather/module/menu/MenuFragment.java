@@ -29,20 +29,17 @@ public class MenuFragment extends BaseFragment<BasePresenter, FragmentMenuBindin
 
     @Override
     public void initData(Bundle bundle) {
-
+        mBinding.setListener(this);
     }
 
 
-    @OnClick({R.id.tv_lose_weight, R.id.tv_test})
-    public void onViewClicked(View view) {
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_lose_weight:
                 Intent intent = new Intent(getContext(), LoseWeightCalculatorActivity.class);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 break;
             case R.id.tv_test:
-//                intent = new Intent(getContext(), TestActivity.class);
-//                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 ARouter.getInstance().build("/testcomponent/TestActivity").navigation();
                 break;
         }
