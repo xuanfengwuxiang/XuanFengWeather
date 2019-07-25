@@ -7,11 +7,18 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,11 +31,27 @@ import java.util.HashMap;
 public class ImageUtil {
 
     public static void loadImage(Context context, String url, ImageView imageView) {
-        Glide.with(context).load(url).into(imageView);
+        Glide.with(context).asDrawable().load(url).into(imageView);
     }
 
     public static void loadImage(Context context, int resId, ImageView imageView) {
-        Glide.with(context).load(resId).into(imageView);
+        Glide.with(context).asDrawable().load(resId).into(imageView);
+    }
+
+    public static void loadImage(Context context, int resId, View view) {
+
+        int width = context.getResources().getDisplayMetrics().widthPixels;
+        int height = context.getResources().getDisplayMetrics().heightPixels;
+        Glide.with(context).asDrawable()
+                .load(resId)
+                .into(new SimpleTarget<Drawable>(width, height) {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+
+                        view.setBackgroundDrawable(resource);
+                    }
+                });
+
     }
 
     //修改控件的图片颜色   R  G   B范围0-255
@@ -70,16 +93,16 @@ public class ImageUtil {
     }
 
     //获取网络视频第一帧图片，待检验
-    public static Bitmap getBitmap(Context context,String url, boolean isSD) {
+    public static Bitmap getBitmap(Context context, String url, boolean isSD) {
         Bitmap bitmap = null;
         //MediaMetadataRetriever 是android中定义好的一个类，提供了统一
         //的接口，用于从输入的媒体文件中取得帧和元数据；
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         try {
-            if (isSD){
+            if (isSD) {
                 //（）根据文件路径获取缩略图
                 retriever.setDataSource(context, Uri.fromFile(new File(url)));
-            }else {
+            } else {
                 //根据网络路径获取缩略图
                 retriever.setDataSource(url, new HashMap());
             }

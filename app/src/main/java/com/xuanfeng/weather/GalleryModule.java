@@ -7,8 +7,5 @@ import com.bumptech.glide.module.AppGlideModule;
 @GlideModule
 public final class GalleryModule extends AppGlideModule {
   // Intentionally empty.
-  @Override
-  public boolean isManifestParsingEnabled() {
-      return false;
-  }
+
 }

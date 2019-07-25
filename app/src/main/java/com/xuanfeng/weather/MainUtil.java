@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.xuanfeng.mylibrary.utils.ImageUtil;
 import com.xuanfeng.mylibrary.widget.NoScrollViewPager;
 import com.xuanfeng.weather.module.media.fragment.MediaFragment;
 import com.xuanfeng.weather.module.news.NewsFragment;
@@ -51,23 +52,20 @@ public class MainUtil {
     //设置导航按钮监听
     public static void setCheckListener(RadioGroup mRbParent, final Context context, final NoScrollViewPager mVpMain,
                                         final LinearLayout mActivityMain) {
-        mRbParent.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_one:
-                        mVpMain.setCurrentItem(0, false);
-                        mActivityMain.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_sunny_day));
-                        break;
-                    case R.id.rb_two:
-                        mVpMain.setCurrentItem(1, false);
-                        mActivityMain.setBackgroundColor(context.getResources().getColor(R.color.baseThemeColor));
-                        break;
-                    case R.id.rb_three:
-                        mVpMain.setCurrentItem(2, false);
-                        mActivityMain.setBackgroundColor(context.getResources().getColor(R.color.baseThemeColor));
-                        break;
-                }
+        mRbParent.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.rb_one:
+                    mVpMain.setCurrentItem(0, false);
+                    ImageUtil.loadImage(context,R.drawable.ic_sunny_day,mActivityMain);
+                    break;
+                case R.id.rb_two:
+                    mVpMain.setCurrentItem(1, false);
+                    mActivityMain.setBackgroundColor(context.getResources().getColor(R.color.baseThemeColor));
+                    break;
+                case R.id.rb_three:
+                    mVpMain.setCurrentItem(2, false);
+                    mActivityMain.setBackgroundColor(context.getResources().getColor(R.color.baseThemeColor));
+                    break;
             }
         });
     }

@@ -19,7 +19,6 @@ import butterknife.Unbinder;
 //基类Fragment
 public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBinding> extends Fragment implements BaseView {
 
-    Unbinder unbinder;
     private LoadingDialog mLoadingDialog;
     protected V mBinding;
     protected P mPresenter;
@@ -30,7 +29,6 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), getLayoutId(), container, false);
 
-        unbinder = ButterKnife.bind(this, mBinding.getRoot());
         mPresenter = (P) initPresenter();//数据请求
         initData(getArguments());
         return mBinding.getRoot();
@@ -64,8 +62,8 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (unbinder != null) {
-            unbinder.unbind();
+        if (mBinding != null) {
+            mBinding.unbind();
         }
     }
 
