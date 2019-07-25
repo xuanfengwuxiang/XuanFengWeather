@@ -109,6 +109,7 @@ public class WeatherFragment extends BaseFragment<WeatherPresenter, FragmentWeat
     public BasePresenter initPresenter() {
         WeatherPresenter presenter = new WeatherPresenter(this);
         getLifecycle().addObserver(presenter);
+        mBinding.setListener(this);
         return presenter;
     }
 }

@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="com.xuanfeng.mylibrary.mvp.BaseActivity" />
+
+        <variable
+            name="selectCityActivity"
+            type="com.xuanfeng.weather.module.weather.activity.SelectCityActivity" />
     </data>
 
     <LinearLayout
@@ -12,7 +18,10 @@
         android:background="@color/baseThemeColor"
         android:orientation="vertical">
 
-        <include layout="@layout/include_title_bar_one" />
+        <include
+            android:id="@+id/include_tittle"
+            layout="@layout/include_title_bar_one"
+            bind:activity="@{(BaseActivity)selectCityActivity}" />
 
         <!--搜索-->
         <LinearLayout
@@ -32,10 +41,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
                 android:text="搜索"
                 android:textColor="@color/colorAccent"
                 app:solid_press_color="@color/baseThemeColor"
