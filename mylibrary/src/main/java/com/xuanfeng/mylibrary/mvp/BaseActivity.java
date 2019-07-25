@@ -23,7 +23,6 @@ import io.reactivex.functions.Consumer;
 
 public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBinding> extends AppCompatActivity implements BaseView {
 
-    Unbinder unbinder;
     private Disposable mDisposable;
     private LoadingDialog mLoadingDialog;
     protected V mBinding;
@@ -39,7 +38,6 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
         }
         mBinding = DataBindingUtil.setContentView(this, getLayoutId());
 
-        unbinder = ButterKnife.bind(this);
         initPresenter();//数据请求
         initData(getIntent().getExtras());
 
@@ -82,8 +80,8 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (unbinder != null) {//解绑butterKnife
-            unbinder.unbind();
+        if (mBinding != null) {
+            mBinding.unbind();
         }
         if (mDisposable != null && !mDisposable.isDisposed()) {//解绑rxJava
             mDisposable.dispose();
