@@ -1,6 +1,7 @@
 package com.xuanfeng.mylibrary.mvp;
 
 import android.os.Bundle;
+import android.view.View;
 
 /**
  * Created by xuanfengwuxiang on 2018/3/1.
@@ -22,4 +23,7 @@ public interface BaseView {
     void showProgress();
 
     void hideProgress();
+
+    void onClick(View view);//点击事件
+
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -90,5 +91,10 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
         if (mBinding != null) {
             mBinding.unbind();
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

@@ -1,9 +1,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="com.xuanfeng.mylibrary.mvp.BaseFragment" />
+
+        <variable
+            name="fragment"
+            type="com.xuanfeng.weather.module.news.NewsFragment" />
     </data>
 
     <RelativeLayout
@@ -17,7 +23,10 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-            <include layout="@layout/include_title_bar_one" />
+            <include
+                android:id="@+id/include_tittle"
+                layout="@layout/include_fragment_title_bar_one"
+                bind:fragment="@{(BaseFragment)fragment}" />
 
             <net.lucode.hackware.magicindicator.MagicIndicator
                 android:id="@+id/magic_indicator"

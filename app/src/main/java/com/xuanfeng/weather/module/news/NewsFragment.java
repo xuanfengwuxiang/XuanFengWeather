@@ -5,8 +5,6 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.xuanfeng.mylibrary.magicindicator.MagicListener;
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
@@ -14,19 +12,9 @@ import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentNewsBinding;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
 //新闻界面
 public class NewsFragment extends BaseFragment<BasePresenter, FragmentNewsBinding> {
 
-
-    @BindView(R.id.iv_left)
-    ImageView mIvLeft;
-
-
-    @BindView(R.id.tv_tittle)
-    TextView mTvTittle;
 
     private WebSettings mWebSettings;
     private String mCurrentUrl;
@@ -69,18 +57,6 @@ public class NewsFragment extends BaseFragment<BasePresenter, FragmentNewsBindin
         mWebSettings.setJavaScriptEnabled(false);
     }
 
-
-    @OnClick({R.id.iv_left, R.id.tv_left})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.iv_left:
-                NewsUtil.webViewGoBack(mBinding.webView);
-                break;
-            case R.id.tv_left:
-                break;
-        }
-    }
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_news;
@@ -88,16 +64,25 @@ public class NewsFragment extends BaseFragment<BasePresenter, FragmentNewsBindin
 
     @Override
     public BasePresenter initPresenter() {
+        mBinding.setFragment(this);
         return null;
     }
 
     @Override
     public void initData(Bundle bundle) {
-        NewsUtil.setTittleBar(getContext(), mTvTittle, mIvLeft);
+        NewsUtil.setTittleBar(getContext(), mBinding.includeTittle.tvTittle, mBinding.includeTittle.ivLeft);
         mWebSettings = NewsUtil.initWebViewSettings(mBinding.webView);
         NewsUtil.initPtrFrameLayout(getContext(), mBinding.ptrFrameLayout, mBinding.webView);
         mBinding.webView.setWebViewClient(mWebViewClient);
         mCurrentUrl = NewsUtil.initMagicIndicator(getContext(), mBinding.magicIndicator, mMagicListener);
         setWebViewUrl();
+    }
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_left:
+                NewsUtil.webViewGoBack(mBinding.webView);
+                break;
+        }
     }
 }

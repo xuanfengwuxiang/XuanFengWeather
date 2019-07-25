@@ -68,4 +68,9 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
             unbinder.unbind();
         }
     }
+
+    @Override
+    public void onClick(View view) {
+
+    }
 }
