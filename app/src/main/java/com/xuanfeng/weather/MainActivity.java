@@ -1,17 +1,11 @@
 package com.xuanfeng.weather;
 
 import android.os.Bundle;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.StatusBarUtil;
-import com.xuanfeng.mylibrary.widget.NoScrollViewPager;
 import com.xuanfeng.weather.databinding.ActivityMainBinding;
-
-import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<BasePresenter, ActivityMainBinding> {
 

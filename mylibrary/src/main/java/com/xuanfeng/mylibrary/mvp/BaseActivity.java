@@ -1,22 +1,19 @@
 package com.xuanfeng.mylibrary.mvp;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.xuanfeng.mylibrary.rxbus.RxBean;
 import com.xuanfeng.mylibrary.rxbus.RxBus;
 import com.xuanfeng.mylibrary.utils.StatusBarUtil;
 import com.xuanfeng.mylibrary.widget.LoadingDialog;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
@@ -26,6 +23,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
     private Disposable mDisposable;
     private LoadingDialog mLoadingDialog;
     protected V mBinding;
+    protected P mPresentor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +36,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
         }
         mBinding = DataBindingUtil.setContentView(this, getLayoutId());
 
-        initPresenter();//数据请求
+        mPresentor = (P) initPresenter();
         initData(getIntent().getExtras());
 
     }

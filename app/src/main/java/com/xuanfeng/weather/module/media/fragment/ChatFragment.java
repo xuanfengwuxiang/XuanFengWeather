@@ -2,13 +2,8 @@ package com.xuanfeng.weather.module.media.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.databinding.ViewDataBinding;
-
-import com.xuanfeng.customtextviewlib.CustomTextView;
-import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
@@ -16,18 +11,12 @@ import com.xuanfeng.weather.databinding.FragmentChatBinding;
 import com.xuanfeng.weather.module.media.model.ChatModel;
 import com.xuanfeng.weather.module.media.presenter.ChatPresenter;
 import com.xuanfeng.weather.module.media.view.ChatView;
-import com.xuanfeng.weather.module.media.widget.ChatRecyclerView;
 import com.xuanfeng.weather.module.media.widget.ChatRecyclerView.ChatBean;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 //聊天界面
 public class ChatFragment extends BaseFragment<ChatPresenter, FragmentChatBinding> implements ChatView {
-
-
-
-    private ChatPresenter mChatPresenter;
 
 
     @OnClick(R.id.tv_send)
@@ -39,7 +28,7 @@ public class ChatFragment extends BaseFragment<ChatPresenter, FragmentChatBindin
         }
         mBinding.rvChat.setData(new ChatBean("me", content));
         mBinding.etInput.getText().clear();
-        mChatPresenter.getReply(this, content);
+        mPresenter.getReply(this, content);
     }
 
     @Override
@@ -49,8 +38,7 @@ public class ChatFragment extends BaseFragment<ChatPresenter, FragmentChatBindin
 
     @Override
     public BasePresenter initPresenter() {
-        mChatPresenter = new ChatPresenter(this, new ChatModel(this));
-        return mChatPresenter;
+        return new ChatPresenter(this, new ChatModel(this));
     }
 
     @Override
