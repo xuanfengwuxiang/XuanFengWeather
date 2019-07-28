@@ -2,6 +2,7 @@ package com.xuanfeng.weather.module.media.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
@@ -13,14 +14,11 @@ import com.xuanfeng.weather.module.media.presenter.ChatPresenter;
 import com.xuanfeng.weather.module.media.view.ChatView;
 import com.xuanfeng.weather.module.media.widget.ChatRecyclerView.ChatBean;
 
-import butterknife.OnClick;
-
 //聊天界面
 public class ChatFragment extends BaseFragment<ChatPresenter, FragmentChatBinding> implements ChatView {
 
 
-    @OnClick(R.id.tv_send)
-    public void onViewClicked() {
+    public void onClick(View view) {
         String content = mBinding.etInput.getText().toString();
         if (TextUtils.isEmpty(content)) {
             Toast.makeText(getContext(), "请输入聊天内容", Toast.LENGTH_SHORT).show();
@@ -38,6 +36,7 @@ public class ChatFragment extends BaseFragment<ChatPresenter, FragmentChatBindin
 
     @Override
     public BasePresenter initPresenter() {
+        mBinding.setFragment(this);
         return new ChatPresenter(this, new ChatModel(this));
     }
 

@@ -7,14 +7,10 @@ import android.view.View;
 
 import androidx.core.app.ActivityCompat;
 
-import com.xuanfeng.countdownprogressview.CountDownProgressBar;
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.databinding.ActivityWelcomeBinding;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class WelcomeActivity extends BaseActivity<BasePresenter, ActivityWelcomeBinding> {
 
@@ -67,11 +63,7 @@ public class WelcomeActivity extends BaseActivity<BasePresenter, ActivityWelcome
         return true;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-    }
+
 
     public void onClick(View view) {
         mBinding.countDownProgressBar.removeOnCountDownFinishListener();

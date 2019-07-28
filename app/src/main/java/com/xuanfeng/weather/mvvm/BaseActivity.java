@@ -1,18 +1,15 @@
 package com.xuanfeng.weather.mvvm;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatActivity implements CreateMvvmInit{
     protected V mBinding;
-    protected Unbinder mUnbinder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +18,7 @@ public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatA
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         mBinding =  DataBindingUtil.setContentView(this,getLayoutId());
-        // 绑定ButterKnife
-        mUnbinder = ButterKnife.bind(this);
+
         initViewModel();
         initListener();
         initData(getIntent().getExtras());
@@ -36,6 +32,6 @@ public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatA
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mUnbinder.unbind();
+        mBinding.unbind();
     }
 }

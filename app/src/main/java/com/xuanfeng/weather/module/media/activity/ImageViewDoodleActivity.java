@@ -13,7 +13,6 @@ import com.xuanfeng.mylibrary.utils.ImageUtil;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.ActivityImageviewBinding;
 
-import butterknife.OnClick;
 
 public class ImageViewDoodleActivity extends BaseActivity<BasePresenter, ActivityImageviewBinding> {
 

@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="fragment"
+            type="com.xuanfeng.weather.module.media.fragment.ChatFragment" />
     </data>
 
     <LinearLayout
@@ -44,10 +47,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginRight="10dp"
-                android:paddingBottom="5dp"
+                android:onClick="@{fragment::onClick}"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp"
                 android:paddingTop="5dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="5dp"
                 android:text="发送"
                 android:textColor="@color/white"
                 app:solid_color="@color/red"

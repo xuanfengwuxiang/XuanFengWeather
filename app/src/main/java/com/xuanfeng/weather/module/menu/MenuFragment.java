@@ -12,8 +12,6 @@ import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentMenuBinding;
 import com.xuanfeng.weather.module.loseweight.LoseWeightCalculatorActivity;
 
-import butterknife.OnClick;
-
 //侧滑界面
 public class MenuFragment extends BaseFragment<BasePresenter, FragmentMenuBinding> {
 
