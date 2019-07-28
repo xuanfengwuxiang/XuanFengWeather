@@ -20,14 +20,12 @@ import com.xuanfeng.weather.variable.Variable;
 
 public class XuanFengApplication extends MultiDexApplication {
 
-    private static XuanFengApplication mApplication;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mApplication = this;
         // 手动捕获Application错误异常
-        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandler.getInstance());
+        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandler.getInstance(this));
         init();
     }
 
@@ -61,7 +59,7 @@ public class XuanFengApplication extends MultiDexApplication {
         strategy.setAppPackageName(Variable.PACKAGE_NAME);  //App的包名
         strategy.setUploadProcess(processName == null || processName.equals(packageName));
         // 初始化Bugly
-        CrashReport.initCrashReport(getApplicationContext(), Constant.Bugly_App_ID, BuildConfig.DEBUG, strategy);
+        CrashReport.initCrashReport(getApplicationContext(), Constant.BUGLG_APP_ID, BuildConfig.DEBUG, strategy);
 
     }
 
@@ -70,11 +68,7 @@ public class XuanFengApplication extends MultiDexApplication {
             ARouter.openLog();     // Print log
             ARouter.openDebug();   // Turn on debugging mode (If you are running in InstantRun mode, you must turn on debug mode! Online version needs to be closed, otherwise there is a security risk)
         }
-        ARouter.init(mApplication);
-    }
-
-    public static XuanFengApplication getApplication() {
-        return mApplication;
+        ARouter.init(this);
     }
 
 }
