@@ -3,6 +3,7 @@ package com.xuanfeng.weather.module.weather.presenter;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.annotation.NonNull;
+
 import android.util.Log;
 
 import com.google.gson.JsonObject;
@@ -26,7 +27,7 @@ public class WeatherPresenter extends BasePresenter implements DefaultLifecycleO
     private WeatherView mWeatherView;
 
     public WeatherPresenter(WeatherView weatherView) {
-        super(weatherView,null);
+        super(weatherView, null);
         mWeatherView = weatherView;
     }
 
@@ -48,7 +49,7 @@ public class WeatherPresenter extends BasePresenter implements DefaultLifecycleO
                     WeatherBean.DataBean dataBean = weatherBean.getData();
                     if (dataBean != null) {
                         List<WeatherBean.DataBean.ForecastBean> list = dataBean.getForecast();
-                        if (list != null && list.size() > 0) {
+                        if (list != null && !list.isEmpty()) {
                             mWeatherView.onGetWeatherSuccess(list);
                         }
                     }

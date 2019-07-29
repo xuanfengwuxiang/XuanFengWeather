@@ -84,7 +84,7 @@ public class WeatherRecyclerView extends FrameLayout {
         AnimUtil.runLayoutAnimation(mRecyclerView, R.anim.layout_animation_from_right);
     }
 
-    public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
+    public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder> {
         private Context mContext;
         private List<ForecastBean> mList;
 
@@ -95,14 +95,13 @@ public class WeatherRecyclerView extends FrameLayout {
 
 
         @Override
-        public WeatherAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public WeatherViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_weather, parent, false);
-            WeatherAdapter.ViewHolder holder = new WeatherAdapter.ViewHolder(view);
-            return holder;
+             return new WeatherViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(WeatherAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(WeatherViewHolder holder, int position) {
             if (mList != null) {
                 holder.mTvDate.setText(mList.get(position).getDate());
                 holder.mTvLowTemp.setText(mList.get(position).getLow());
@@ -117,7 +116,7 @@ public class WeatherRecyclerView extends FrameLayout {
             return mList == null ? 0 : mList.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder {
+        class WeatherViewHolder extends RecyclerView.ViewHolder {
 
             private final TextView mTvDate;
             private final TextView mTvLowTemp;
@@ -125,7 +124,7 @@ public class WeatherRecyclerView extends FrameLayout {
             private final TextView mTvWindOrientation;
             private final TextView mTvType;
 
-            public ViewHolder(View itemView) {
+            public WeatherViewHolder(View itemView) {
                 super(itemView);
                 mTvDate = (TextView) itemView.findViewById(R.id.tv_date);
                 mTvLowTemp = (TextView) itemView.findViewById(R.id.tv_low_temp);
@@ -165,9 +164,9 @@ public class WeatherRecyclerView extends FrameLayout {
 
     public static class WeatherBean {
 
-        public DataBean data;
+        private DataBean data;
 
-        public int status;//获取的code
+        private int status;//获取的code
 
         public String getDesc() {
             return desc;
@@ -193,7 +192,7 @@ public class WeatherRecyclerView extends FrameLayout {
             this.status = status;
         }
 
-        public String desc;//OK还是不OK
+        private String desc;//OK还是不OK
 
         public static class DataBean {
             public WeatherBean.DataBean.YesterdayBean getYesterday() {
@@ -253,11 +252,11 @@ public class WeatherRecyclerView extends FrameLayout {
              * type : 多云
              */
 
-            public WeatherBean.DataBean.YesterdayBean yesterday;//昨天
-            public String city;
-            public String aqi;
-            public String ganmao;
-            public String wendu;
+            private WeatherBean.DataBean.YesterdayBean yesterday;//昨天
+            private String city;
+            private String aqi;
+            private String ganmao;
+            private String wendu;
             /**
              * date : 21日星期五
              * high : 高温 38℃
@@ -267,14 +266,14 @@ public class WeatherRecyclerView extends FrameLayout {
              * type : 晴
              */
 
-            public List<WeatherBean.DataBean.ForecastBean> forecast;
+            private List<WeatherBean.DataBean.ForecastBean> forecast;
 
             public static class YesterdayBean {
-                public String date;
-                public String high;
-                public String fx;
-                public String low;
-                public String fl;
+                private String date;
+                private String high;
+                private String fx;
+                private String low;
+                private String fl;
 
                 public String getType() {
                     return type;
@@ -324,15 +323,15 @@ public class WeatherRecyclerView extends FrameLayout {
                     this.fl = fl;
                 }
 
-                public String type;
+                private String type;
             }
 
             public static class ForecastBean {
-                public String date;
-                public String high;
-                public String fengli;
-                public String low;
-                public String fengxiang;
+                private String date;
+                private String high;
+                private String fengli;
+                private String low;
+                private String fengxiang;
 
                 public String getType() {
                     return type;
@@ -382,7 +381,7 @@ public class WeatherRecyclerView extends FrameLayout {
                     this.fengxiang = fengxiang;
                 }
 
-                public String type;
+                private String type;
 
                 public void onItemClick(View view) {//mvvm的点击事件
                     Toast.makeText(view.getContext(), "日期：" + date, Toast.LENGTH_SHORT).show();

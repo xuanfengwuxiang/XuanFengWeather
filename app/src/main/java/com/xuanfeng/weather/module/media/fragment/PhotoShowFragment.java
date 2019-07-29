@@ -26,12 +26,12 @@ public class PhotoShowFragment extends BaseFragment<BasePresenter, FragmentPhoto
         mBinding.tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
+                //do nothing
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                //do nothing
             }
 
             @Override

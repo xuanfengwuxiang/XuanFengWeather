@@ -1,11 +1,14 @@
 package com.xuanfeng.weather.module.media.widget;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,7 +88,7 @@ public class ChatRecyclerView extends FrameLayout {
     }
 
     //适配器
-    class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
+    class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
         private Context mContext;
         private List<ChatBean> mList;
 
@@ -96,34 +99,33 @@ public class ChatRecyclerView extends FrameLayout {
 
         @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_chat, parent, false);
-            ViewHolder viewHolder = new ViewHolder(view);
-            return viewHolder;
+            return new ChatViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
             try {
                 if (mList != null) {
                     final ChatBean bean = mList.get(position);
                     if (bean != null) {
                         if ("me".equals(bean.getType())) {
-                            holder.iv_me.setVisibility(VISIBLE);
-                            holder.iv_you.setVisibility(GONE);
-                            holder.rl_parent.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+                            holder.ivMe.setVisibility(VISIBLE);
+                            holder.ivYou.setVisibility(GONE);
+                            holder.rlParent.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
                         } else {
-                            holder.iv_me.setVisibility(GONE);
-                            holder.iv_you.setVisibility(VISIBLE);
-                            holder.rl_parent.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+                            holder.ivMe.setVisibility(GONE);
+                            holder.ivYou.setVisibility(VISIBLE);
+                            holder.rlParent.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
                         }
-                        holder.tv_content.setText(bean.getContent());
+                        holder.tvContent.setText(bean.getContent());
 
                     }
 
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(getClass().getSimpleName(), e.toString());
             }
         }
 
@@ -132,18 +134,18 @@ public class ChatRecyclerView extends FrameLayout {
             return mList == null ? 0 : mList.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder {
-            private ImageView iv_you;
-            private TextView tv_content;
-            private ImageView iv_me;
-            private RelativeLayout rl_parent;
+        class ChatViewHolder extends RecyclerView.ViewHolder {
+            private ImageView ivYou;
+            private TextView tvContent;
+            private ImageView ivMe;
+            private RelativeLayout rlParent;
 
-            public ViewHolder(View itemView) {
+            public ChatViewHolder(View itemView) {
                 super(itemView);
-                iv_you = itemView.findViewById(R.id.iv_you);
-                tv_content = itemView.findViewById(R.id.tv_content);
-                iv_me = itemView.findViewById(R.id.iv_me);
-                rl_parent = itemView.findViewById(R.id.rl_parent);
+                ivYou = itemView.findViewById(R.id.iv_you);
+                tvContent = itemView.findViewById(R.id.tv_content);
+                ivMe = itemView.findViewById(R.id.iv_me);
+                rlParent = itemView.findViewById(R.id.rl_parent);
 
             }
         }

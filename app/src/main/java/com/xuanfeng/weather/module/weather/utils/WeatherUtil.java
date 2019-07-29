@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.EditText;
@@ -53,6 +54,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class WeatherUtil {
+    private static final String TAG = "WeatherUtil";
+
+    private WeatherUtil() {
+    }
 
     //POI搜索地点
     public static void searchFromBaidu(Context context, EditText mEtInput, OnGetPoiSearchResultListener poiListener) {
@@ -77,7 +82,7 @@ public class WeatherUtil {
             return;
         }
         List<PoiInfo> list = result.getAllPoi();
-        if (list != null && list.size() > 0) {
+        if (list != null && !list.isEmpty()) {
             PoiInfo poiInfo = list.get(0);
             if (poiInfo != null) {
                 LatLng latLng = poiInfo.location;
@@ -107,7 +112,7 @@ public class WeatherUtil {
             //改变地图状态
             mBaiduMap.setMapStatus(mMapStatusUpdate);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG,e.toString());
         }
     }
 

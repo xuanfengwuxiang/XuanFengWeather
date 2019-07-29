@@ -65,7 +65,7 @@ public class WeatherFragment extends BaseFragment<WeatherPresenter, FragmentWeat
 
     @Override
     public void onGetWeatherSuccess(List<ForecastBean> forecastBeanList) {
-        if (forecastBeanList != null && forecastBeanList.size() > 0) {
+        if (forecastBeanList != null && !forecastBeanList.isEmpty()) {
             mBinding.rvBroadcast.setData(forecastBeanList);
         }
         WeatherUtil.doAnim(mBinding.rvBroadcast);
@@ -95,6 +95,8 @@ public class WeatherFragment extends BaseFragment<WeatherPresenter, FragmentWeat
                 break;
             case R.id.tv_today_temperature:
                 Toast.makeText(getContext(), mBinding.tvTodayTemperature.getText().toString(), Toast.LENGTH_SHORT).show();
+                break;
+            default:
                 break;
         }
     }

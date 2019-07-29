@@ -15,21 +15,24 @@ public class SurfaceViewActivity extends BaseActivity {
 
     @Override
     public void initViewModel() {
-
+        //do nothing
     }
 
     @Override
     public void initListener() {
+        //do nothing
 
     }
 
     @Override
     public void initData(Bundle bundle) {
+        //do nothing
 
     }
 
     @Override
     public void onClick(View view) {
+        //do nothing
 
     }
 

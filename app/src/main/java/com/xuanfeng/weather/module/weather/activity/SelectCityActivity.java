@@ -47,6 +47,8 @@ public class SelectCityActivity extends BaseActivity<BasePresenter, ActivitySele
             case R.id.tv_search://搜索
                 WeatherUtil.searchFromBaidu(this, mBinding.etInput, poiListener);
                 break;
+            default:
+                break;
         }
     }
 
@@ -58,12 +60,12 @@ public class SelectCityActivity extends BaseActivity<BasePresenter, ActivitySele
         }
 
         public void onGetPoiDetailResult(PoiDetailResult result) {
-
+            //do nothing
         }
 
         @Override
         public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
-
+            //do nothing
         }
     };
 

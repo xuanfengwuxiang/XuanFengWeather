@@ -35,14 +35,11 @@ public class NewsFragment extends BaseFragment<BasePresenter, FragmentNewsBindin
     };
 
 
-    MagicListener mMagicListener = new MagicListener() {
-        @Override
-        public void onClick(int position, String key) {
-            mBinding.magicIndicator.onPageSelected(position);
-            mBinding.webView.clearHistory();
-            mCurrentUrl = key;
-            setWebViewUrl();
-        }
+    MagicListener mMagicListener = (int position, String key) -> {
+        mBinding.magicIndicator.onPageSelected(position);
+        mBinding.webView.clearHistory();
+        mCurrentUrl = key;
+        setWebViewUrl();
     };
 
     @Override
@@ -82,6 +79,8 @@ public class NewsFragment extends BaseFragment<BasePresenter, FragmentNewsBindin
         switch (view.getId()) {
             case R.id.iv_left:
                 NewsUtil.webViewGoBack(mBinding.webView);
+                break;
+            default:
                 break;
         }
     }

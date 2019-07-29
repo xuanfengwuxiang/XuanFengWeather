@@ -27,30 +27,19 @@ public class MediaFragment extends BaseFragment<BasePresenter, FragmentMediaBind
         MediaUtil.initMagicIndicator(getContext(), mBinding.magicIndicator, mBinding.viewPager);
     }
 
+    @Override
     public int getStatusBarColorResId() {
         return -1;
     }
 
+    @Override
     public void showProgress() {
-
+        //do nothing
     }
 
+    @Override
     public void hideProgress() {
-
+        //do nothing
     }
 
-/*    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = inflater.inflate(getLayoutId(), container, false);
-        unbinder = ButterKnife.bind(this, rootView);
-        initData(null);
-        return rootView;
-    }*/
-
-   /* @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }*/
 }

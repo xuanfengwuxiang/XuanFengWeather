@@ -12,11 +12,9 @@ import android.os.Message;
 
 public class GoogleDetectListenerImpl implements Camera.FaceDetectionListener {
     private Handler mHandler;///用于向主线程发送信息
-    private Context mContext;
 
     public GoogleDetectListenerImpl(Context mContext, Handler mHandler) {
         this.mHandler = mHandler;
-        this.mContext = mContext;
     }
 
     @Override

@@ -29,6 +29,10 @@ import java.util.List;
  */
 
 public class MediaUtil {
+
+    private MediaUtil() {
+    }
+
     //初始化设置ViewPager的适配器指示器
     public static void initMagicIndicator(Context context, MagicIndicator mMagicIndicator, final ViewPager mViewPager) {
         List<MagicBean> titleList = new ArrayList<>();
@@ -37,12 +41,7 @@ public class MediaUtil {
         titleList.add(new MagicBean("人脸识别", ""));
         titleList.add(new MagicBean("AI智能聊天", ""));
         int baseThemeColor = context.getResources().getColor(R.color.baseThemeColor);
-        MagicUtil.setMagicAdapter(context, titleList, mMagicIndicator, baseThemeColor, baseThemeColor, mViewPager, new MagicListener() {
-            @Override
-            public void onClick(int position, String key) {
-                mViewPager.setCurrentItem(position);
-            }
-        });
+        MagicUtil.setMagicAdapter(context, titleList, mMagicIndicator, baseThemeColor, baseThemeColor, mViewPager, (position, key) -> mViewPager.setCurrentItem(position));
     }
 
     //设置ViewPager的适配器

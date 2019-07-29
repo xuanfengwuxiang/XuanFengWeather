@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.xuanfeng.weather.R;
-import com.xuanfeng.weather.module.media.view.FaceDetectorView;
 
 /**
  * Created by xuanfengwuxiang on 2017/12/21.
@@ -14,14 +13,12 @@ import com.xuanfeng.weather.module.media.view.FaceDetectorView;
 
 public class FaceDetectorViewModel {
     private Context mContext;
-    private FaceDetectorView mFaceDetectorView;
 
-    public FaceDetectorViewModel(Context context, FaceDetectorView faceDetectorView) {
+    public FaceDetectorViewModel(Context context) {
         mContext = context;
-        mFaceDetectorView = faceDetectorView;
     }
 
-    public Bitmap getBitmap(){
-        return  BitmapFactory.decodeResource(mContext.getResources(),R.drawable.ic_cgx);
+    public Bitmap getBitmap() {
+        return BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_cgx);
     }
 }

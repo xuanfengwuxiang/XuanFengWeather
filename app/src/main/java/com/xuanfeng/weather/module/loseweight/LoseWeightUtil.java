@@ -2,6 +2,7 @@ package com.xuanfeng.weather.module.loseweight;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ import java.util.List;
 
 //减肥计算器工具类
 public class LoseWeightUtil {
+
+    private static final String TAG = "LoseWeightUtil";
 
     private LoseWeightUtil() {
     }
@@ -45,7 +48,7 @@ public class LoseWeightUtil {
 
             tvBestHeartRate.setText("最佳心率范围：" + low + "~" + high);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
 
     }
@@ -89,7 +92,7 @@ public class LoseWeightUtil {
             double ree = 10 * weightNum + 6.25 * heightNum - 5 * ageNum + (TextUtils.equals(sex, "男") ? 5 : (-161));
             tvRee.setText("REE值：" + (int) ree + "大卡");
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
 
 
@@ -139,7 +142,7 @@ public class LoseWeightUtil {
             }
             tvBmr.setText("BMR值：" + (int) bmr + "大卡");
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
 
 

@@ -9,7 +9,6 @@ import com.xuanfeng.weather.databinding.FragmentGalleryBinding;
 
 //todo 换新的视频播放
 public class VideoFragment extends BaseFragment<BasePresenter, FragmentGalleryBinding> {
-    //mVideoUrl = "http://200000594.vod.myqcloud.com/200000594_1617cc56708f11e596723b988fc18469.f20.mp4";
 
     @Override
     public int getLayoutId() {
@@ -23,7 +22,7 @@ public class VideoFragment extends BaseFragment<BasePresenter, FragmentGalleryBi
 
     @Override
     public void initData(Bundle bundle) {
-
+        //do nothing
     }
 
 }

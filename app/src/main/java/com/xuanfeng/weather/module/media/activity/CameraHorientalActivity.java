@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -27,10 +26,10 @@ import com.xuanfeng.weather.databinding.ActivityCameraHorientalBinding;
 import com.xuanfeng.weather.module.media.callback.GoogleDetectListenerImpl;
 import com.xuanfeng.weather.mvvm.BaseActivity;
 import com.xuanfeng.weather.utils.ImageUtil;
+import com.xuanfeng.weather.widget.FaceView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,11 +38,11 @@ import java.util.List;
 /**
  * 横屏预览人脸识别
  */
-public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorientalBinding> {
+public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorientalBinding> implements FaceView.FaceViewListener {
 
     private SurfaceHolder mSurfaceHolder;
-    public static int cameraId;
-    public Camera mCamera;
+    private int cameraId;
+    private Camera mCamera;
     private MainHandler mainHandler = new MainHandler();
     byte[] photoBytes;
     private boolean isBack = true;
@@ -60,12 +59,13 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
 
     @Override
     public void initViewModel() {
-
+        //do nothing
     }
 
     @Override
     public void initListener() {
         mBinding.setListener(this);
+        mBinding.faceView1.setFaceViewListener(this);
     }
 
     @Override
@@ -100,6 +100,8 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
             case R.id.tv_cancel_photo://照片取消按钮
                 cancle();
                 break;
+            default:
+                break;
         }
     }
 
@@ -113,45 +115,59 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
                     startGoogleDetect();
                     break;
                 case 2:
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Camera.Face[] faces = (Camera.Face[]) msg.obj;
-                            List<Camera.Face> matchedFaces = new ArrayList<Camera.Face>();
-                            //以下算法，将屏幕坐标转换到camera的坐标系
-                            boolean has = false;
-                            int kuangLeft = mBinding.ivKuang.getLeft() - mBinding.faceView1.getWidth() / 2;
-                            int kuangTop = mBinding.ivKuang.getTop() - mBinding.faceView1.getHeight() / 2;
-                            int kuangRight = mBinding.ivKuang.getRight() - mBinding.faceView1.getWidth() / 2;
-                            int kuangBottom = mBinding.ivKuang.getBottom() - mBinding.faceView1.getHeight() / 2;
-                            for (int i = 0; i < faces.length; i++) {
-                                Camera.Face face = faces[i];
-                                int width = face.rect.right - face.rect.left;
-                                int needWidth = mBinding.faceView1.getWidth() * width / 2000;
-                                int cx = -face.rect.centerX();  //前置摄像头，镜像需加负
-                                int cy = face.rect.centerY();
-                                int faceLeft = (int) (mBinding.faceView1.getWidth() * cx / 2000f - needWidth / 2);
-                                int faceTop = (int) (mBinding.faceView1.getHeight() * cy / 2000f - needWidth / 2);
-                                int faceRight = (int) (mBinding.faceView1.getWidth() * cx / 2000f + needWidth / 2);
-                                int faceBottom = (int) (mBinding.faceView1.getHeight() * cy / 2000f + needWidth / 2);
-                                if (faceLeft > kuangLeft && faceTop > kuangTop && faceRight < kuangRight && faceBottom < kuangBottom) {
-                                    has = true;
-                                    matchedFaces.add(face);
-                                }
+                    runOnUiThread(() -> {
+                        Camera.Face[] faces = (Camera.Face[]) msg.obj;
+                        List<Camera.Face> matchedFaces = new ArrayList<>();
+                        //以下算法，将屏幕坐标转换到camera的坐标系
+                        boolean has = false;
+                        int kuangLeft = mBinding.ivKuang.getLeft() - mBinding.faceView1.getWidth() / 2;
+                        int kuangTop = mBinding.ivKuang.getTop() - mBinding.faceView1.getHeight() / 2;
+                        int kuangRight = mBinding.ivKuang.getRight() - mBinding.faceView1.getWidth() / 2;
+                        int kuangBottom = mBinding.ivKuang.getBottom() - mBinding.faceView1.getHeight() / 2;
+                        for (int i = 0; i < faces.length; i++) {
+                            Camera.Face face = faces[i];
+                            int width = face.rect.right - face.rect.left;
+                            int needWidth = mBinding.faceView1.getWidth() * width / 2000;
+                            int cx = -face.rect.centerX();  //前置摄像头，镜像需加负
+                            int cy = face.rect.centerY();
+                            int faceLeft = (int) (mBinding.faceView1.getWidth() * cx / 2000f - needWidth / 2);
+                            int faceTop = (int) (mBinding.faceView1.getHeight() * cy / 2000f - needWidth / 2);
+                            int faceRight = (int) (mBinding.faceView1.getWidth() * cx / 2000f + needWidth / 2);
+                            int faceBottom = (int) (mBinding.faceView1.getHeight() * cy / 2000f + needWidth / 2);
+                            if (faceLeft > kuangLeft && faceTop > kuangTop && faceRight < kuangRight && faceBottom < kuangBottom) {
+                                has = true;
+                                matchedFaces.add(face);
                             }
-                            if (!has) {
-                                mBinding.faceView1.clearFaces();
-                                return;
-                            }
-
-                            mBinding.faceView1.setFaces(matchedFaces.toArray(new Camera.Face[matchedFaces.size()]));
-                            getCropFace(matchedFaces.toArray(new Camera.Face[matchedFaces.size()]));
                         }
+                        if (!has) {
+                            mBinding.faceView1.clearFaces();
+                            return;
+                        }
+
+                        mBinding.faceView1.setFaces(matchedFaces.toArray(new Camera.Face[matchedFaces.size()]));
+                        getCropFace(matchedFaces.toArray(new Camera.Face[matchedFaces.size()]));
                     });
 
                     break;
+                default:
+                    break;
             }
             super.handleMessage(msg);
+        }
+
+        //添加人脸监听器
+        private void startGoogleDetect() {
+            Camera.Parameters parameters = mCamera.getParameters();
+            if (parameters.getMaxNumDetectedFaces() > 0) {
+                if (mBinding.faceView1 != null) {
+                    mBinding.faceView1.clearFaces();
+                    mBinding.faceView1.setVisibility(View.VISIBLE);
+
+
+                }
+                mCamera.setFaceDetectionListener(new GoogleDetectListenerImpl(CameraHorientalActivity.this, mainHandler));
+                mCamera.startFaceDetection();
+            }
         }
     }
 
@@ -169,31 +185,30 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
                 int bitmapWidth = size.width;
                 int bitmapHeight = size.height;
                 YuvImage image = new YuvImage(mCameraData, ImageFormat.NV21, bitmapWidth, bitmapHeight, null);
-                if (image != null) {
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    image.compressToJpeg(new Rect(0, 0, bitmapWidth, bitmapHeight), 80, stream);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                image.compressToJpeg(new Rect(0, 0, bitmapWidth, bitmapHeight), 80, stream);
 
-                    Bitmap bmp = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.size());
-
-
-                    prepareMatrix(mMatrix, true, 0, mBinding.faceView1.getWidth(), mBinding.faceView1.getHeight());
-                    mMatrix.postRotate(0); //Matrix.postRotate默认是顺时针
-                    mFaceOnScreenRect.set(face.rect);
-                    mMatrix.mapRect(mFaceOnScreenRect);//获取到的屏幕坐标
-                    //将屏幕坐标转换成bitmap的坐标，用于截图
-                    Rect faceOnBitmapRect = new Rect();
-                    float time = (float) bitmapWidth / (float) mBinding.faceView1.getWidth();//bitmap的宽度是屏幕宽度的多少倍
-                    faceOnBitmapRect.left = (int) (mFaceOnScreenRect.left * time);
-                    faceOnBitmapRect.top = (int) (mFaceOnScreenRect.top * time);
-                    faceOnBitmapRect.right = (int) (mFaceOnScreenRect.right * time);
-                    faceOnBitmapRect.bottom = (int) (mFaceOnScreenRect.bottom * time);
+                Bitmap bmp = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.size());
 
 
-                    Bitmap cropFace = ImageUtil.getCropBitmap(bmp, faceOnBitmapRect);
-                    mBinding.ivCropFace.setImageBitmap(cropFace);
+                prepareMatrix(mMatrix, true, 0, mBinding.faceView1.getWidth(), mBinding.faceView1.getHeight());
+                mMatrix.postRotate(0); //Matrix.postRotate默认是顺时针
+                mFaceOnScreenRect.set(face.rect);
+                mMatrix.mapRect(mFaceOnScreenRect);//获取到的屏幕坐标
+                //将屏幕坐标转换成bitmap的坐标，用于截图
+                Rect faceOnBitmapRect = new Rect();
+                float time = (float) bitmapWidth / (float) mBinding.faceView1.getWidth();//bitmap的宽度是屏幕宽度的多少倍
+                faceOnBitmapRect.left = (int) (mFaceOnScreenRect.left * time);
+                faceOnBitmapRect.top = (int) (mFaceOnScreenRect.top * time);
+                faceOnBitmapRect.right = (int) (mFaceOnScreenRect.right * time);
+                faceOnBitmapRect.bottom = (int) (mFaceOnScreenRect.bottom * time);
 
-                    stream.close();
-                }
+
+                Bitmap cropFace = ImageUtil.getCropBitmap(bmp, faceOnBitmapRect);
+                mBinding.ivCropFace.setImageBitmap(cropFace);
+
+                stream.close();
+
             } catch (Exception ex) {
                 Log.e("Sys", "Error:" + ex.getMessage());
             }
@@ -233,28 +248,28 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
             photoBytes = bytes;
             showPhoto(photoBytes);
         }
+
+        //显示拍出的图片
+        private void showPhoto(byte[] photoBytes) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length);
+            Matrix matrix = new Matrix();
+            if (isBack) {  //后置摄像头
+                matrix.setRotate(90);
+            } else {
+                matrix.setRotate(-90); //前置摄像头
+            }
+            Bitmap bit = bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            if (!bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
+            if (bit != null) {
+                mBinding.ivPhotoResult.setImageBitmap(bit);
+            }
+            mBinding.rlPhotoResult.setVisibility(View.VISIBLE);
+        }
+
     };
 
-    /**
-     * 显示拍出的图片
-     */
-    private void showPhoto(byte[] photoBytes) {
-        Bitmap bitmap = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length);
-        Matrix matrix = new Matrix();
-        if (isBack) {  //后置摄像头
-            matrix.setRotate(90);
-        } else {
-            matrix.setRotate(-90); //前置摄像头
-        }
-        Bitmap bit = bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        if (bitmap != null && !bitmap.isRecycled()) {
-            bitmap.recycle();
-        }
-        if (bit != null) {
-            mBinding.ivPhotoResult.setImageBitmap(bit);
-        }
-        mBinding.rlPhotoResult.setVisibility(View.VISIBLE);
-    }
 
     /**
      * 摄像头的切换
@@ -275,16 +290,14 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
         }
         mCamera = Camera.open(cameraId);
         mCamera.setPreviewCallback(mCameraCallback);
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         setCameraParams(mCamera, 1080, 1920);
         try {
             mCamera.setPreviewDisplay(mSurfaceHolder);
-            //mCamera.setDisplayOrientation(90);
 
             mCamera.startPreview();
             mainHandler.sendEmptyMessage(1);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(getClass().getSimpleName(), e.toString());
         }
     }
 
@@ -353,22 +366,19 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
     public void takePhotoFinish() {          //完成
         File file = new File(Environment.getExternalStorageDirectory().getPath() + "/test2.jpg");
         if (file.exists()) {
-            file.delete();
+            boolean result = file.delete();
+            Log.e(getClass().getSimpleName(), "删除文件情况：" + result);
         }
-        try {
-            FileOutputStream fo = new FileOutputStream(file);
+        try (FileOutputStream fo = new FileOutputStream(file);) {
             fo.write(photoBytes);
-            fo.close();
             Toast.makeText(this, "已保存图片", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);                         //完成拍照，回到mainActivity,并将图片的路径回传
             intent.putExtra("picPath", Environment.getExternalStorageDirectory().getPath() + "/test2.jpg");
             intent.putExtra("isBack", isBack);
             setResult(RESULT_OK, intent);
             finish();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e(getClass().getSimpleName(), e.toString());
         }
     }
 
@@ -381,26 +391,10 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
         mCamera.startPreview();
     }
 
-    //添加人脸监听器
-    private void startGoogleDetect() {
-        Camera.Parameters parameters = mCamera.getParameters();
-        if (parameters.getMaxNumDetectedFaces() > 0) {
-            if (mBinding.faceView1 != null) {
-                mBinding.faceView1.clearFaces();
-                mBinding.faceView1.setVisibility(View.VISIBLE);
-
-
-            }
-            mCamera.setFaceDetectionListener(new GoogleDetectListenerImpl(this, mainHandler));
-            mCamera.startFaceDetection();
-        }
-    }
 
     public class SurfaceViewCallBack implements SurfaceHolder.Callback {
-        private Context mContext;
 
         public SurfaceViewCallBack(Context context) {
-            mContext = context;
         }
 
         @Override
@@ -410,12 +404,10 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
                     mCamera = Camera.open(cameraId);
                     mCamera.setPreviewCallback(mCameraCallback);
                     mCamera.setPreviewDisplay(holder);
-                    DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
-                    //ImageUtil.setCameraParams(mCamera,displayMetrics.widthPixels, displayMetrics.heightPixels);
                     setCameraParams(mCamera, 1080, 1920);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(getClass().getSimpleName(), e.toString());
             }
         }
 
@@ -443,4 +435,8 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
 
     };
 
+    @Override
+    public int getCameraId() {
+        return cameraId;
+    }
 }

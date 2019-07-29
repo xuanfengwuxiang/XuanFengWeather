@@ -52,7 +52,7 @@ public class FaceViewNormal extends ImageView {
         if (mFaces != null && mFaces.length >= 1) {
             canvas.translate(getWidth() / 2, getHeight() / 2);
             canvas.rotate(-0);
-            mirror = (CameraHorientalActivity.cameraId == Camera.CameraInfo.CAMERA_FACING_FRONT);
+            mirror = (mFaceViewListener != null && mFaceViewListener.getCameraId() == Camera.CameraInfo.CAMERA_FACING_FRONT);
             Log.e("mFaces", "mFaces" + mFaces.length);
             for (int i = 0; i < mFaces.length; i++) {
                 Camera.Face face = mFaces[i];
@@ -108,5 +108,15 @@ public class FaceViewNormal extends ImageView {
         mLinePaint.setStyle(Paint.Style.STROKE);
         mLinePaint.setStrokeWidth(5f);
         mLinePaint.setAlpha(180);
+    }
+
+    public interface FaceViewListener {
+        int getCameraId();
+    }
+
+    private FaceView.FaceViewListener mFaceViewListener;
+
+    public void setFaceViewListener(FaceView.FaceViewListener faceViewListener) {
+        mFaceViewListener = faceViewListener;
     }
 }

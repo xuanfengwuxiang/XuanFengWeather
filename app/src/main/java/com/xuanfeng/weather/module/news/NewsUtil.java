@@ -27,6 +27,8 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  */
 
 public class NewsUtil {
+    private NewsUtil() {
+    }
 
     //webView的功能设置
     public static WebSettings initWebViewSettings(WebView webView) {
@@ -51,7 +53,7 @@ public class NewsUtil {
         List<MagicBean> magicList = getMagicList();
         int baseThemeColor = context.getResources().getColor(R.color.baseThemeColor);
         MagicUtil.setMagicAdapter(context, magicList, mMagicIndicator, baseThemeColor, baseThemeColor, null, mTabListener);
-        if (magicList != null && magicList.size() > 0) {
+        if (!magicList.isEmpty()) {
             currentUrl = magicList.get(0).getKey();
         }
         return currentUrl;
@@ -71,12 +73,9 @@ public class NewsUtil {
         mPtrFrameLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                frame.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        webView.reload();
-                        mPtrFrameLayout.refreshComplete();
-                    }
+                frame.postDelayed(() -> {
+                    webView.reload();
+                    mPtrFrameLayout.refreshComplete();
                 }, 1800);
             }
         });

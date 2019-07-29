@@ -40,6 +40,8 @@ public class MenuFragment extends BaseFragment<BasePresenter, FragmentMenuBindin
             case R.id.tv_test:
                 ARouter.getInstance().build("/testcomponent/TestActivity").navigation();
                 break;
+            default:
+                break;
         }
     }
 }

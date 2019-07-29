@@ -17,7 +17,6 @@ import com.xuanfeng.weather.module.media.activity.CameraActivity;
 import com.xuanfeng.weather.module.media.activity.CameraHorientalActivity;
 import com.xuanfeng.weather.module.media.activity.ImageViewDoodleActivity;
 import com.xuanfeng.weather.module.media.activity.SurfaceViewActivity;
-import com.xuanfeng.weather.module.media.presenter.FaceDetectorViewModel;
 import com.xuanfeng.weather.module.media.view.FaceDetectorView;
 import com.xuanfeng.weather.mvvm.BaseFragment;
 import com.xuanfeng.weather.utils.ImageUtil;
@@ -32,7 +31,6 @@ public class FaceDetectorFragment extends BaseFragment<FragmentFaceDetectorBindi
     private Paint paint;//画人脸区域用到的Paint
     private Bitmap bm;//选择的图片的Bitmap对象
     private static final int MAX_FACE_NUM = 5;//最大可以检测出的人脸数量
-    private FaceDetectorViewModel mFaceDetectorViewModel;
 
     @Override
     public int getLayoutId() {
@@ -41,7 +39,7 @@ public class FaceDetectorFragment extends BaseFragment<FragmentFaceDetectorBindi
 
     @Override
     public void initViewModel() {
-        mFaceDetectorViewModel = new FaceDetectorViewModel(mContext, this);
+        //do nothing
     }
 
     @Override
@@ -72,6 +70,8 @@ public class FaceDetectorFragment extends BaseFragment<FragmentFaceDetectorBindi
             case R.id.tv_demo_imageview://ImageView画板
                 startActivity(new Intent(mContext, ImageViewDoodleActivity.class), ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 break;
+            default:
+                break;
         }
     }
 
@@ -97,15 +97,17 @@ public class FaceDetectorFragment extends BaseFragment<FragmentFaceDetectorBindi
 
         @Override
         public void onComplete() {
+            //do nothing
         }
 
         @Override
         public void onError(Throwable e) {
+            //do nothing
         }
 
         @Override
         public void onSubscribe(Disposable d) {
-
+            //do nothing
         }
 
         @Override

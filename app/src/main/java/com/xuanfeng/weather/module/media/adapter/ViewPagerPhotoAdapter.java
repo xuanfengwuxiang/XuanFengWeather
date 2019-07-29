@@ -21,8 +21,8 @@ public class ViewPagerPhotoAdapter extends PagerAdapter {
     private List<String> mUrls;
     private List<String> mTittleList;
 
-    public ViewPagerPhotoAdapter(Context Context, List<String> urls, List<String> tittleList) {
-        mContext = Context;
+    public ViewPagerPhotoAdapter(Context context, List<String> urls, List<String> tittleList) {
+        mContext = context;
         mUrls = urls;
         mTittleList = tittleList;
     }

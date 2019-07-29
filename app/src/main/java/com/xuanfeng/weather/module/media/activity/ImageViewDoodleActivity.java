@@ -11,15 +11,15 @@ import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.FileUtil;
 import com.xuanfeng.mylibrary.utils.ImageUtil;
 import com.xuanfeng.weather.R;
-import com.xuanfeng.weather.databinding.ActivityImageviewBinding;
+import com.xuanfeng.weather.databinding.ActivityImageviewDoodleBinding;
 
 
-public class ImageViewDoodleActivity extends BaseActivity<BasePresenter, ActivityImageviewBinding> {
+public class ImageViewDoodleActivity extends BaseActivity<BasePresenter, ActivityImageviewDoodleBinding> {
 
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_imageview;
+        return R.layout.activity_imageview_doodle;
     }
 
     @Override
@@ -50,6 +50,8 @@ public class ImageViewDoodleActivity extends BaseActivity<BasePresenter, Activit
                 if (issuccessful) {
                     Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            default:
                 break;
         }
     }

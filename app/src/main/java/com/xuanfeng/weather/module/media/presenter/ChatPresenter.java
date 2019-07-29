@@ -39,12 +39,12 @@ public class ChatPresenter extends BasePresenter<ChatView, ChatModel> {
 
             @Override
             public void onError(Throwable e) {
-
+                //do nothing
             }
 
             @Override
             public void onComplete() {
-
+                //do nothing
             }
         });
     }
