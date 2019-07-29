@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.google.gson.JsonObject;
 import com.xuanfeng.mylibrary.http.HttpResponse;
-import com.xuanfeng.mylibrary.http.httpMgr.HttpManager;
+import com.xuanfeng.mylibrary.http.httpmgr.HttpManager;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.StringUtils;
 import com.xuanfeng.weather.constant.HttpConstant;

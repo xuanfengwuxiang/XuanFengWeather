@@ -34,7 +34,7 @@ public interface HttpService {
     @GET
     Observable<JsonObject> callByGet(
             @Url String url,
-            @QueryMap LinkedHashMap<String, String> params
+            @QueryMap Map<String, String> params
     );
 
     //通用GET请求,返回String

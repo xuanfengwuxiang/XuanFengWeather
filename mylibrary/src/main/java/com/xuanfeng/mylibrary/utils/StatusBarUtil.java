@@ -2,9 +2,12 @@ package com.xuanfeng.mylibrary.utils;
 
 import android.app.Activity;
 import android.os.Build;
+
 import androidx.annotation.RequiresApi;
 import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -19,7 +22,10 @@ import java.lang.reflect.Method;
  */
 
 public class StatusBarUtil {
+    private static final String TAG = "StatusBarUtil";
 
+    private StatusBarUtil() {
+    }
 
     public static void setStatusBarColor(Activity activity, int colorResId, Boolean isIconDark) {
         if (activity == null) {
@@ -28,10 +34,11 @@ public class StatusBarUtil {
         switch (SystemUtils.getPhoneBrand()) {
             case "Meizu"://魅族
                 setStatusBarTransparent(activity);
-                FlymeSetStatusBarLightMode(activity.getWindow(), isIconDark);
+                flymeSetStatusBarLightMode(activity.getWindow(), isIconDark);
+                break;
             case "Xiaomi"://小米
                 setStatusBarTransparent(activity);
-                MIUISetStatusBarLightMode(activity.getWindow(), isIconDark);
+                miuiSetStatusBarLightMode(activity.getWindow(), isIconDark);
                 break;
             default://其他
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//6.0以上
@@ -54,11 +61,6 @@ public class StatusBarUtil {
 
     //6.0才有的设置图标颜色
     private static void setStatusBarIconColorForM(Activity activity, Boolean isIconDark) {
-       /* if (isIconDark) {//黑图标
-            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        } else {//白图标
-            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_VISIBLE);
-        }*/
         if (isIconDark) {//黑图标
             activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         } else {//白图标
@@ -95,7 +97,7 @@ public class StatusBarUtil {
      * @param isIconDark 状态栏字体及图标是否深色
      * @return boolean 成功执行返回true
      */
-    public static boolean FlymeSetStatusBarLightMode(Window window, boolean isIconDark) {
+    public static boolean flymeSetStatusBarLightMode(Window window, boolean isIconDark) {
         boolean result = false;
         if (window != null) {
             try {
@@ -117,7 +119,7 @@ public class StatusBarUtil {
                 window.setAttributes(lp);
                 result = true;
             } catch (Exception e) {
-
+                Log.e(TAG, e.toString());
             }
         }
         return result;
@@ -130,7 +132,7 @@ public class StatusBarUtil {
      * @param dark   是否把状态栏字体及图标颜色设置为深色
      * @return boolean 成功执行返回true
      */
-    public static boolean MIUISetStatusBarLightMode(Window window, boolean dark) {
+    public static boolean miuiSetStatusBarLightMode(Window window, boolean dark) {
         boolean result = false;
         if (window != null) {
             Class clazz = window.getClass();
@@ -150,15 +152,13 @@ public class StatusBarUtil {
                     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                     window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                 } else {
-                    /*int flag = window.getDecorView().getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                    window.getDecorView().setSystemUiVisibility(flag);​*/
 
                     window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                             View.SYSTEM_UI_FLAG_VISIBLE);
                 }
                 result = true;
             } catch (Exception e) {
-
+                Log.e(TAG, e.toString());
             }
         }
         return result;

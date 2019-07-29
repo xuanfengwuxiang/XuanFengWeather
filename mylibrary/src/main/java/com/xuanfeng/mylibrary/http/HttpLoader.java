@@ -20,7 +20,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class HttpLoader {
     private static final int TIME_OUT = 20000;//超时
-    private String BASE_URL = "http://api.mnks.cn/v1/jiaxiao/";
+    private String mBaseUrl = "http://api.mnks.cn/v1/jiaxiao/";
     private static volatile HttpLoader httpLoader;//强制编译器不重新排序
     private final HttpService mHttpService;
 
@@ -31,7 +31,7 @@ public class HttpLoader {
                 .addConverterFactory(GsonConverterFactory.create())//Gson转换
                 .addConverterFactory(ScalarsConverterFactory.create())//String转换
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//请求回参设为RxJava
-                .baseUrl(BASE_URL)
+                .baseUrl(mBaseUrl)
                 .build()
                 .create(HttpService.class);
     }

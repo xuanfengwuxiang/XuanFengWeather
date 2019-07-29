@@ -22,6 +22,8 @@ import java.util.List;
  */
 
 public class MagicUtil {
+    private MagicUtil() {
+    }
 
     //设置MagicIndicator的适配器
     public static void setMagicAdapter(Context context, final List<MagicBean> mTitleList, MagicIndicator indicator, final int textColor,

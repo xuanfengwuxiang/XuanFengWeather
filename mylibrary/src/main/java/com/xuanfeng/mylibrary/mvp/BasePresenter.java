@@ -6,8 +6,8 @@ package com.xuanfeng.mylibrary.mvp;
  */
 
 public abstract class BasePresenter<V extends BaseView, T extends BaseModel> {
-    public V mView;
-    public T mModel;
+    protected V mView;
+    protected T mModel;
 
     public BasePresenter(V view, T model) {
         mView = view;

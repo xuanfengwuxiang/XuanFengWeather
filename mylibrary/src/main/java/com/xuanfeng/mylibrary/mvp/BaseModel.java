@@ -1,6 +1,6 @@
 package com.xuanfeng.mylibrary.mvp;
 
-import com.xuanfeng.mylibrary.http.httpMgr.HttpManager;
+import com.xuanfeng.mylibrary.http.httpmgr.HttpManager;
 
 /**
  * Created by xuanfengwuxiang on 2018/3/1.

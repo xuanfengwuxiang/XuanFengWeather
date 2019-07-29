@@ -11,13 +11,12 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -31,16 +30,19 @@ import java.util.Map;
  */
 
 public class SystemUtils {
+    public static final String TAG = "SystemUtils";
+
+    private SystemUtils() {
+    }
+
     //获取屏幕高度
     public static final float getHeightInPx(Context context) {
-        final float height = context.getResources().getDisplayMetrics().heightPixels;
-        return height;
+        return context.getResources().getDisplayMetrics().heightPixels;
     }
 
     //获取屏幕宽度
     public static final float getWidthInPx(Context context) {
-        final float width = context.getResources().getDisplayMetrics().widthPixels;
-        return width;
+        return context.getResources().getDisplayMetrics().widthPixels;
     }
 
     // 取得版本号
@@ -81,24 +83,15 @@ public class SystemUtils {
      * @return 进程名
      */
     public static String getProcessName(int pid) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));
+        try (BufferedReader reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));) {
+
             String processName = reader.readLine();
             if (!TextUtils.isEmpty(processName)) {
                 processName = processName.trim();
             }
             return processName;
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        } finally {
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
+            Log.e(TAG, throwable.toString());
         }
         return null;
     }
@@ -109,7 +102,6 @@ public class SystemUtils {
         if (info != null && info.isConnected()) {
             if (info.getType() == ConnectivityManager.TYPE_MOBILE) {//当前使用2G/3G/4G网络
                 try {
-                    //Enumeration<NetworkInterface> en=NetworkInterface.getNetworkInterfaces();
                     for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
                         NetworkInterface intf = en.nextElement();
                         for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
@@ -126,8 +118,7 @@ public class SystemUtils {
             } else if (info.getType() == ConnectivityManager.TYPE_WIFI) {//当前使用无线网络
                 WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
                 WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                String ipAddress = intIP2StringIP(wifiInfo.getIpAddress());//得到IPV4地址
-                return ipAddress;
+                return intIP2StringIP(wifiInfo.getIpAddress());
             }
         } else {
             //当前无网络连接,请在设置中打开网络
@@ -173,15 +164,7 @@ public class SystemUtils {
                     return activity;
                 }
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -192,7 +175,7 @@ public class SystemUtils {
         return brand;
     }
 
-    public static boolean isDebug(Context context){
+    public static boolean isDebug(Context context) {
         try {
             ApplicationInfo info = context.getApplicationInfo();
             return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;

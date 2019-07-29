@@ -10,6 +10,8 @@ import android.provider.Settings;
  */
 
 public class ScreenUtil {
+    private ScreenUtil() {
+    }
 
     private static PowerManager.WakeLock mWakeLock = null;
 

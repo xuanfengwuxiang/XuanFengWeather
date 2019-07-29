@@ -1,5 +1,7 @@
 package com.xuanfeng.mylibrary.utils;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -8,10 +10,14 @@ import java.util.List;
 
 //执行shell命令
 public class ShellUtils {
+    private ShellUtils() {
+    }
 
-    public static final String COMMAND_SU       = "su";
-    public static final String COMMAND_SH       = "sh";
-    public static final String COMMAND_EXIT     = "exit\n";
+    private static final String TAG = "ShellUtils";
+
+    public static final String COMMAND_SU = "su";
+    public static final String COMMAND_SH = "sh";
+    public static final String COMMAND_EXIT = "exit\n";
     public static final String COMMAND_LINE_END = "\n";
 
     //check whether has root permission
@@ -21,12 +27,12 @@ public class ShellUtils {
 
     //execute shell command, default return result msg
     public static CommandResult execCommand(String command, boolean isRoot) {
-        return execCommand(new String[] { command }, isRoot, true);
+        return execCommand(new String[]{command}, isRoot, true);
     }
 
     //execute shell commands, default return result msg
     public static CommandResult execCommand(List<String> commands, boolean isRoot) {
-        return execCommand(commands == null ? null : commands.toArray(new String[] {}), isRoot, true);
+        return execCommand(commands == null ? null : commands.toArray(new String[]{}), isRoot, true);
     }
 
     //execute shell commands, default return result msg
@@ -36,12 +42,12 @@ public class ShellUtils {
 
     //execute shell command
     public static CommandResult execCommand(String command, boolean isRoot, boolean isNeedResultMsg) {
-        return execCommand(new String[] { command }, isRoot, isNeedResultMsg);
+        return execCommand(new String[]{command}, isRoot, isNeedResultMsg);
     }
 
     //execute shell commands
     public static CommandResult execCommand(List<String> commands, boolean isRoot, boolean isNeedResultMsg) {
-        return execCommand(commands == null ? null : commands.toArray(new String[] {}), isRoot, isNeedResultMsg);
+        return execCommand(commands == null ? null : commands.toArray(new String[]{}), isRoot, isNeedResultMsg);
     }
 
     //execute shell commands
@@ -56,8 +62,8 @@ public class ShellUtils {
         BufferedReader errorResult = null;
         StringBuilder successMsg = null;
         StringBuilder errorMsg = null;
-
         DataOutputStream os = null;
+
         try {
             process = Runtime.getRuntime().exec(isRoot ? COMMAND_SU : COMMAND_SH);
             os = new DataOutputStream(process.getOutputStream());
@@ -89,15 +95,12 @@ public class ShellUtils {
                     errorMsg.append(s);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
+
         } finally {
             try {
-                if (os != null) {
-                    os.close();
-                }
+
                 if (successResult != null) {
                     successResult.close();
                 }
@@ -105,7 +108,7 @@ public class ShellUtils {
                     errorResult.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e.toString());
             }
 
             if (process != null) {
@@ -113,24 +116,30 @@ public class ShellUtils {
             }
         }
         return new CommandResult(result, successMsg == null ? null : successMsg.toString(), errorMsg == null ? null
-            : errorMsg.toString());
+                : errorMsg.toString());
     }
 
     //means result of command, 0 means normal, else means error
     public static class CommandResult {
 
-        /** result of command **/
-        public int    result;
-        /** success message of command result **/
+        /**
+         * result of command
+         **/
+        public int result;
+        /**
+         * success message of command result
+         **/
         public String successMsg;
-        /** error message of command result **/
+        /**
+         * error message of command result
+         **/
         public String errorMsg;
 
-        public CommandResult(int result){
+        public CommandResult(int result) {
             this.result = result;
         }
 
-        public CommandResult(int result, String successMsg, String errorMsg){
+        public CommandResult(int result, String successMsg, String errorMsg) {
             this.result = result;
             this.successMsg = successMsg;
             this.errorMsg = errorMsg;

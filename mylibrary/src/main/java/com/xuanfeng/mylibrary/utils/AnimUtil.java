@@ -10,6 +10,8 @@ import android.view.animation.LayoutAnimationController;
  */
 
 public class AnimUtil {
+    private AnimUtil() {
+    }
 
     //LayoutAnimation，用于viewgroup的孩子做动画
     public static void runLayoutAnimation(RecyclerView recyclerView, int animResId) {

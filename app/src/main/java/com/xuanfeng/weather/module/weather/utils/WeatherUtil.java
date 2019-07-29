@@ -112,7 +112,7 @@ public class WeatherUtil {
             //改变地图状态
             mBaiduMap.setMapStatus(mMapStatusUpdate);
         } catch (Exception e) {
-            Log.e(TAG,e.toString());
+            Log.e(TAG, e.toString());
         }
     }
 

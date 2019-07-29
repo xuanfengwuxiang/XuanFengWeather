@@ -24,7 +24,10 @@ import okhttp3.ResponseBody;
  */
 
 public class FileUtil {
+    private FileUtil() {
+    }
 
+    private static final String TAG = "FileUtil";
     private static final String FILE_ROOT_NAME = "xuanfeng";//工作root目录
 
     //获取sdcard的目录
@@ -45,10 +48,7 @@ public class FileUtil {
 
     //外部存储是否可用
     public static boolean sdcardUseable() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return true;
-        }
-        return false;
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
 
@@ -64,11 +64,9 @@ public class FileUtil {
     // 复制文件
     public static void copyFile(InputStream inputStream, File targetFile)
             throws IOException {
-        BufferedOutputStream outBuff = null;
-        try {
+        try (BufferedOutputStream outBuff = new BufferedOutputStream(new FileOutputStream(targetFile));) {
 
             // 新建文件输出流并对它进行缓冲
-            outBuff = new BufferedOutputStream(new FileOutputStream(targetFile));
 
             // 缓冲数组
             byte[] b = new byte[1024 * 5];
@@ -78,12 +76,6 @@ public class FileUtil {
             }
             // 刷新此缓冲的输出流
             outBuff.flush();
-        } finally {
-            // 关闭流
-            if (inputStream != null)
-                inputStream.close();
-            if (outBuff != null)
-                outBuff.close();
         }
     }
 
@@ -108,27 +100,27 @@ public class FileUtil {
 
     //根据文件路径获取文件名(此方法有隐患)
     public static String getFileName(String path) {
-        if (path != null && !"".equals(path.trim()) && path.contains("/")) {
-            return path.substring(path.lastIndexOf("/") + 1);
+        if (path != null && !"".equals(path.trim()) && path.contains(File.separator)) {
+            return path.substring(path.lastIndexOf(File.separator) + 1);
         }
         return "";
     }
 
     // 从asset中读取文件
     public static String getFromAssets(Context context, String fileName) {
-        String result = "";
-        try {
-            InputStreamReader inputReader = new InputStreamReader(context.getResources().getAssets().open(fileName));
+        StringBuilder result = new StringBuilder();
+        try (InputStreamReader inputReader = new InputStreamReader(context.getResources().getAssets().open(fileName))) {
             BufferedReader bufReader = new BufferedReader(inputReader);
-            String line = "";
+            String line;
 
             while ((line = bufReader.readLine()) != null)
-                result += line;
-            return result;
+                result.append(line);
+            return result.toString();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
+
         }
-        return result;
+        return result.toString();
     }
 
     //删除目录（文件夹）下的文件
@@ -153,10 +145,9 @@ public class FileUtil {
     }
 
     // 保存序列化的对象到app目录
-    public static void saveSeriObj(Context context, String fileName, Object o)
-            throws Exception {
+    public static void saveSeriObj(Context context, String fileName, Object o) {
 
-        String path = context.getFilesDir() + "/";
+        String path = context.getFilesDir() + File.separator;
 
         File dir = new File(path);
         dir.mkdirs();
@@ -166,23 +157,25 @@ public class FileUtil {
         if (f.exists()) {
             f.delete();
         }
-        FileOutputStream os = new FileOutputStream(f);
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(os);
-        objectOutputStream.writeObject(o);
-        objectOutputStream.close();
-        os.close();
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(f))) {
+            objectOutputStream.writeObject(o);
+        } catch (IOException e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     // 读取序列化的对象
-    public static Object readSeriObject(Context context, String fileName)
-            throws Exception {
-        String path = context.getFilesDir() + "/";
+    public static Object readSeriObject(Context context, String fileName) {
+        String path = context.getFilesDir() + File.separator;
         File dir = new File(path);
         dir.mkdirs();
-        File file = new File(dir, fileName);
-        InputStream is = new FileInputStream(file);
-        ObjectInputStream objectInputStream = new ObjectInputStream(is);
-        Object o = objectInputStream.readObject();
+        Object o = null;
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(new File(dir, fileName)))
+        ) {
+            o = objectInputStream.readObject();
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
         return o;
     }
 
@@ -192,60 +185,45 @@ public class FileUtil {
             return "";
         }
         if (filePath.contains(".")) {
-            int index = filePath.lastIndexOf(".");
+            int index = filePath.lastIndexOf('.');
             return filePath.substring(index + 1);
         }
         return filePath;
     }
 
     //将responseBody写入磁盘
-    public static boolean writeResponseBodyToDisk(ResponseBody body,String savePath) {
-        try {
-            File file = new File(savePath);
+    public static boolean writeResponseBodyToDisk(ResponseBody body, String savePath) {
 
-            InputStream inputStream = null;
-            OutputStream outputStream = null;
+        File file = new File(savePath);
+        try (InputStream inputStream = body.byteStream();
+             OutputStream outputStream = new FileOutputStream(file);) {
+            byte[] fileReader = new byte[4096];
 
-            try {
-                byte[] fileReader = new byte[4096];
+            long fileSize = body.contentLength();
+            long fileSizeDownloaded = 0;
 
-                long fileSize = body.contentLength();
-                long fileSizeDownloaded = 0;
 
-                inputStream = body.byteStream();
-                outputStream = new FileOutputStream(file);
+            while (true) {
+                int read = inputStream.read(fileReader);
 
-                while (true) {
-                    int read = inputStream.read(fileReader);
-
-                    if (read == -1) {
-                        break;
-                    }
-
-                    outputStream.write(fileReader, 0, read);
-
-                    fileSizeDownloaded += read;
-
-                    Log.d("writeResponseBodyToDisk", "file download: " + fileSizeDownloaded + " of " + fileSize);
+                if (read == -1) {
+                    break;
                 }
 
-                outputStream.flush();
+                outputStream.write(fileReader, 0, read);
 
-                return true;
-            } catch (IOException e) {
-                return false;
-            } finally {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
+                fileSizeDownloaded += read;
 
-                if (outputStream != null) {
-                    outputStream.close();
-                }
+                Log.d("writeResponseBodyToDisk", "file download: " + fileSizeDownloaded + " of " + fileSize);
             }
+
+            outputStream.flush();
+
+            return true;
         } catch (IOException e) {
             return false;
         }
+
     }
 
 }

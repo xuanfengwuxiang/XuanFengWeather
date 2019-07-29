@@ -1,7 +1,8 @@
-package com.xuanfeng.mylibrary.http.httpMgr;
+package com.xuanfeng.mylibrary.http.httpmgr;
 
 import androidx.lifecycle.LifecycleOwner;
 import androidx.annotation.NonNull;
+
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -55,13 +57,13 @@ public class HttpManager {
 
 
     //get请求
-    public void getJsonObjectByGet(LifecycleOwner lifecycleOwner, String url, LinkedHashMap<String, String> params, HttpResponse<JsonObject> httpResponse) {
+    public void getJsonObjectByGet(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, HttpResponse<JsonObject> httpResponse) {
         getJsonObjectByGet(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
     }
 
 
     //get请求
-    public void getJsonObjectByGet(LifecycleOwner lifecycleOwner, String url, LinkedHashMap<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
+    public void getJsonObjectByGet(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
         Observable observable = HttpLoader.getInstance().getService().callByGet(url, params);
         observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
     }
@@ -84,8 +86,8 @@ public class HttpManager {
 
 
     //文件上传
-    public void uploadFiles(LifecycleOwner lifecycleOwner, String url, List<String> filePaths, String token, String cancelTag, HttpResponse<JsonObject> httpResponse) {
-        if (filePaths == null || filePaths.size() == 0) {
+    public void uploadFiles(LifecycleOwner lifecycleOwner, String url, List<String> filePaths, String cancelTag, HttpResponse<JsonObject> httpResponse) {
+        if (filePaths == null || filePaths.isEmpty()) {
             return;
         }
         LinkedHashMap<String, RequestBody> params = new LinkedHashMap<>();
@@ -128,12 +130,12 @@ public class HttpManager {
 
             @Override
             public void onError(Throwable e) {
-
+                //do nothing
             }
 
             @Override
             public void onComplete() {
-
+                //do nothing
             }
         }, cancelTag);
     }
@@ -162,7 +164,7 @@ public class HttpManager {
 
     //绑定自定义接口与Observer
     public <W> Observer<W> getObserver(final HttpResponse httpResponse, String cancelTag) {
-        Observer observer = new Observer<W>() {
+        return new Observer<W>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -190,6 +192,5 @@ public class HttpManager {
             }
 
         };
-        return observer;
     }
 }
