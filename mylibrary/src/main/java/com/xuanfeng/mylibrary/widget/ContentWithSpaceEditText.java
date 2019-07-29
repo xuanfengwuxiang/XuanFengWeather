@@ -26,7 +26,8 @@ public class ContentWithSpaceEditText extends EditText {
     public static final int TYPE_IDCARD = 2;//身份证
     private int maxLength = 100;
     private int contentType;
-    private int start, count, before;
+    private int start;
+    private int count;
     private String digits;
 
     public ContentWithSpaceEditText(Context context) {
@@ -85,13 +86,12 @@ public class ContentWithSpaceEditText extends EditText {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            //do nothing
         }
 
         @Override//在文本变化时调用,此时s的内容已发生改变
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             ContentWithSpaceEditText.this.start = start;//start代表变化的起始位置
-            ContentWithSpaceEditText.this.before = before;//before代表变化前，该位置开始字符数量
             ContentWithSpaceEditText.this.count = count;//count代表新增加的字符长度
             Log.d("onTextChanged", "start==" + start + "before==" + before + "count==" + count);
         }
@@ -129,15 +129,10 @@ public class ContentWithSpaceEditText extends EditText {
                 //如果是在末尾的话,或者加入的字符个数大于零的话（输入或者粘贴）
                 if (!isMiddle || count > 1) {
                     setSelection(s.length() <= maxLength ? s.length() : maxLength);
-                } else if (isMiddle) {
+                } else {
                     //如果是删除
                     if (count == 0) {
                         //如果删除时，光标停留在空格的前面，光标则要往前移一位
-                        /*if (isSpace(start - before + 1)) {
-                            setSelection((start - before) > 0 ? start - before : 0);
-                        } else {
-                            setSelection((start - before + 1) > s.length() ? s.length() : (start - before + 1));
-                        }*/
                         if (isSpace(start)) {
                             setSelection(start - 1);
                         } else {
@@ -146,14 +141,9 @@ public class ContentWithSpaceEditText extends EditText {
                     }
                     //如果是增加
                     else {
-                        /*if (isSpace(start - before + count)) {
-                            setSelection((start + count - before + 1) < s.length() ? (start + count - before + 1) : s.length());
-                        } else {
-                            setSelection(start + count - before);
-                        }*/
 
                         if (isSpace(start + count)) {
-                           setSelection(start + count + 1);
+                            setSelection(start + count + 1);
                         } else {
                             setSelection(start + count);
                         }
@@ -182,7 +172,7 @@ public class ContentWithSpaceEditText extends EditText {
             if (isSpaceCard(s.length())) {
                 s.delete(s.length() - 1, s.length());
             }
-        } else if (contentType == TYPE_IDCARD) {
+        } else {
             if (isSpaceIDCard(s.length())) {
                 s.delete(s.length() - 1, s.length());
             }
@@ -226,36 +216,5 @@ public class ContentWithSpaceEditText extends EditText {
         return super.getText().toString().replace(" ", "");
     }
 
-    /**
-     * @Description 内容校验
-     */
-    public boolean isContentCheck() {
-        String text = getTextWithoutSpace();
-        if (contentType == TYPE_PHONE) {
-            if (TextUtils.isEmpty(text)) {
-                //ToastUtil.showText(UIUtils.getString(R.string.phone_number_not_empty));
-            } else if (text.length() < 11) {
-                // ToastUtil.showText(UIUtils.getString(R.string.phone_number_incorrect_length));
-            } else {
-                return true;
-            }
-        } else if (contentType == TYPE_CARD) {
-            if (TextUtils.isEmpty(text)) {
-                //ToastUtil.showText(UIUtils.getString(R.string.bank_card_not_empty));
-            } else if (text.length() < 16) {
-                // ToastUtil.showText(UIUtils.getString(R.string.bank_card_incorrect_length));
-            } else {
-                return true;
-            }
-        } else if (contentType == TYPE_IDCARD) {
-            if (TextUtils.isEmpty(text)) {
-                //ToastUtil.showText(UIUtils.getString(R.string.identity_number_not_empty));
-            } else if (text.length() < 18) {
-                //ToastUtil.showText(UIUtils.getString(R.string.identity_number_incorrect_length));
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
+
 }
