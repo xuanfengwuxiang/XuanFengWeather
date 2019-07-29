@@ -21,8 +21,8 @@ public class ViewPagerPhotoTestAdapter extends PagerAdapter {
     private Context mContext;
     private List<Integer> mUrls;
 
-    public ViewPagerPhotoTestAdapter(Context Context, List<Integer> urls) {
-        mContext = Context;
+    public ViewPagerPhotoTestAdapter(Context context, List<Integer> urls) {
+        mContext = context;
         mUrls = urls;
     }
 
@@ -35,7 +35,6 @@ public class ViewPagerPhotoTestAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_photo, container, false);
         ImageView mIvPhoto = (ImageView) view.findViewById(R.id.iv_photo);
-        //Picasso.with(mContext).load(mUrls.get(position)).into(mIvPhoto);
         mIvPhoto.setImageResource(mUrls.get(position));
         container.addView(view);
         return view;

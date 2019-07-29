@@ -22,7 +22,7 @@ public class TestForEditTextActivity extends BaseActivity {
 
     @Override
     public void initData(Bundle bundle) {
-
+        //do nothing
     }
 
     @Override

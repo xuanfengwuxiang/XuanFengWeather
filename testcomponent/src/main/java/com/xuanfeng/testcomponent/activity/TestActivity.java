@@ -17,7 +17,6 @@ import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.SoftKeyBoardUtil;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
-import com.xuanfeng.mylibrary.widget.popupmenu.adapter.PopupMenuAdapter;
 import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestBinding;
 import com.xuanfeng.testcomponent.service.TestService;
@@ -77,22 +76,19 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
 
     private void initPopupMenu() {
         final List<String> list = new ArrayList<>();
-        list.add("苍井空");
-        list.add("波多野结衣");
-        list.add("小泽玛利亚");
-        list.add("苍井空");
-        list.add("波多野结衣");
-        list.add("小泽玛利亚");
-        list.add("苍井空");
-        list.add("波多野结衣");
-        list.add("小泽玛利亚");
+        list.add("周杰伦");
+        list.add("王力宏");
+        list.add("陶喆");
+        list.add("周传雄");
+        list.add("胡彦斌");
+        list.add("刘德华");
+        list.add("简弘亦");
+        list.add("张学友");
+        list.add("杨坤");
         mPopupMenu = new PopupMenu(this, mBinding.tvTestForPopupmenu.getWidth(), 500, list);
-        mPopupMenu.setOnItemClickListener(new PopupMenuAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                mPopupMenu.dismiss();
-                Toast.makeText(TestActivity.this, list.get(position), Toast.LENGTH_SHORT).show();
-            }
+        mPopupMenu.setOnItemClickListener((view, position) -> {
+            mPopupMenu.dismiss();
+            Toast.makeText(TestActivity.this, list.get(position), Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -119,12 +115,12 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
     ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-
+            //do nothing
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-
+            //do nothing
         }
     };
 
@@ -138,12 +134,12 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
     SoftKeyBoardUtil.KeyBoardListener mKeyBoardListener = new SoftKeyBoardUtil.KeyBoardListener() {
         @Override
         public void keyBoardShow(int height) {
-
+            //do nothing
         }
 
         @Override
         public void keyBoardHide(int height) {
-
+            //do nothing
         }
     };
 

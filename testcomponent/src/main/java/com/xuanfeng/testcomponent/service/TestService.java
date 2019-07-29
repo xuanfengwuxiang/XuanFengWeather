@@ -8,7 +8,10 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 public class TestService extends Service {
+
+    private static final String TAG = "TestService";
     public TestService() {
+        //do nothing
     }
 
 
@@ -16,37 +19,37 @@ public class TestService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i("TestService","==onCreate");
+        Log.i(TAG,"==onCreate");
     }
 
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-        Log.i("TestService","==onStart");
+        Log.i(TAG,"==onStart");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("TestService","==onStartCommand");
+        Log.i(TAG,"==onStartCommand");
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.i("TestService","==onBind");
+        Log.i(TAG,"==onBind");
         return null;
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Log.i("TestService","==onUnbind");
+        Log.i(TAG,"==onUnbind");
         return super.onUnbind(intent);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("TestService","==onDestroy");
+        Log.i(TAG,"==onDestroy");
     }
 }

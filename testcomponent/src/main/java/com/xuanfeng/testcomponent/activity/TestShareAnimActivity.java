@@ -13,12 +13,6 @@ public class TestShareAnimActivity extends BaseActivity<BasePresenter, ActivityT
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.activity_test_share_anim;
     }
