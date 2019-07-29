@@ -2,19 +2,21 @@ package com.xuanfeng.weather.module.loseweight;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xuanfeng.mylibrary.utils.ToastUtil;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
-import com.xuanfeng.mylibrary.widget.popupmenu.adapter.PopupMenuAdapter;
+import com.xuanfeng.weather.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 //减肥计算器工具类
 public class LoseWeightUtil {
+
+    private LoseWeightUtil() {
+    }
 
     /**
      * 获取最佳有氧心率
@@ -28,7 +30,7 @@ public class LoseWeightUtil {
         String age = etAge.getText().toString();
         String staticRate = etStaticHeartRate.getText().toString();
         if (TextUtils.isEmpty(age)) {
-            ToastUtil.showToast(context, "请输入年龄");
+            ToastUtil.showToast(context, context.getString(R.string.input_age));
             return;
         }
         if (TextUtils.isEmpty(staticRate)) {
@@ -68,7 +70,7 @@ public class LoseWeightUtil {
             return;
         }
         if (TextUtils.isEmpty(age)) {
-            ToastUtil.showToast(context, "请输入年龄");
+            ToastUtil.showToast(context, context.getString(R.string.input_age));
             return;
         }
         if (TextUtils.isEmpty(weight)) {
@@ -113,7 +115,7 @@ public class LoseWeightUtil {
             return;
         }
         if (TextUtils.isEmpty(age)) {
-            ToastUtil.showToast(context, "请输入年龄");
+            ToastUtil.showToast(context, context.getString(R.string.input_age));
             return;
         }
         if (TextUtils.isEmpty(weight)) {
@@ -149,12 +151,9 @@ public class LoseWeightUtil {
         list.add("男");
         list.add("女");
         PopupMenu popupMenu = new PopupMenu(context, tvSex.getWidth(), 200, list);
-        popupMenu.setOnItemClickListener(new PopupMenuAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                tvSex.setText(list.get(position));
-                popupMenu.dismiss();
-            }
+        popupMenu.setOnItemClickListener((view, position) -> {
+            tvSex.setText(list.get(position));
+            popupMenu.dismiss();
         });
         popupMenu.showAsDropDown(tvSex);
     }

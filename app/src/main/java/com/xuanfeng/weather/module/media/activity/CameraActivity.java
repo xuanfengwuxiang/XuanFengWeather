@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,21 +23,20 @@ import com.xuanfeng.weather.databinding.ActivityCameraBinding;
 import com.xuanfeng.weather.module.media.callback.GoogleDetectListenerImpl;
 import com.xuanfeng.weather.mvvm.BaseActivity;
 import com.xuanfeng.weather.utils.ImageUtil;
+import com.xuanfeng.weather.widget.FaceView;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
  * 人脸识别,相机界面
  */
-public class CameraActivity extends BaseActivity<ActivityCameraBinding> {
+public class CameraActivity extends BaseActivity<ActivityCameraBinding> implements FaceView.FaceViewListener {
 
     private SurfaceHolder mSurfaceHolder;
-    public static int cameraId;
-    public Camera mCamera;
-    private SurfaceViewCallBack mSurfaceViewCallBack;
+    private int cameraId;
+    private Camera mCamera;
     private MainHandler mainHandler = new MainHandler();
     byte[] photoBytes;
     private boolean isBack = true;
@@ -54,12 +53,13 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> {
 
     @Override
     public void initViewModel() {
-
+        //do nothing
     }
 
     @Override
     public void initListener() {
         mBinding.setListener(this);
+        mBinding.faceView.setFaceViewListener(this);
     }
 
     @Override
@@ -73,8 +73,7 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> {
         cameraId = ImageUtil.findBackCamera();
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         mBinding.tvTurnCamera.setText("前置/后置------当前：后置");
-        mSurfaceViewCallBack = new SurfaceViewCallBack(this);
-        mSurfaceHolder.addCallback(mSurfaceViewCallBack);
+        mSurfaceHolder.addCallback(new SurfaceViewCallBack(this));
 
     }
 
@@ -96,7 +95,14 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> {
             case R.id.tv_cancel_photo://照片取消按钮
                 cancle();
                 break;
+            default:
+                break;
         }
+    }
+
+    @Override
+    public int getCameraId() {
+        return cameraId;
     }
 
     private class MainHandler extends Handler {
@@ -109,18 +115,30 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> {
                     startGoogleDetect();
                     break;
                 case 2:
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Camera.Face[] faces = (Camera.Face[]) msg.obj;
-                            mBinding.faceView.setFaces(faces);
-                            CustomToast.getInstance(CameraActivity.this).showToast("收到人脸识别的信息");
-                        }
+                    runOnUiThread(() -> {
+                        Camera.Face[] faces = (Camera.Face[]) msg.obj;
+                        mBinding.faceView.setFaces(faces);
+                        CustomToast.getInstance(CameraActivity.this).showToast("收到人脸识别的信息");
                     });
 
                     break;
+                default:
+                    break;
             }
             super.handleMessage(msg);
+        }
+
+        //添加人脸监听器
+        private void startGoogleDetect() {
+            Camera.Parameters parameters = mCamera.getParameters();
+            if (parameters.getMaxNumDetectedFaces() > 0) {
+                if (mBinding.faceView != null) {
+                    mBinding.faceView.clearFaces();
+                    mBinding.faceView.setVisibility(View.VISIBLE);
+                }
+                mCamera.setFaceDetectionListener(new GoogleDetectListenerImpl(CameraActivity.this, mainHandler));
+                mCamera.startFaceDetection();
+            }
         }
     }
 
@@ -130,7 +148,7 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> {
         mCamera.autoFocus(new Camera.AutoFocusCallback() {
             @Override
             public void onAutoFocus(boolean b, Camera camera) {
-               if (b) {        //如果焦点获取成功，拍照
+                if (b) {        //如果焦点获取成功，拍照
                     mCamera.takePicture(null, null, pictureCallBack);  //pictureCallBack 为拍照的回掉。
                 }
             }
@@ -143,28 +161,28 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> {
             photoBytes = bytes;
             showPhoto(photoBytes);
         }
+
+        //显示拍出的图片
+        private void showPhoto(byte[] photoBytes) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length);
+            Matrix matrix = new Matrix();
+            if (isBack) {  //后置摄像头
+                matrix.setRotate(90);
+            } else {
+                matrix.setRotate(-90); //前置摄像头
+            }
+            Bitmap bit = bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            if (!bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
+            if (bit != null) {
+                mBinding.ivPhotoResult.setImageBitmap(bit);
+            }
+            mBinding.rlPhotoResult.setVisibility(View.VISIBLE);
+        }
+
     };
 
-    /**
-     * 显示拍出的图片
-     */
-    private void showPhoto(byte[] photoBytes) {
-        Bitmap bitmap = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length);
-        Matrix matrix = new Matrix();
-        if (isBack) {  //后置摄像头
-            matrix.setRotate(90);
-        } else {
-            matrix.setRotate(-90); //前置摄像头
-        }
-        Bitmap bit = bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        if (bitmap != null && !bitmap.isRecycled()) {
-            bitmap.recycle();
-        }
-        if (bit != null) {
-            mBinding.ivPhotoResult.setImageBitmap(bit);
-        }
-        mBinding.rlPhotoResult.setVisibility(View.VISIBLE);
-    }
 
     /**
      * 摄像头的切换
@@ -183,16 +201,14 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> {
             mCamera.release(); // 释放照相机
         }
         mCamera = Camera.open(cameraId);
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        //ImageUtil.setCameraParams(mCamera, displayMetrics.widthPixels, displayMetrics.heightPixels);
-        ImageUtil.setCameraParams(mCamera,1080,1920);
+        ImageUtil.setCameraParams(mCamera, 1080, 1920);
         try {
             mCamera.setPreviewDisplay(mSurfaceHolder);
             mCamera.setDisplayOrientation(90);
             mCamera.startPreview();
             mainHandler.sendEmptyMessage(1);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(getClass().getSimpleName(), e.toString());
         }
     }
 
@@ -202,22 +218,20 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> {
     public void takePhotoFinish() {          //完成
         File file = new File(Environment.getExternalStorageDirectory().getPath() + "/test2.jpg");
         if (file.exists()) {
-            file.delete();
+            boolean result = file.delete();
+            Log.e(getClass().getSimpleName(), "删除情况：" + result);
         }
-        try {
-            FileOutputStream fo = new FileOutputStream(file);
+        try (FileOutputStream fo = new FileOutputStream(file)
+        ) {
             fo.write(photoBytes);
-            fo.close();
             Toast.makeText(this, "已保存图片", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);                         //完成拍照，回到mainActivity,并将图片的路径回传
             intent.putExtra("picPath", Environment.getExternalStorageDirectory().getPath() + "/test2.jpg");
             intent.putExtra("isBack", isBack);
             setResult(RESULT_OK, intent);
             finish();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e(getClass().getSimpleName(), e.toString());
         }
     }
 
@@ -230,24 +244,11 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> {
         mCamera.startPreview();
     }
 
-    //添加人脸监听器
-    private void startGoogleDetect() {
-        Camera.Parameters parameters =mCamera.getParameters();
-        if (parameters.getMaxNumDetectedFaces() > 0) {
-            if (mBinding.faceView != null) {
-                mBinding.faceView.clearFaces();
-                mBinding.faceView.setVisibility(View.VISIBLE);
-            }
-            mCamera.setFaceDetectionListener(new GoogleDetectListenerImpl(this, mainHandler));
-            mCamera.startFaceDetection();
-        }
-    }
 
     public class SurfaceViewCallBack implements SurfaceHolder.Callback {
-        private Context mContext;
 
         public SurfaceViewCallBack(Context context) {
-            mContext = context;
+
         }
 
         @Override
@@ -256,12 +257,10 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> {
                 if (mCamera == null) {
                     mCamera = Camera.open(cameraId);
                     mCamera.setPreviewDisplay(holder);
-                    DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
-                    //ImageUtil.setCameraParams(mCamera,displayMetrics.widthPixels, displayMetrics.heightPixels);
-                    ImageUtil.setCameraParams(mCamera,1080,1920);
+                    ImageUtil.setCameraParams(mCamera, 1080, 1920);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(getClass().getSimpleName(), e.toString());
             }
         }
 

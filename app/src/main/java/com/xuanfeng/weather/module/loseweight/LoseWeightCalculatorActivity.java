@@ -56,6 +56,8 @@ public class LoseWeightCalculatorActivity extends BaseActivity<BasePresenter, Ac
             case R.id.tv_sex://设置性别
                 LoseWeightUtil.setSex(this, mBinding.tvSex);
                 break;
+            default:
+                break;
         }
     }
 

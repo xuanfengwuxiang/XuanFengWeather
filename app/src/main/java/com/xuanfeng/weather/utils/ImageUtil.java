@@ -24,6 +24,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class ImageUtil {
+    private ImageUtil() {
+    }
 
     //在给定的bitmap上，进行人脸检测，并画出人脸区域框框
     public static void faceDetect(final Paint paint, final Bitmap bitmap, final int maxFaceNum, final Observer observer) {
@@ -52,7 +54,7 @@ public class ImageUtil {
 
     //根据检测出来的脸，画框框到bitmap上
     private static void drawFacesArea(FaceDetector.Face[] faces, Bitmap bitmap, Paint paint) {
-        float eyesDistance = 0f;//两眼间距
+        float eyesDistance;//两眼间距
         Canvas canvas = new Canvas(bitmap);
         for (int i = 0; i < faces.length; i++) {
             FaceDetector.Face face = faces[i];

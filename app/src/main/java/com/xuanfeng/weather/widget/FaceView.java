@@ -38,40 +38,41 @@ public class FaceView extends ImageView {
         this.mFaces = faces;
         invalidate();
     }
-    public void clearFaces(){
+
+    public void clearFaces() {
         mFaces = null;
         invalidate();
     }
+
     @Override
     protected void onDraw(Canvas canvas) {
-        if(mFaces == null || mFaces.length < 1){
+        if (mFaces == null || mFaces.length < 1) {
             return;
         }
-        if (mFaces != null&&mFaces.length>=1) {
-            canvas.translate(getWidth()/2,getHeight()/2);
+        if (mFaces != null && mFaces.length >= 1) {
+            canvas.translate(getWidth() / 2, getHeight() / 2);
             canvas.rotate(-0);
-            mirror=(CameraActivity.cameraId== Camera.CameraInfo.CAMERA_FACING_FRONT) ;
-            Log.e("mFaces","mFaces"+mFaces.length);
+            mirror = (mFaceViewListener != null && mFaceViewListener.getCameraId() == Camera.CameraInfo.CAMERA_FACING_FRONT);
+            Log.e("mFaces", "mFaces" + mFaces.length);
             for (int i = 0; i < mFaces.length; i++) {
-                Camera.Face face= mFaces[i];
-                int width=face.rect.right-face.rect.left;
-                int  needWidth=getWidth()*width/2000;
-                if(!mirror){
+                Camera.Face face = mFaces[i];
+                int width = face.rect.right - face.rect.left;
+                int needWidth = getWidth() * width / 2000;
+                if (!mirror) {
                     int cx = -face.rect.centerY(); //因为之前对camera做了旋转，所以这里需要转换一下坐   //后置摄像头
                     int cy = face.rect.centerX();
-                    RectF rectF = new RectF(getWidth()*cx/2000f-needWidth/2,getHeight()*cy/2000f-needWidth/2,getWidth()*cx/2000f+needWidth/2,getHeight()*cy/2000f+needWidth/2);
-                    canvas.drawRect(rectF,mLinePaint);
-                }else{
+                    RectF rectF = new RectF(getWidth() * cx / 2000f - needWidth / 2, getHeight() * cy / 2000f - needWidth / 2, getWidth() * cx / 2000f + needWidth / 2, getHeight() * cy / 2000f + needWidth / 2);
+                    canvas.drawRect(rectF, mLinePaint);
+                } else {
                     int cx = -face.rect.centerY(); //因为之前对camera做了旋转，所以这里需要转换一下坐  //前置摄像头
                     int cy = -face.rect.centerX();
-                    RectF rectF = new RectF(getWidth()*cx/2000f-needWidth/2,getHeight()*cy/2000f-needWidth/2,getWidth()*cx/2000f+needWidth/2,getHeight()*cy/2000f+needWidth/2);
-                    canvas.drawRect(rectF,mLinePaint);
+                    RectF rectF = new RectF(getWidth() * cx / 2000f - needWidth / 2, getHeight() * cy / 2000f - needWidth / 2, getWidth() * cx / 2000f + needWidth / 2, getHeight() * cy / 2000f + needWidth / 2);
+                    canvas.drawRect(rectF, mLinePaint);
                 }
             }
         }
         super.onDraw(canvas);
     }
-
 
 
     /**
@@ -107,5 +108,15 @@ public class FaceView extends ImageView {
         mLinePaint.setStyle(Paint.Style.STROKE);
         mLinePaint.setStrokeWidth(5f);
         mLinePaint.setAlpha(180);
+    }
+
+    public interface FaceViewListener {
+        int getCameraId();
+    }
+
+    private FaceViewListener mFaceViewListener;
+
+    public void setFaceViewListener(FaceViewListener faceViewListener) {
+        mFaceViewListener = faceViewListener;
     }
 }
