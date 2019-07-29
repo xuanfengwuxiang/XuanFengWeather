@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Process;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -25,6 +28,10 @@ import java.util.List;
  */
 
 public class MainUtil {
+    private static final String TAG = "MainUtil";
+
+    private MainUtil() {
+    }
 
     private static long mExitTime = 0;
 
@@ -44,7 +51,7 @@ public class MainUtil {
                 System.exit(0);//退出JVM
             } catch (Exception e) {
                 Process.killProcess(Process.myPid());
-                e.printStackTrace();
+                Log.e(TAG, e.toString());
             }
         }
     }
@@ -56,7 +63,7 @@ public class MainUtil {
             switch (checkedId) {
                 case R.id.rb_one:
                     mVpMain.setCurrentItem(0, false);
-                    ImageUtil.loadImage(context,R.drawable.ic_sunny_day,mActivityMain);
+                    ImageUtil.loadImage(context, R.drawable.ic_sunny_day, mActivityMain);
                     break;
                 case R.id.rb_two:
                     mVpMain.setCurrentItem(1, false);
@@ -65,6 +72,8 @@ public class MainUtil {
                 case R.id.rb_three:
                     mVpMain.setCurrentItem(2, false);
                     mActivityMain.setBackgroundColor(context.getResources().getColor(R.color.baseThemeColor));
+                    break;
+                default:
                     break;
             }
         });

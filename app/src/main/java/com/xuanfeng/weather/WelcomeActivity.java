@@ -14,8 +14,8 @@ import com.xuanfeng.weather.databinding.ActivityWelcomeBinding;
 
 public class WelcomeActivity extends BaseActivity<BasePresenter, ActivityWelcomeBinding> {
 
-    public static final String[] PERMISSIONS = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA};// 需要的权限
-    private static final int requestCode = 1;
+    protected static final String[] PERMISSIONS = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA};// 需要的权限
+    private static final int REQUEST_CODE = 1;
 
     @Override//权限检查放在onresume里原因，从权限检查界面回来的时候不需要走result方法
     protected void onResume() {
@@ -25,11 +25,11 @@ public class WelcomeActivity extends BaseActivity<BasePresenter, ActivityWelcome
 
     private void delayToNextActivity() {
 
-        mBinding.countDownProgressBar.setOnCountDownFinishListener(() -> goToMainActivity()).startCountDown();
+        mBinding.countDownProgressBar.setOnCountDownFinishListener(this::goToMainActivity).startCountDown();
     }
 
     private void goToMainActivity() {
-        ActivityCompat.requestPermissions(this, PERMISSIONS, requestCode);
+        ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_CODE);
 
         Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(intent);
@@ -50,7 +50,7 @@ public class WelcomeActivity extends BaseActivity<BasePresenter, ActivityWelcome
 
     @Override
     public void initData(Bundle bundle) {
-
+        //do nothing
     }
 
     @Override
@@ -62,7 +62,6 @@ public class WelcomeActivity extends BaseActivity<BasePresenter, ActivityWelcome
     public boolean isFullScreen() {
         return true;
     }
-
 
 
     public void onClick(View view) {

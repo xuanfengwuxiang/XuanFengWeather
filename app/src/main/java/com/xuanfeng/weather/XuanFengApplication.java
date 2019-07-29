@@ -52,7 +52,7 @@ public class XuanFengApplication extends MultiDexApplication {
         if (BuildConfig.DEBUG) {
             appChannel = "develop";
         } else {
-            appChannel = Variable.APP_CHANNEL;
+            appChannel = Variable.appChannel;
         }
         strategy.setAppChannel(appChannel);  //设置渠道
         strategy.setAppVersion(Variable.APP_VERSION_NAME);      //App的版本

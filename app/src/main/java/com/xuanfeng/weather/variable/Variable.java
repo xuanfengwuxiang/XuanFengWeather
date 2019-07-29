@@ -6,6 +6,9 @@ package com.xuanfeng.weather.variable;
  */
 
 public class Variable {
+    private Variable() {
+    }
+
     //是否保存crash信息到文件
     public static boolean CRASH_2_FILE = false;
     //APP崩溃是否重启
@@ -33,6 +36,6 @@ public class Variable {
     //该应用程序的版本
     public static String APP_VERSION_NAME = "0.0.0";
     //APP渠道
-    public static String APP_CHANNEL;
+    public static String appChannel;
 
 }
