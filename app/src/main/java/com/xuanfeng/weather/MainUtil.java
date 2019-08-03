@@ -23,6 +23,7 @@ import com.xuanfeng.weather.module.weather.fragment.WeatherFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by xuanfengwuxiang on 2018/8/1.
@@ -35,7 +36,8 @@ public class MainUtil {
     }
 
     private static long mExitTime = 0;
-    private static final int DOUBLE_CLICK_TIME = 2000;
+    private static final int DOUBLE_CLICK_TIME = 2000;//双击退出时间
+    private static final int PAGE_LIMIT = 2;//屏外缓存书
 
     //退出app
     public static void exitApp(Activity activity) {
@@ -88,7 +90,7 @@ public class MainUtil {
         list.add(new NewsFragment());
         FragmentPagerAdapter fragmentPagerAdapter = new ViewPagerAdapter(activity.getSupportFragmentManager(), list);
         mVpMain.setAdapter(fragmentPagerAdapter);
-        mVpMain.setOffscreenPageLimit(2);
+        mVpMain.setOffscreenPageLimit(PAGE_LIMIT);
     }
 
 }

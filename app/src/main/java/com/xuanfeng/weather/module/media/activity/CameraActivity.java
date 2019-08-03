@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.xuanfeng.mylibrary.widget.CustomToast;
+import com.xuanfeng.mylibrary.utils.ToastUtil;
 import com.xuanfeng.weather.MainActivity;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.ActivityCameraBinding;
@@ -118,7 +118,7 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> implemen
                     runOnUiThread(() -> {
                         Camera.Face[] faces = (Camera.Face[]) msg.obj;
                         mBinding.faceView.setFaces(faces);
-                        CustomToast.getInstance(CameraActivity.this).showToast("收到人脸识别的信息");
+                        ToastUtil.showToast(CameraActivity.this,"收到人脸识别的信息");
                     });
 
                     break;
