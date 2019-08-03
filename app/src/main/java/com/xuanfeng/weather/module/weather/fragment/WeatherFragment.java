@@ -29,7 +29,7 @@ import io.reactivex.functions.Consumer;
 public class WeatherFragment extends BaseFragment<WeatherPresenter, FragmentWeatherBinding> implements WeatherView, BDLocationListener, Consumer {
 
 
-    LocationClient mLocationClient;//百度定位
+    private LocationClient mLocationClient;//百度定位
     private String mCity;//城市
     private double mLa;
     private double mLo;

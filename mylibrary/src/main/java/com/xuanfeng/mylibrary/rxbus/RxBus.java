@@ -10,7 +10,7 @@ import io.reactivex.subjects.Subject;
  */
 
 public class RxBus {
-    private static RxBus rxBus;
+    private static volatile RxBus rxBus;
     private final Subject<Object> mObjectSubject = PublishSubject.create().toSerialized();
 
     private RxBus() {
