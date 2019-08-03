@@ -11,6 +11,7 @@ import com.baidu.location.LocationClient;
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.StringUtils;
+import com.xuanfeng.mylibrary.utils.ToastUtil;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentWeatherBinding;
 import com.xuanfeng.weather.module.weather.activity.SelectCityActivity;
@@ -94,7 +95,7 @@ public class WeatherFragment extends BaseFragment<WeatherPresenter, FragmentWeat
                 startActivity(intent);
                 break;
             case R.id.tv_today_temperature:
-                Toast.makeText(getContext(), mBinding.tvTodayTemperature.getText().toString(), Toast.LENGTH_SHORT).show();
+                ToastUtil.showToast(getContext(), mBinding.tvTodayTemperature.getText().toString());
                 break;
             default:
                 break;

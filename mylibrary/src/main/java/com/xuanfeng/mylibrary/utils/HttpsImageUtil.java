@@ -32,6 +32,7 @@ import okhttp3.OkHttpClient;
  */
 public class HttpsImageUtil {
     private static final String TAG = "HttpsImageUtil";
+
     private HttpsImageUtil() {
     }
 
@@ -40,7 +41,7 @@ public class HttpsImageUtil {
             TrustManager[] trustManagers = prepareTrustManager(certificates);
             KeyManager[] keyManagers = prepareKeyManager(bksFile, password);
             SSLContext sslContext = SSLContext.getInstance("TLS");
-            TrustManager trustManager = null;
+            TrustManager trustManager;
             if (trustManagers != null) {
                 trustManager = new MyTrustManager(chooseTrustManager(trustManagers));
             } else {
@@ -96,7 +97,7 @@ public class HttpsImageUtil {
             trustManagerFactory.init(keyStore);
             return trustManagerFactory.getTrustManagers();
         } catch (Exception e) {
-            Log.e(TAG,e.toString());
+            Log.e(TAG, e.toString());
         }
         return new TrustManager[]{};
 
@@ -111,7 +112,7 @@ public class HttpsImageUtil {
             keyManagerFactory.init(clientKeyStore, password.toCharArray());
             return keyManagerFactory.getKeyManagers();
         } catch (Exception e) {
-            Log.e(TAG,e.toString());
+            Log.e(TAG, e.toString());
         }
         return new KeyManager[]{};
     }

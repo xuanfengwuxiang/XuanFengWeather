@@ -13,7 +13,7 @@ public class ScreenUtil {
     private ScreenUtil() {
     }
 
-    private static PowerManager.WakeLock mWakeLock = null;
+    private static volatile PowerManager.WakeLock mWakeLock = null;
 
     //设置屏幕常亮
     public static void setScreenOn(Context context) {

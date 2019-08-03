@@ -18,7 +18,8 @@ import java.util.List;
  * PopupMenu适配器
  */
 
-public class PopupMenuAdapter extends RecyclerView.Adapter<PopupMenuAdapter.PopMenuViewHolder> implements View.OnClickListener {
+public class PopupMenuAdapter extends RecyclerView.Adapter<PopupMenuAdapter.PopMenuViewHolder>
+        implements View.OnClickListener {
 
     private Context mContext;
     private List<String> mList;
@@ -30,7 +31,7 @@ public class PopupMenuAdapter extends RecyclerView.Adapter<PopupMenuAdapter.PopM
             mOnItemClickListener.onItemClick(v, (int) v.getTag());
         }
     }
-
+    @FunctionalInterface//item点击监听
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }

@@ -165,7 +165,8 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
 
 
                 }
-                mCamera.setFaceDetectionListener(new GoogleDetectListenerImpl(CameraHorientalActivity.this, mainHandler));
+                mCamera.setFaceDetectionListener(
+                        new GoogleDetectListenerImpl(CameraHorientalActivity.this, mainHandler));
                 mCamera.startFaceDetection();
             }
         }
@@ -232,12 +233,9 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
     public void takePhoto() {          //点击拍照的方法。
         Camera.Parameters parameters = mCamera.getParameters();
         parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-        mCamera.autoFocus(new Camera.AutoFocusCallback() {
-            @Override
-            public void onAutoFocus(boolean b, Camera camera) {
-                if (b) {        //如果焦点获取成功，拍照
-                    mCamera.takePicture(null, null, pictureCallBack);  //pictureCallBack 为拍照的回掉。
-                }
+        mCamera.autoFocus((b, camera) -> {
+            if (b) {        //如果焦点获取成功，拍照
+                mCamera.takePicture(null, null, pictureCallBack);  //pictureCallBack 为拍照的回掉。
             }
         });
     }

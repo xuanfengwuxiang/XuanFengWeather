@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.xuanfeng.mylibrary.utils.ImageUtil;
+import com.xuanfeng.mylibrary.utils.ToastUtil;
 import com.xuanfeng.mylibrary.widget.NoScrollViewPager;
 import com.xuanfeng.weather.module.media.fragment.MediaFragment;
 import com.xuanfeng.weather.module.news.NewsFragment;
@@ -34,11 +35,12 @@ public class MainUtil {
     }
 
     private static long mExitTime = 0;
+    private static final int DOUBLE_CLICK_TIME = 2000;
 
     //退出app
     public static void exitApp(Activity activity) {
-        if ((System.currentTimeMillis() - mExitTime) > 2000) {
-            Toast.makeText(activity, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+        if ((System.currentTimeMillis() - mExitTime) > DOUBLE_CLICK_TIME) {
+            ToastUtil.showToast(activity, "再按一次退出程序");
             mExitTime = System.currentTimeMillis();
         } else {
             activity.finish();
@@ -48,7 +50,6 @@ public class MainUtil {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 activity.startActivity(intent);
                 Process.killProcess(Process.myPid());//从操作系统中结束掉当前程序的进程
-                System.exit(0);//退出JVM
             } catch (Exception e) {
                 Process.killProcess(Process.myPid());
                 Log.e(TAG, e.toString());
