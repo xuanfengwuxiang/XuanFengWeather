@@ -27,17 +27,17 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:onClick="@{listener::onClick}"
                     android:id="@+id/iv_left"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:adjustViewBounds="true"
                     android:background="@drawable/btn_press"
-                    android:paddingBottom="4dp"
+                    android:onClick="@{listener::onClick}"
                     android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
                     android:paddingTop="4dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="4dp"
                     android:scaleType="centerInside"
                     android:soundEffectsEnabled="false"
                     android:src="@drawable/ic_back"
@@ -72,13 +72,13 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:onClick="@{listener::onClick}"
                 android:id="@+id/tv_test_for_popupmenu"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:background="#ff0000"
                 android:gravity="center"
+                android:onClick="@{listener::onClick}"
                 android:text="PopupMenu测试"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -96,70 +96,70 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:onClick="@{listener::onClick}"
                 android:id="@+id/tv_test_for_touch_dispatch"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:background="#00bfff"
                 android:gravity="center"
+                android:onClick="@{listener::onClick}"
                 android:text="事件分发测试"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
-                android:onClick="@{listener::onClick}"
                 android:id="@+id/tv_test_for_service"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:background="#00bfff"
                 android:gravity="center"
+                android:onClick="@{listener::onClick}"
                 android:text="Service启动测试"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
-                android:onClick="@{listener::onClick}"
                 android:id="@+id/tv_test_for_close_service"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:background="#00bfff"
                 android:gravity="center"
+                android:onClick="@{listener::onClick}"
                 android:text="Service销毁测试"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
-                android:onClick="@{listener::onClick}"
                 android:id="@+id/tv_test_for_gallery"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#00ff00"
                 android:gravity="center"
+                android:onClick="@{listener::onClick}"
                 android:text="图片展示测试"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
-                android:onClick="@{listener::onClick}"
                 android:id="@+id/tv_aidl"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#ffff00"
                 android:gravity="center"
+                android:onClick="@{listener::onClick}"
                 android:text="AIDL通信"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
 
             <RelativeLayout
-                android:onClick="@{listener::onClick}"
                 android:id="@+id/ll_test_share_anim"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#dddddd"
+                android:onClick="@{listener::onClick}"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -181,6 +181,12 @@
                     android:textStyle="bold"
                     android:transitionName="fab" />
             </RelativeLayout>
+
+            <com.xuanfeng.testcomponent.widget.OverFlowTextView
+                android:id="@+id/tv_process"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:lines="3"/>
 
         </LinearLayout>
 
