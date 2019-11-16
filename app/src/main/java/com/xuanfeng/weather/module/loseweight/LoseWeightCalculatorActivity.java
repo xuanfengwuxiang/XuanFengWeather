@@ -30,7 +30,7 @@ public class LoseWeightCalculatorActivity extends BaseActivity<BasePresenter, Ac
 
     @Override
     public int getStatusBarColorResId() {
-        return 0;
+        return R.color.baseThemeColor;
     }
 
     @Override
