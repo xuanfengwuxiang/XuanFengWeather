@@ -2,8 +2,10 @@ package com.xuanfeng.mylibrary.utils;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.view.View;
 
 /**
  * Created by xuanfengwuxiang on 2018/3/15.
@@ -61,6 +63,27 @@ public class ScreenUtil {
                 Settings.System.SCREEN_BRIGHTNESS, value);
     }
 
+    //view截图
+    public static Bitmap getBitmap(View v) {
+        if (v == null) {
+            return null;
+        }
+        v.setDrawingCacheEnabled(true);
+        v.buildDrawingCache();
+        Bitmap bitmap = v.getDrawingCache();
+        return bitmap;
+    }
 
+    //微信小程序分享-专用图片裁剪 5：4
+    public static Bitmap getCropForMiniProgram(Bitmap bitmap) {
+        // 得到图片的宽，高
+        int w = bitmap.getWidth();
+        int h = (int) (w * (4.0f / 5.0f));
+        int retY = (int) (w * (1.0f / 10.0f));
+        if (retY + h > bitmap.getHeight()) {
+            return bitmap;
+        }
+        return Bitmap.createBitmap(bitmap, 0, retY, w, h, null, false);
+    }
 
 }
