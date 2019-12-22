@@ -1,10 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'bugly'
 
-bugly {
-    appId = '1641d599d2' // 注册时分配的App ID
-    appKey = '52ba93b6-333b-4f90-b80b-a44a9a38c6b0' // 注册时分配的App Key
-}
+
 
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
@@ -150,7 +146,6 @@ dependencies {
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["support-v4"]
     implementation 'androidx.multidex:multidex:2.0.0'
-    implementation 'com.tencent.bugly:crashreport:latest.release'
     implementation 'de.greenrobot:greendao-generator:2.1.0'
     implementation 'de.greenrobot:greendao:2.1.0'
 

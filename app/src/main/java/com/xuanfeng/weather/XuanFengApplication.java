@@ -6,9 +6,7 @@ import android.text.TextUtils;
 import androidx.multidex.MultiDexApplication;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.xuanfeng.mylibrary.utils.SystemUtils;
-import com.xuanfeng.weather.constant.Constant;
 import com.xuanfeng.weather.exception.ExceptionHandler;
 import com.xuanfeng.weather.utils.SystemPropertyUtil;
 import com.xuanfeng.weather.variable.Variable;
@@ -42,24 +40,6 @@ public class XuanFengApplication extends MultiDexApplication {
     //初始化bugly
     private void initBugly() {
         Context context = getApplicationContext();
-        // 获取当前包名
-        String packageName = context.getPackageName();
-        // 获取当前进程名
-        String processName = SystemUtils.getProcessName(android.os.Process.myPid());
-        // 设置是否为上报进程
-        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
-        String appChannel = "";
-        if (BuildConfig.DEBUG) {
-            appChannel = "develop";
-        } else {
-            appChannel = Variable.appChannel;
-        }
-        strategy.setAppChannel(appChannel);  //设置渠道
-        strategy.setAppVersion(Variable.APP_VERSION_NAME);      //App的版本
-        strategy.setAppPackageName(Variable.PACKAGE_NAME);  //App的包名
-        strategy.setUploadProcess(processName == null || processName.equals(packageName));
-        // 初始化Bugly
-        CrashReport.initCrashReport(getApplicationContext(), Constant.BUGLG_APP_ID, BuildConfig.DEBUG, strategy);
 
     }
 
