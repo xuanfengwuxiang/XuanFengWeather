@@ -153,4 +153,30 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         getWindow().setEnterTransition(new Explode());
         super.onCreate(savedInstanceState);
     }
+
+    private int mFlags;
+
+    //mFlags是否true
+    public boolean isFlags(int mFlags) {
+        return (this.mFlags & mFlags) == mFlags;
+    }
+
+    //设置mFlags 为true
+    public void addFlags(int mFlags) {
+        this.mFlags |= mFlags;
+    }
+
+    //设置mFlags为false
+    public void removeFlags(int mFlags) {
+        this.mFlags &= ~mFlags;
+    }
+
+    //设置mFlags属性value
+    public void setFlags(int mFlags, boolean value) {
+        if (value) {
+            addFlags(mFlags);
+        } else {
+            removeFlags(mFlags);
+        }
+    }
 }
