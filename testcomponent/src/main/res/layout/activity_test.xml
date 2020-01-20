@@ -108,14 +108,14 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_test_for_service"
+                android:id="@+id/tv_test_for_flag"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:background="#00bfff"
                 android:gravity="center"
                 android:onClick="@{listener::onClick}"
-                android:text="Service启动测试"
+                android:text="flag测试0b000"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

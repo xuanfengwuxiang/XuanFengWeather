@@ -1,10 +1,7 @@
 package com.xuanfeng.testcomponent.activity;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.transition.Explode;
 import android.view.View;
 import android.widget.Toast;
@@ -19,7 +16,6 @@ import com.xuanfeng.mylibrary.utils.SoftKeyBoardUtil;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
 import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestBinding;
-import com.xuanfeng.testcomponent.service.TestService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +44,11 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
             Intent intent;
             intent = new Intent(this, TestTouchEventActivity.class);
             startActivity(intent);
-        } else if (i == R.id.tv_test_for_service) {
-            startService(service);
+        } else if (i == R.id.tv_test_for_flag) {
+            addFlags((int) Math.pow(2, abs++));
+            mBinding.tvTestForFlag.setText(Integer.toBinaryString(mFlags) + "");
         } else if (i == R.id.tv_test_for_close_service) {
-            stopService(service);
+
         } else if (i == R.id.tv_test_for_gallery) {
             Intent intent;
             intent = new Intent(this, TestForGalleryActivity.class);
@@ -111,24 +108,11 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         return null;
     }
 
-    Intent service;
-    ServiceConnection mServiceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            //do nothing
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            //do nothing
-        }
-    };
 
     @Override
     public void initData(Bundle bundle) {
         mBinding.tvTittle.setText("测试界面");
         mSoftKeyBoardUtil = SoftKeyBoardUtil.setListener(this, mKeyBoardListener);
-        service = new Intent(this, TestService.class);
     }
 
     SoftKeyBoardUtil.KeyBoardListener mKeyBoardListener = new SoftKeyBoardUtil.KeyBoardListener() {
@@ -154,7 +138,8 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         super.onCreate(savedInstanceState);
     }
 
-    private int mFlags;
+    private int mFlags = 0b000;
+    int abs = 0;
 
     //mFlags是否true
     public boolean isFlags(int mFlags) {
