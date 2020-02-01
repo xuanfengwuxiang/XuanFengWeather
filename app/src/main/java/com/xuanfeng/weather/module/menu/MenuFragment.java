@@ -33,12 +33,15 @@ public class MenuFragment extends BaseFragment<BasePresenter, FragmentMenuBindin
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_lose_weight:
+            case R.id.tv_lose_weight://减肥计算器
                 Intent intent = new Intent(getContext(), LoseWeightCalculatorActivity.class);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 break;
-            case R.id.tv_test:
+            case R.id.tv_test://测试界面
                 ARouter.getInstance().build("/testcomponent/TestActivity").navigation();
+                break;
+            case R.id.tv_contacts://联系人
+                ARouter.getInstance().build("/mylibrary/ContactsActivity").navigation();
                 break;
             default:
                 break;

@@ -30,6 +30,15 @@
             <TextView
                 android:onClick="@{listener::onClick}"
                 android:gravity="center"
+                android:id="@+id/tv_contacts"
+                android:text="通讯录"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:onClick="@{listener::onClick}"
+                android:gravity="center"
                 android:id="@+id/tv_lose_weight"
                 android:text="减肥计算器"
                 android:textColor="@color/white"

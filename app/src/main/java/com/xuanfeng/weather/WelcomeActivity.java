@@ -14,7 +14,7 @@ import com.xuanfeng.weather.databinding.ActivityWelcomeBinding;
 
 public class WelcomeActivity extends BaseActivity<BasePresenter, ActivityWelcomeBinding> {
 
-    protected static final String[] PERMISSIONS = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA};// 需要的权限
+    protected static final String[] PERMISSIONS = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS};// 需要的权限
     private static final int REQUEST_CODE = 1;
 
     @Override//权限检查放在onresume里原因，从权限检查界面回来的时候不需要走result方法

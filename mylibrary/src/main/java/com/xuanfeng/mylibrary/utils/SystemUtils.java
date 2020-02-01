@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -21,7 +24,9 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -183,5 +188,70 @@ public class SystemUtils {
             e.printStackTrace();
         }
         return false;
+    }
+
+    //（实际上就是“sort_key”字段） 出来是首字母
+    private static final String PHONE_BOOK_LABEL = "phonebook_label";
+    //需要查询的字段
+    private static final String[] CONTACTOR_ION = new String[]{
+            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+            ContactsContract.CommonDataKinds.Phone.NUMBER,
+            PHONE_BOOK_LABEL
+    };
+
+
+    public static List<ContactsBean> getAllContacts(Context context) {
+
+        List<ContactsBean> contacts = new ArrayList<>();
+        Uri uri = ContactsContract.CommonDataKinds.Contactables.CONTENT_URI;
+        //获取联系人。按首字母排序
+        Cursor cursor = context.getContentResolver().query(uri, CONTACTOR_ION, null, null, ContactsContract.CommonDataKinds.Phone.SORT_KEY_PRIMARY);
+        if (cursor != null) {
+
+            while (cursor.moveToNext()) {
+                ContactsBean info = new ContactsBean();
+                String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                String phoneNum = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                String firstChar = cursor.getString(cursor.getColumnIndex(PHONE_BOOK_LABEL));
+                info.setName(name);
+                info.setFirstChar(firstChar);
+                info.setPhoneNum(phoneNum);
+                contacts.add(info);
+            }
+            cursor.close();
+
+        }
+
+        return contacts;
+    }
+
+    public static class ContactsBean {
+        private String name;//姓名
+        private String phoneNum;//手机号
+        private String firstChar;//姓名首字母
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getPhoneNum() {
+            return phoneNum;
+        }
+
+        public void setPhoneNum(String phoneNum) {
+            this.phoneNum = phoneNum;
+        }
+
+        public String getFirstChar() {
+            return firstChar;
+        }
+
+        public void setFirstChar(String firstChar) {
+            this.firstChar = firstChar;
+        }
     }
 }
