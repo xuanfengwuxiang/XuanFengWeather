@@ -1,7 +1,9 @@
 package com.xuanfeng.testcomponent.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.transition.Explode;
 import android.view.View;
 import android.widget.Toast;
@@ -12,6 +14,7 @@ import androidx.core.util.Pair;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
+import com.xuanfeng.mylibrary.utils.ImageUtil;
 import com.xuanfeng.mylibrary.utils.SoftKeyBoardUtil;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
 import com.xuanfeng.testcomponent.R;
@@ -47,7 +50,17 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         } else if (i == R.id.tv_test_for_flag) {
             addFlags((int) Math.pow(2, abs++));
             mBinding.tvTestForFlag.setText(Integer.toBinaryString(mFlags) + "");
-        } else if (i == R.id.tv_test_for_close_service) {
+        } else if (i == R.id.tv_test_for_download_https_image) {//下载https图片
+            String url = "http://imgservice.suning.cn/uimg1/snsawp/snsawp_common/d59b9eb8-c2de-4885-a826-ce0679d2bb3c.png";
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+                    Bitmap bitmap = ImageUtil.getBitmap(url);
+                    ImageUtil.saveBitmapToSD(bitmap, path, "ceshi.jpg");
+
+                }
+            }).start();
 
         } else if (i == R.id.tv_test_for_gallery) {
             Intent intent;

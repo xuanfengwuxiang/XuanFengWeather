@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -120,14 +121,14 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_test_for_close_service"
+                android:id="@+id/tv_test_for_download_https_image"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:background="#00bfff"
                 android:gravity="center"
                 android:onClick="@{listener::onClick}"
-                android:text="Service销毁测试"
+                android:text="测试下载https图片"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -186,7 +187,34 @@
                 android:id="@+id/tv_process"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:lines="3"/>
+                android:lines="3" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="中心居中"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintCircle="@id/dot"
+                    app:layout_constraintCircleAngle="270"
+                    app:layout_constraintCircleRadius="200dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         </LinearLayout>
 
