@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.ImageUtil;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Route(path = "/testcomponent/TestActivity")
 public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBinding> {
 
 

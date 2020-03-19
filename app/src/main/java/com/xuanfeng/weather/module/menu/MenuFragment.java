@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.alibaba.android.arouter.launcher.ARouter;
+import com.xuanfeng.mylibrary.component.ComponentUtil;
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
@@ -38,10 +38,10 @@ public class MenuFragment extends BaseFragment<BasePresenter, FragmentMenuBindin
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 break;
             case R.id.tv_test://测试界面
-                ARouter.getInstance().build("/testcomponent/TestActivity").navigation();
+                ComponentUtil.toRouterPage(getActivity(), "666");
                 break;
             case R.id.tv_contacts://联系人
-                ARouter.getInstance().build("/mylibrary/ContactsActivity").navigation();
+                ComponentUtil.toRouterPage(getActivity(), "667");
                 break;
             default:
                 break;

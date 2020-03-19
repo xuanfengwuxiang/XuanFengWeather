@@ -2,13 +2,12 @@ package com.xuanfeng.mylibrary.contacts;
 
 import android.os.Bundle;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.xuanfeng.mylibrary.R;
 import com.xuanfeng.mylibrary.databinding.ActivityContactsBinding;
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 
-@Route(path = "/mylibrary/ContactsActivity")
+
 public class ContactsActivity extends BaseActivity<BasePresenter, ActivityContactsBinding> {
 
 

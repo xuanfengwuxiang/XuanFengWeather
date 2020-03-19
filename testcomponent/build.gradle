@@ -24,7 +24,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+                includeCompileClasspath true
             }
         }
 
@@ -68,13 +68,13 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'com.alibaba:arouter-api:1.5.0'
-    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     implementation project(path: ':mylibrary')
     implementation 'com.github.xuanfengwuxiang:CustomTextView:2.2'
-//Rxjava
+    //Rxjava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.auto.service:auto-service:1.0-rc6'
+
 
 }

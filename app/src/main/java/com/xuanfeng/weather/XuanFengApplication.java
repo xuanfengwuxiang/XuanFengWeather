@@ -5,8 +5,7 @@ import android.text.TextUtils;
 
 import androidx.multidex.MultiDexApplication;
 
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.xuanfeng.mylibrary.utils.SystemUtils;
+import com.xuanfeng.mylibrary.component.ComponentFactory;
 import com.xuanfeng.weather.exception.ExceptionHandler;
 import com.xuanfeng.weather.utils.SystemPropertyUtil;
 import com.xuanfeng.weather.variable.Variable;
@@ -33,7 +32,7 @@ public class XuanFengApplication extends MultiDexApplication {
             SystemPropertyUtil.initSystemProperties(getApplicationContext());
         }
         initBugly();
-        initARouter();
+        initComponent();
     }
 
 
@@ -43,12 +42,9 @@ public class XuanFengApplication extends MultiDexApplication {
 
     }
 
-    private void initARouter() {
-        if (SystemUtils.isDebug(this)) {           // These two lines must be written before init, otherwise these configurations will be invalid in the init process
-            ARouter.openLog();     // Print log
-            ARouter.openDebug();   // Turn on debugging mode (If you are running in InstantRun mode, you must turn on debug mode! Online version needs to be closed, otherwise there is a security risk)
-        }
-        ARouter.init(this);
+    //初始化组件化
+    private void initComponent() {
+        ComponentFactory.getInstance().initAllModule(this);
     }
 
 }
