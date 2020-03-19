@@ -15,7 +15,7 @@ import com.xuanfeng.weather.variable.Variable;
  * 描述：应用入口
  */
 
-public class XuanFengApplication extends MultiDexApplication {
+public class XFApplication extends MultiDexApplication {
 
 
     @Override

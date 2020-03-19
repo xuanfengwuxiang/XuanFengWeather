@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.xuanfeng.mylibrary.component.ComponentUtil;
+import com.xuanfeng.mylibrary.contacts.ContactsActivity;
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
@@ -41,7 +42,8 @@ public class MenuFragment extends BaseFragment<BasePresenter, FragmentMenuBindin
                 ComponentUtil.toRouterPage(getActivity(), "666");
                 break;
             case R.id.tv_contacts://联系人
-                ComponentUtil.toRouterPage(getActivity(), "667");
+                 intent = new Intent(getContext(), ContactsActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
