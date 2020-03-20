@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 
+import com.xuanfeng.mylibrary.component.ComponentUtil;
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.ImageUtil;
@@ -76,6 +77,8 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
             ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.
                     makeSceneTransitionAnimation(TestActivity.this, pair, pair1);
             startActivity(intent, activityOptionsCompat.toBundle());
+        } else if (i == R.id.tv_contact) {
+            ComponentUtil.toRouterPage(TestActivity.this, "667");
         } else if (i == R.id.iv_left) {
             finishAfterTransition();
         }

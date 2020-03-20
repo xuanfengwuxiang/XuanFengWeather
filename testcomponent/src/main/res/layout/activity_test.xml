@@ -9,7 +9,7 @@
             type="com.xuanfeng.testcomponent.activity.TestActivity" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/baseThemeColor">
@@ -155,6 +155,16 @@
                 android:textStyle="bold" />
 
 
+            <TextView
+                android:id="@+id/tv_contact"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:onClick="@{listener::onClick}"
+                android:text="组件跳转通讯录"
+                android:textColor="@color/black" />
+
+
             <RelativeLayout
                 android:id="@+id/ll_test_share_anim"
                 android:layout_width="match_parent"
@@ -215,8 +225,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         </LinearLayout>
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
