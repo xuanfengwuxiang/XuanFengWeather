@@ -1,9 +1,25 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'xuanfeng.asm.lifecycle'
 
 
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+buildscript {
+
+    repositories {
+        jcenter()
+        maven {
+            url "https://jitpack.io"
+        }
+        maven { url "https://maven.google.com" }
+        google()
+        maven { url '../asm_lifecycle_repo' }
+    }
+    dependencies {
+        classpath 'xuanfeng.lifecycle.plugin:asm_lifecycle_plugin:1.0.0'
+    }
 }
 
 android {
@@ -75,6 +91,7 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+
     }
     buildTypes {
         release {
@@ -126,6 +143,14 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a'
+            universalApk true
+        }
     }
 }
 
