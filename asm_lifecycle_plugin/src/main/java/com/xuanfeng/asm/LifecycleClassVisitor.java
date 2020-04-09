@@ -22,11 +22,10 @@ public class LifecycleClassVisitor extends ClassVisitor {
 
     @Override
     public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-        System.out.println("mSuperName================"+mSuperName);
 
         MethodVisitor mv = cv.visitMethod(access, name, descriptor, signature, exceptions);
         if ("com/xuanfeng/mylibrary/mvp/BaseActivity".equals(mSuperName)) {
-            if (name.startsWith("onResume")) {
+            if (name.startsWith("getLayoutId")) {
                 return new LifeCycleMethodVisitor(mv, mClassName, name);
             }
         }

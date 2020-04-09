@@ -65,7 +65,7 @@
             android:process=":remote" />
 
         <activity
-            android:name="com.xuanfeng.weather.MainActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.xuanfeng.weather.module.weather.activity.SelectCityActivity" />
 
