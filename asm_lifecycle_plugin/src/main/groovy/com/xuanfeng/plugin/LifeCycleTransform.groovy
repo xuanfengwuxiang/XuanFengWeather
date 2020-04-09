@@ -2,7 +2,12 @@ package com.xuanfeng.plugin
 
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
+import com.xuanfeng.asm.LifecycleClassVisitor
 import groovy.io.FileType
+import org.apache.commons.io.FileUtils
+import org.objectweb.asm.ClassReader
+import org.objectweb.asm.ClassVisitor
+import org.objectweb.asm.ClassWriter
 
 /**
  * 自定义task
@@ -36,31 +41,45 @@ public class LifeCycleTransform extends Transform {
         return false
     }
 
-    @Override
-    void transform(Context context, Collection<TransformInput> inputs, Collection<TransformInput> referencedInputs, TransformOutputProvider outputProvider, boolean isIncremental) throws IOException, TransformException, InterruptedException {
-        super.transform(context, inputs, referencedInputs, outputProvider, isIncremental)
-    }
 
     @Override
     void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
+        super.transform(transformInvocation)
 
         //拿到所有class文件
         Collection<TransformInput> transformInputs = transformInvocation.inputs
+        TransformOutputProvider outputProvider = transformInvocation.outputProvider
 
-        transformInputs.each {
+        if (outputProvider != null) {
+            outputProvider.deleteAll()
+        }
 
-            TransformInput transformInput ->
-                transformInput.directoryInputs.each {
+        transformInputs.each { TransformInput transformInput ->
+            transformInput.directoryInputs.each { DirectoryInput directoryInput ->
+                File dir = directoryInput.file
+                if (dir) {
+                    dir.traverse(type: FileType.FILES, nameFilter: ~/.*\.class/) {
+                        File file ->
+                            System.out.println("find class=====" + file.name)
+                            ClassReader classReader = new ClassReader(file.bytes)
 
-                    DirectoryInput directoryInput ->
-                        File dir = directoryInput.file
-                        if (dir) {
-                            dir.traverse(type: FileType.FILES, nameFilter: ~/.*\.class/) {
-                                File file ->
-                                    System.out.println("find class=====" + file.name)
-                            }
-                        }
+                            ClassWriter classWriter = new ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
+
+                            ClassVisitor classVisitor = new LifecycleClassVisitor(classWriter)
+
+                            classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
+
+                            byte[] bytes = classWriter.toByteArray()
+
+                            FileOutputStream outputStream = new FileOutputStream(file.path)
+                            outputStream.write(bytes)
+                            outputStream.close()
+                    }
                 }
+                def dest = outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
+                FileUtils.copyDirectory(directoryInput.file, dest)
+
+            }
         }
     }
 }

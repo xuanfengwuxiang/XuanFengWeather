@@ -30,51 +30,51 @@ android {
         huawei {
             manifestPlaceholders.put("APP_CHANNEL_VALUE", 'developer.huawei.com')
         }
-        other {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'other')
-        }
-        baidu {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'app.baidu.com')
-        }
-        oppo {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.oppomobile.com')
-        }
-        vivo {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.vivo.com.cn')
-        }
-        xiaomi {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.xiaomi.com')
-        }
-        qiku360 {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.360.cn')
-        }
-        pp {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.pp.cn')
-        }
-        flyme {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.flyme.cn')
-        }
-        qq {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.qq.com')
-        }
-        jinli {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.appgionee.com')
-        }
-        letv {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.letv.com')
-        }
-        anzhi {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.anzhi.com')
-        }
-        lenovo {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.lenovo.com')
-        }
-        google {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.google.com')
-        }
-        meizu {
-            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.meizu.com')
-        }
+//        other {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'other')
+//        }
+//        baidu {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'app.baidu.com')
+//        }
+//        oppo {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.oppomobile.com')
+//        }
+//        vivo {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.vivo.com.cn')
+//        }
+//        xiaomi {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.xiaomi.com')
+//        }
+//        qiku360 {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.360.cn')
+//        }
+//        pp {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.pp.cn')
+//        }
+//        flyme {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.flyme.cn')
+//        }
+//        qq {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.qq.com')
+//        }
+//        jinli {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.appgionee.com')
+//        }
+//        letv {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.letv.com')
+//        }
+//        anzhi {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.anzhi.com')
+//        }
+//        lenovo {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.lenovo.com')
+//        }
+//        google {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.google.com')
+//        }
+//        meizu {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.meizu.com')
+//        }
     }
     defaultConfig {
         applicationId "com.xuanfeng.weather"
@@ -143,14 +143,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-    splits {
-        abi {
-            enable true
-            reset()
-            include 'x86', 'armeabi-v7a'
-            universalApk true
-        }
     }
 }
 
