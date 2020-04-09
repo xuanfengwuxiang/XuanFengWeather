@@ -20,11 +20,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.xuanfeng.mylibrary.mvp.BaseActivity;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.MainActivity;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.ActivityCameraHorientalBinding;
 import com.xuanfeng.weather.module.media.callback.GoogleDetectListenerImpl;
-import com.xuanfeng.weather.mvvm.BaseActivity;
 import com.xuanfeng.weather.utils.ImageUtil;
 import com.xuanfeng.weather.widget.FaceView;
 
@@ -38,7 +39,7 @@ import java.util.List;
 /**
  * 横屏预览人脸识别
  */
-public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorientalBinding> implements FaceView.FaceViewListener {
+public class CameraHorientalActivity extends BaseActivity<BasePresenter,ActivityCameraHorientalBinding> implements FaceView.FaceViewListener {
 
     private SurfaceHolder mSurfaceHolder;
     private int cameraId;
@@ -53,16 +54,16 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
     }
 
     @Override
+    public BasePresenter initPresenter() {
+        return null;
+    }
+
+    @Override
     public boolean isFullScreen() {
         return true;
     }
 
-    @Override
-    public void initViewModel() {
-        //do nothing
-    }
 
-    @Override
     public void initListener() {
         mBinding.setListener(this);
         mBinding.faceView1.setFaceViewListener(this);
@@ -70,7 +71,13 @@ public class CameraHorientalActivity extends BaseActivity<ActivityCameraHorienta
 
     @Override
     public void initData(Bundle bundle) {
+        initListener();
         initSurfaceView();
+    }
+
+    @Override
+    public int getStatusBarColorResId() {
+        return 0;
     }
 
     private void initSurfaceView() {

@@ -16,12 +16,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.xuanfeng.mylibrary.mvp.BaseActivity;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.ToastUtil;
 import com.xuanfeng.weather.MainActivity;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.ActivityCameraBinding;
 import com.xuanfeng.weather.module.media.callback.GoogleDetectListenerImpl;
-import com.xuanfeng.weather.mvvm.BaseActivity;
 import com.xuanfeng.weather.utils.ImageUtil;
 import com.xuanfeng.weather.widget.FaceView;
 
@@ -32,7 +33,7 @@ import java.io.IOException;
 /**
  * 人脸识别,相机界面
  */
-public class CameraActivity extends BaseActivity<ActivityCameraBinding> implements FaceView.FaceViewListener {
+public class CameraActivity extends BaseActivity<BasePresenter, ActivityCameraBinding> implements FaceView.FaceViewListener {
 
     private SurfaceHolder mSurfaceHolder;
     private int cameraId;
@@ -52,11 +53,15 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> implemen
     }
 
     @Override
-    public void initViewModel() {
-        //do nothing
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @Override
+    public int getStatusBarColorResId() {
+        return -1;
+    }
+
     public void initListener() {
         mBinding.setListener(this);
         mBinding.faceView.setFaceViewListener(this);
@@ -64,6 +69,7 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> implemen
 
     @Override
     public void initData(Bundle bundle) {
+        initListener();
         initSurfaceView();
     }
 
@@ -118,7 +124,7 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding> implemen
                     runOnUiThread(() -> {
                         Camera.Face[] faces = (Camera.Face[]) msg.obj;
                         mBinding.faceView.setFaces(faces);
-                        ToastUtil.showToast(CameraActivity.this,"收到人脸识别的信息");
+                        ToastUtil.showToast(CameraActivity.this, "收到人脸识别的信息");
                     });
 
                     break;

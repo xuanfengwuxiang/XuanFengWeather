@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.xuanfeng.mylibrary.mvp.BaseFragment;
+import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.StringUtils;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentFaceDetectorBinding;
@@ -18,7 +20,6 @@ import com.xuanfeng.weather.module.media.activity.CameraHorientalActivity;
 import com.xuanfeng.weather.module.media.activity.ImageViewDoodleActivity;
 import com.xuanfeng.weather.module.media.activity.SurfaceViewActivity;
 import com.xuanfeng.weather.module.media.view.FaceDetectorView;
-import com.xuanfeng.weather.mvvm.BaseFragment;
 import com.xuanfeng.weather.utils.ImageUtil;
 
 import io.reactivex.Observer;
@@ -27,7 +28,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * 人脸识别界面
  */
-public class FaceDetectorFragment extends BaseFragment<FragmentFaceDetectorBinding> implements FaceDetectorView {
+public class FaceDetectorFragment extends BaseFragment<BasePresenter, FragmentFaceDetectorBinding> implements FaceDetectorView {
     private Paint paint;//画人脸区域用到的Paint
     private Bitmap bm;//选择的图片的Bitmap对象
     private static final int MAX_FACE_NUM = 5;//最大可以检测出的人脸数量
@@ -38,17 +39,18 @@ public class FaceDetectorFragment extends BaseFragment<FragmentFaceDetectorBindi
     }
 
     @Override
-    public void initViewModel() {
-        //do nothing
+    public BasePresenter initPresenter() {
+        return null;
     }
 
-    @Override
+
     public void initListener() {
         mBinding.setListener(this);
     }
 
     @Override
     public void initData(Bundle bundle) {
+        initListener();
         prepareForFaceDetect();
     }
 
@@ -59,16 +61,16 @@ public class FaceDetectorFragment extends BaseFragment<FragmentFaceDetectorBindi
                 faceDetect();
                 break;
             case R.id.tv_goto_camera://相机识别
-                startActivity(new Intent(mContext, CameraActivity.class));
+                startActivity(new Intent(getActivity(), CameraActivity.class));
                 break;
             case R.id.tv_demo_surface://SurfaceView示例
-                startActivity(new Intent(mContext, SurfaceViewActivity.class));
+                startActivity(new Intent(getActivity(), SurfaceViewActivity.class));
                 break;
             case R.id.tv_horiental_limit://横屏的人脸限制
-                startActivity(new Intent(mContext, CameraHorientalActivity.class));
+                startActivity(new Intent(getActivity(), CameraHorientalActivity.class));
                 break;
             case R.id.tv_demo_imageview://ImageView画板
-                startActivity(new Intent(mContext, ImageViewDoodleActivity.class), ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                startActivity(new Intent(getActivity(), ImageViewDoodleActivity.class), ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 break;
             default:
                 break;
@@ -117,12 +119,12 @@ public class FaceDetectorFragment extends BaseFragment<FragmentFaceDetectorBindi
             }
             String realFaceNum = (String) o;
             if (StringUtils.isEmpty(realFaceNum)) {
-                Toast.makeText(mContext, "未检测到人脸", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "未检测到人脸", Toast.LENGTH_SHORT).show();
                 return;
             }
             //画出人脸区域后要刷新ImageView
             mBinding.ivFace.invalidate();
-            Toast.makeText(mContext, "图片中检测到" + realFaceNum + "张人脸", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "图片中检测到" + realFaceNum + "张人脸", Toast.LENGTH_SHORT).show();
         }
     };
 

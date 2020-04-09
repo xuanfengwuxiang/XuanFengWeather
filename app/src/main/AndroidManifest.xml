@@ -70,7 +70,6 @@
         <activity android:name="com.xuanfeng.weather.module.weather.activity.SelectCityActivity" />
 
         <activity android:name="com.xuanfeng.weather.module.media.activity.CameraActivity" />
-        <activity android:name="com.xuanfeng.weather.mvvm.BaseActivity" />
         <activity android:name="com.xuanfeng.weather.module.media.activity.SurfaceViewActivity" />
         <activity
             android:name="com.xuanfeng.weather.module.media.activity.CameraHorientalActivity"
