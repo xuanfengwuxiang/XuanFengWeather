@@ -19,9 +19,14 @@ import com.xuanfeng.mylibrary.utils.SoftKeyBoardUtil;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
 import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestBinding;
+import com.xuanfeng.testcomponent.hotfix.ISay;
+import com.xuanfeng.testcomponent.hotfix.SayException;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import dalvik.system.DexClassLoader;
 
 
 public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBinding> {
@@ -81,6 +86,36 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
             ComponentUtil.toRouterPage(TestActivity.this, "667");
         } else if (i == R.id.iv_left) {
             finishAfterTransition();
+        } else if (i == R.id.tv_hot_fix) {
+            hotFix();
+        }
+    }
+
+    private void hotFix() {
+
+        ISay say;
+
+
+        // 获取hotfix的jar包文件
+        final File jarFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                + File.separator + "outfix.dex");
+
+        if (!jarFile.exists()) {
+            say = new SayException();
+            Toast.makeText(this, say.saySomething(), Toast.LENGTH_SHORT).show();
+        } else {
+            // 只要有读写权限的路径均可
+            DexClassLoader dexClassLoader = new DexClassLoader(jarFile.getAbsolutePath(),
+                    getExternalCacheDir().getAbsolutePath(), null, getClassLoader());
+            try {
+                // 加载 SayHotFix 类
+                Class clazz = dexClassLoader.loadClass("com.xuanfeng.testcomponent.hotfix.SayHotFix");
+                // 强转成 ISay, 注意 ISay 的包名需要和hotfix jar包中的一致
+                ISay iSay = (ISay) clazz.newInstance();
+                Toast.makeText(this, iSay.saySomething(), Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -143,7 +178,7 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
 
     @Override
     public int getStatusBarColorResId() {
-        return R.color.white;
+        return getResources().getColor(R.color.baseThemeColor);
     }
 
     @Override
