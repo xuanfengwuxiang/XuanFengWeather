@@ -2,9 +2,11 @@ package com.xuanfeng.weather;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import com.xuanfeng.mylibrary.mvp.BaseActivity;
@@ -25,11 +27,14 @@ public class WelcomeActivity extends BaseActivity<BasePresenter, ActivityWelcome
 
     private void delayToNextActivity() {
 
-        mBinding.countDownProgressBar.setOnCountDownFinishListener(this::goToMainActivity).startCountDown();
+        mBinding.countDownProgressBar.setOnCountDownFinishListener(this::requestPermission).startCountDown();
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_CODE);
     }
 
     private void goToMainActivity() {
-        ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_CODE);
 
         Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(intent);
@@ -67,5 +72,25 @@ public class WelcomeActivity extends BaseActivity<BasePresenter, ActivityWelcome
     public void onClick(View view) {
         mBinding.countDownProgressBar.removeOnCountDownFinishListener();
         goToMainActivity();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE) {
+            if (isAllGranted(grantResults)) {
+
+                goToMainActivity();
+            }
+        }
+    }
+
+    private boolean isAllGranted(int[] grantResults) {
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
     }
 }
