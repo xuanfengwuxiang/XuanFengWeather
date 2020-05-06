@@ -178,7 +178,7 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
 
     @Override
     public int getStatusBarColorResId() {
-        return getResources().getColor(R.color.baseThemeColor);
+        return R.color.baseThemeColor;
     }
 
     @Override

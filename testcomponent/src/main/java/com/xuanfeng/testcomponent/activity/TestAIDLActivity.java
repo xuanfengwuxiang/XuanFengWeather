@@ -31,13 +31,30 @@ public class TestAIDLActivity extends BaseActivity<BasePresenter, ActivityTestAi
 
     @Override
     public int getStatusBarColorResId() {
-        return 0;
+        return R.color.baseThemeColor;
     }
 
     public void onClick(View view) {
         int i = view.getId();//发送消息到服务端
         if (i == R.id.iv_left) {
             finish();
+        } else if (i == R.id.dtv_switch) {
+            if (mBinding.first.getVisibility() == View.VISIBLE) {
+                mBinding.first.setVisibility(View.GONE);
+                mBinding.second.setVisibility(View.VISIBLE);
+            } else {
+                mBinding.first.setVisibility(View.VISIBLE);
+                mBinding.second.setVisibility(View.GONE);
+            }
+        } else if (i == R.id.tab) {
+            if (mBinding.clRoot.getVisibility() == View.VISIBLE) {
+                mBinding.clRoot.setVisibility(View.GONE);
+
+            } else {
+                mBinding.clRoot.setVisibility(View.VISIBLE);
+                mBinding.first.setVisibility(View.GONE);
+                mBinding.second.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

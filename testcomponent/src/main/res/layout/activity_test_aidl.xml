@@ -10,9 +10,9 @@
     </data>
 
     <LinearLayout
-        android:background="@color/baseThemeColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/baseThemeColor"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -23,17 +23,17 @@
 
 
             <ImageView
-                android:onClick="@{listener::onClick}"
                 android:id="@+id/iv_left"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/btn_press"
-                android:paddingBottom="4dp"
+                android:onClick="@{listener::onClick}"
                 android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:paddingTop="4dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="4dp"
                 android:scaleType="centerInside"
                 android:soundEffectsEnabled="false"
                 android:src="@drawable/ic_back"
@@ -56,60 +56,64 @@
                 android:textStyle="bold" />
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="@{listener::onClick}"
+            android:text="显示与隐藏" />
+
         <LinearLayout
-            android:background="@color/white"
-            android:orientation="vertical"
+            android:id="@+id/cl_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <EditText
-                android:id="@+id/et_input"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp" />
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
-            <com.xuanfeng.customtextviewlib.CustomTextView
-                android:id="@+id/tv_send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:onClick="@{listener::onClick}"
-                android:padding="10dp"
-                android:text="发送数据到远程"
-                android:textColor="@color/baseThemeColor"
-                app:solid_press_color="@color/red"
-                app:stroke_color="@color/baseThemeColor"
-                app:stroke_press_color="@color/red"
-                app:stroke_radius="5dp"
-                app:stroke_width="1dp"
-                app:text_press_color="@color/white" />
+                <!--账号验证-->
+                <TextView
+                    android:id="@+id/first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:background="#ff0000"
+                    android:text="第一个"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.xuanfeng.customtextviewlib.CustomTextView
-                android:id="@+id/tv_get_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:onClick="@{listener::onClick}"
-                android:padding="10dp"
-                android:text="获取远程APP数据"
-                android:textColor="@color/baseThemeColor"
-                app:solid_press_color="@color/red"
-                app:stroke_color="@color/baseThemeColor"
-                app:stroke_press_color="@color/red"
-                app:stroke_radius="5dp"
-                app:stroke_width="1dp"
-                app:text_press_color="@color/white" />
+                <!--扫码验证-->
+                <TextView
+                    android:id="@+id/second"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:background="#ffff00"
+                    android:text="第二个"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/first" />
 
-            <TextView
-                android:id="@+id/tv_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-                android:text="默认数据" />
+
+                <!--扫码授权、输入账号授权-->
+                <TextView
+                    android:id="@+id/dtv_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:onClick="@{listener::onClick}"
+                    android:text="切换"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/second" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
-
 
 
     </LinearLayout>
