@@ -20,6 +20,10 @@ public class ActionUtil {
             case 4:
                 return "ACTION_OUTSIDE";
 
+            case 5:
+                return "ACTION_POINTER_DOWN";
+            case 6:
+                return "ACTION_POINTER_UP";
             default:
                 break;
 

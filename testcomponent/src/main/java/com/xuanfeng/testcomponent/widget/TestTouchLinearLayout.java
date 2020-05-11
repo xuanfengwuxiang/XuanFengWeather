@@ -28,24 +28,24 @@ public class TestTouchLinearLayout extends LinearLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        /*switch (ev.getAction()) {
+        switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                return true;
+                return false;
             case MotionEvent.ACTION_MOVE:
                 if (count <3) {
                     count++;
-                    return true;
+                    return false;
 
                 } else {
                     count++;
-                    return false;
+                    return true;
                 }
 
 
             case MotionEvent.ACTION_UP:
 
                 break;
-        }*/
+        }
         Log.i("testTouch","拦截了");
         return true;
     }
@@ -55,24 +55,25 @@ public class TestTouchLinearLayout extends LinearLayout {
     public boolean onTouchEvent(MotionEvent event) {
         Log.i("testTouch", "ViewGroup获取事件:" + ActionUtil.getActionName(event.getAction()));
 
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                return true;
-            case MotionEvent.ACTION_MOVE:
-                if (count <3) {
-                    count++;
-                    return true;
-
-                } else {
-                    count++;
-                    return false;
-                }
-
-
-            case MotionEvent.ACTION_UP:
-
-                break;
-        }
-        return true;
+//        switch (event.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                return true;
+//            case MotionEvent.ACTION_MOVE:
+//                if (count <3) {
+//                    count++;
+//                    return true;
+//
+//                } else {
+//                    count++;
+//                    return false;
+//                }
+//
+//
+//            case MotionEvent.ACTION_UP:
+//
+//                break;
+//        }
+//        return true;
+       return true;
     }
 }

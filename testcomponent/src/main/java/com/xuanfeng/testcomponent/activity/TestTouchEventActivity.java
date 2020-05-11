@@ -32,7 +32,7 @@ public class TestTouchEventActivity extends BaseActivity<BasePresenter, Activity
 
     @Override
     public int getStatusBarColorResId() {
-        return 0;
+        return R.color.baseThemeColor;
     }
 
 }

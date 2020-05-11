@@ -33,6 +33,7 @@ public class TestTouchView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                getParent().requestDisallowInterceptTouchEvent(true);
                 return true;
             case MotionEvent.ACTION_MOVE:
                 if (count <3) {
