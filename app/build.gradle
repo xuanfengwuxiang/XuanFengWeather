@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'xuanfeng.asm.lifecycle'
 
 
 def releaseTime() {
@@ -17,9 +16,7 @@ buildscript {
         google()
         maven { url '../asm_lifecycle_repo' }
     }
-    dependencies {
-        classpath 'xuanfeng.lifecycle.plugin:asm_lifecycle_plugin:1.0.0'
-    }
+
 }
 
 android {

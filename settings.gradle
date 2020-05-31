@@ -1,1 +1,1 @@
-include ':app',  ':mylibrary', ':testcomponent', ':asm_lifecycle_plugin'
+include ':app',  ':mylibrary', ':testcomponent'
