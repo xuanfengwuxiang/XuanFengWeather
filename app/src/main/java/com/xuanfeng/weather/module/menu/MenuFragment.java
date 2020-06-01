@@ -36,7 +36,7 @@ public class MenuFragment extends BaseFragment<BasePresenter, FragmentMenuBindin
         switch (view.getId()) {
             case R.id.tv_lose_weight://减肥计算器
                 Intent intent = new Intent(getContext(), LoseWeightCalculatorActivity.class);
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                startActivity(intent);
                 break;
             case R.id.tv_test://测试界面
                 ComponentUtil.toRouterPage(getActivity(), "666");

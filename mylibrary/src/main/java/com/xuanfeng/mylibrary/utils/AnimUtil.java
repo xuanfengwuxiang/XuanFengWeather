@@ -1,9 +1,14 @@
 package com.xuanfeng.mylibrary.utils;
 
+import android.app.Activity;
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.xuanfeng.mylibrary.R;
 
 /**
  * Created by xuanfengwuxiang on 2018/3/13.
@@ -22,5 +27,12 @@ public class AnimUtil {
         recyclerView.setLayoutAnimation(controller);
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
+    }
+
+    public static void startActivityCommon(Activity activity, Class clazz) {
+        Intent intent = new Intent(activity, clazz);
+        activity.startActivity(intent);
+//        activity.overridePendingTransition(R.anim.push_right_in, 0);
+
     }
 }

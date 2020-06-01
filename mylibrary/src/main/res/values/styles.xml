@@ -5,4 +5,21 @@
         <attr name="type" format="integer" />
     </declare-styleable>
 
+
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/ActivityAnim</item>
+
+    </style>
+
+
+    <style name="ActivityAnim" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/back_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/back_exit</item>
+
+
+    </style>
 </resources>

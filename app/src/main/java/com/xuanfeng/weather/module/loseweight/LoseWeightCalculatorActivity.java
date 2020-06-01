@@ -33,17 +33,14 @@ public class LoseWeightCalculatorActivity extends BaseActivity<BasePresenter, Ac
         return R.color.baseThemeColor;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        getWindow().setEnterTransition(new Explode());
-        super.onCreate(savedInstanceState);
-    }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
                 finishAfterTransition();
+                overridePendingTransition(R.anim.back_enter,R.anim.back_exit);
                 break;
+
             case R.id.bt_get_rate://获取燃脂心率
                 LoseWeightUtil.getHeartRate(this, mBinding.etAge, mBinding.etStaticHeartRate, mBinding.tvBestHeartRate);
                 break;

@@ -29,7 +29,7 @@
                 android:layout_marginLeft="5dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/btn_press"
-                android:onClick="@{listener::onClick}"
+                android:onClick="@{listener}"
                 android:paddingLeft="5dp"
                 android:paddingTop="4dp"
                 android:paddingRight="5dp"
