@@ -1,6 +1,7 @@
 package com.xuanfeng.weather.module.media.fragment;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.xuanfeng.mylibrary.mvp.BaseFragment;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
@@ -9,7 +10,7 @@ import com.xuanfeng.weather.databinding.FragmentMediaBinding;
 import com.xuanfeng.weather.module.media.util.MediaUtil;
 
 //第二个模块的总fragment
-public class MediaFragment extends BaseFragment<BasePresenter, FragmentMediaBinding> {
+public class MediaFragment extends BaseFragment<BasePresenter, FragmentMediaBinding> implements View.OnClickListener {
 
 
     public int getLayoutId() {
@@ -42,4 +43,8 @@ public class MediaFragment extends BaseFragment<BasePresenter, FragmentMediaBind
         //do nothing
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

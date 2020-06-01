@@ -1,6 +1,7 @@
 package com.xuanfeng.mylibrary.contacts;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.xuanfeng.mylibrary.R;
 import com.xuanfeng.mylibrary.databinding.ActivityContactsBinding;
@@ -8,7 +9,7 @@ import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 
 
-public class ContactsActivity extends BaseActivity<BasePresenter, ActivityContactsBinding> {
+public class ContactsActivity extends BaseActivity<BasePresenter, ActivityContactsBinding> implements View.OnClickListener {
 
 
     @Override
@@ -29,5 +30,10 @@ public class ContactsActivity extends BaseActivity<BasePresenter, ActivityContac
     @Override
     public int getStatusBarColorResId() {
         return -1;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

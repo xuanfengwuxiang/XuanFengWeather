@@ -88,9 +88,4 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
             mBinding.unbind();
         }
     }
-
-    @Override
-    public void onClick(View view) {
-
-    }
 }

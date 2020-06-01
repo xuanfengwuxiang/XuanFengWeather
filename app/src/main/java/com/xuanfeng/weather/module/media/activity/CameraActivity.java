@@ -33,7 +33,7 @@ import java.io.IOException;
 /**
  * 人脸识别,相机界面
  */
-public class CameraActivity extends BaseActivity<BasePresenter, ActivityCameraBinding> implements FaceView.FaceViewListener {
+public class CameraActivity extends BaseActivity<BasePresenter, ActivityCameraBinding> implements FaceView.FaceViewListener , View.OnClickListener {
 
     private SurfaceHolder mSurfaceHolder;
     private int cameraId;

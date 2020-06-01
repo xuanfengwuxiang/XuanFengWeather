@@ -24,6 +24,4 @@ public interface BaseView {
 
     void hideProgress();
 
-    void onClick(View view);//点击事件
-
 }

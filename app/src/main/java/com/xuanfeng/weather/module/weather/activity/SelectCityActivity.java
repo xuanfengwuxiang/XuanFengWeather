@@ -15,7 +15,7 @@ import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.ActivitySelectCityBinding;
 import com.xuanfeng.weather.module.weather.utils.WeatherUtil;
 
-public class SelectCityActivity extends BaseActivity<BasePresenter, ActivitySelectCityBinding> {
+public class SelectCityActivity extends BaseActivity<BasePresenter, ActivitySelectCityBinding> implements View.OnClickListener {
 
     public static final String LONGITUDE = "longitude";
     public static final String LATITUDE = "latitude";

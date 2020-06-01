@@ -9,7 +9,7 @@ import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.ActivityLoseWeightCalculatorBinding;
 
-public class LoseWeightCalculatorActivity extends BaseActivity<BasePresenter, ActivityLoseWeightCalculatorBinding> {
+public class LoseWeightCalculatorActivity extends BaseActivity<BasePresenter, ActivityLoseWeightCalculatorBinding> implements View.OnClickListener {
 
 
     @Override

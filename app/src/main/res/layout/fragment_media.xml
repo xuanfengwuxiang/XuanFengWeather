@@ -25,7 +25,7 @@
             <include
                 android:id="@+id/include_tittle"
                 layout="@layout/include_fragment_title_bar_one"
-                bind:fragment="@{(BaseFragment)mediaFragment}" />
+                bind:listener="@{mediaFragment}" />
 
             <net.lucode.hackware.magicindicator.MagicIndicator
                 android:id="@+id/magic_indicator"

@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.xuanfeng.mylibrary.mvp.BaseActivity" />
+            name="listener"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <RelativeLayout
@@ -29,7 +29,7 @@
                 android:layout_marginLeft="5dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/btn_press"
-                android:onClick="@{activity::onClick}"
+                android:onClick="@{listener::onClick}"
                 android:paddingLeft="5dp"
                 android:paddingTop="4dp"
                 android:paddingRight="5dp"

@@ -7,7 +7,7 @@ import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 
-public class SurfaceViewActivity extends BaseActivity {
+public class SurfaceViewActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public int getLayoutId() {

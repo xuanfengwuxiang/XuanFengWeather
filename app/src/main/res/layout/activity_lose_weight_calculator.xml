@@ -22,7 +22,7 @@
         <include
             android:id="@+id/include_tittle"
             layout="@layout/include_title_bar_one"
-            bind:activity="@{(BaseActivity)loseWeightActivity}" />
+            bind:listener="@{loseWeightActivity}" />
 
         <ScrollView
             android:layout_width="match_parent"

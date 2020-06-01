@@ -13,7 +13,7 @@ import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentNewsBinding;
 
 //新闻界面
-public class NewsFragment extends BaseFragment<BasePresenter, FragmentNewsBinding> {
+public class NewsFragment extends BaseFragment<BasePresenter, FragmentNewsBinding> implements View.OnClickListener {
 
 
     private WebSettings mWebSettings;

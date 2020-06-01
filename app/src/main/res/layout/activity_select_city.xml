@@ -21,7 +21,7 @@
         <include
             android:id="@+id/include_tittle"
             layout="@layout/include_title_bar_one"
-            bind:activity="@{(BaseActivity)selectCityActivity}" />
+            bind:listener="@{selectCityActivity}" />
 
         <!--搜索-->
         <LinearLayout
