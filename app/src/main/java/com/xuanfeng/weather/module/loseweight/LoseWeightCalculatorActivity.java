@@ -37,7 +37,7 @@ public class LoseWeightCalculatorActivity extends BaseActivity<BasePresenter, Ac
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
-                finishAfterTransition();
+                finish();
                 overridePendingTransition(R.anim.back_enter,R.anim.back_exit);
                 break;
 

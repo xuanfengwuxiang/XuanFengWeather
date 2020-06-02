@@ -32,8 +32,7 @@
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/BaseAppTheme"
-        >
+        android:theme="@style/BaseAppTheme">
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
@@ -56,6 +55,8 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
         <!-- 百度定位 -->
@@ -77,7 +78,8 @@
         <activity android:name="com.xuanfeng.weather.module.media.activity.ImageViewDoodleActivity" />
         <activity
             android:name=".module.loseweight.LoseWeightCalculatorActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            />
     </application>
 
 </manifest>
