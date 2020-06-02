@@ -29,7 +29,7 @@ public class ContactsActivity extends BaseActivity<BasePresenter, ActivityContac
 
     @Override
     public int getStatusBarColorResId() {
-        return -1;
+        return R.color.baseThemeColor;
     }
 
     @Override
