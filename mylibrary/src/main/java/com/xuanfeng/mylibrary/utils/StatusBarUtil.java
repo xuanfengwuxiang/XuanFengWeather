@@ -2,16 +2,15 @@ package com.xuanfeng.mylibrary.utils;
 
 import android.app.Activity;
 import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-import androidx.core.view.ViewCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.view.ViewCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -33,11 +32,11 @@ public class StatusBarUtil {
         }
         switch (SystemUtils.getPhoneBrand()) {
             case "Meizu"://魅族
-                setStatusBarTransparent(activity);
+                setTranslucent4_4(activity);
                 flymeSetStatusBarLightMode(activity.getWindow(), isIconDark);
                 break;
             case "Xiaomi"://小米
-                setStatusBarTransparent(activity);
+                setTranslucent4_4(activity);
                 miuiSetStatusBarLightMode(activity.getWindow(), isIconDark);
                 break;
             default://其他
@@ -45,11 +44,40 @@ public class StatusBarUtil {
                     setStatusBarColorForM(activity, colorResId);
                     setStatusBarIconColorForM(activity, isIconDark);
                 } else {//6.0以下
-                    setStatusBarTransparent(activity);
+                    setTranslucent4_4(activity);
                 }
                 break;
         }
     }
+
+    //4.4以上 设置 半透明
+    public static void setTranslucent4_4(Activity activity) {
+
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        ViewGroup content = activity.findViewById(Window.ID_ANDROID_CONTENT);
+        View root = content.getChildAt(0);
+
+        if (root == null) {
+            return;
+        }
+
+        //预留statusBar空间
+        //DrawerLayout比较奇葩，只能设置其子孩子
+        if (root instanceof DrawerLayout) {
+            ViewCompat.setFitsSystemWindows(root, false);
+
+            View v = ((ViewGroup) root).getChildAt(0);
+            if (v != null) {
+                ViewCompat.setFitsSystemWindows(v, true);
+            }
+            return;
+        }
+        //其他view
+        ViewCompat.setFitsSystemWindows(root, true);
+
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)//5.0才有状态栏颜色修改
     private static void setStatusBarColorForM(Activity activity, int colorResId) {
@@ -68,26 +96,7 @@ public class StatusBarUtil {
         }
     }
 
-    //4.4以上有的透明状态栏
-    public static void setStatusBarTransparent(Activity activity) {
-        Window window = activity.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);
-        View mChildView = mContentView.getChildAt(0);
-        if (mChildView != null) {
-            if (mChildView instanceof DrawerLayout) {//DrawerLayout比较奇葩，只能设置其子孩子
-                ViewCompat.setFitsSystemWindows(mChildView, false);
-                if (mChildView instanceof ViewGroup) {
-                    View v = ((ViewGroup) mChildView).getChildAt(0);
-                    if (v != null) {
-                        ViewCompat.setFitsSystemWindows(v, true);
-                    }
-                }
-            } else {
-                ViewCompat.setFitsSystemWindows(mChildView, true);            //注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View . 预留出系统 View 的空间.
-            }
-        }
-    }
+
 
     /**
      * 设置状态栏图标为深色和魅族特定的文字风格
