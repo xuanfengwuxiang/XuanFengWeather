@@ -40,8 +40,8 @@ public class StatusBarUtil {
                 break;
             default://其他
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//6.0以上
-                    setStatusBarColorForM(activity, colorResId);
-                    setStatusBarIconColorForM(activity, isIconDark);
+                    setColor5_0(activity, colorResId);
+                    activity.getWindow().getDecorView().setSystemUiVisibility(isIconDark ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : View.SYSTEM_UI_FLAG_VISIBLE);
                 } else {//6.0以下
                     setTranslucent4_4(activity);
                 }
@@ -79,20 +79,11 @@ public class StatusBarUtil {
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)//5.0才有状态栏颜色修改
-    private static void setStatusBarColorForM(Activity activity, int colorResId) {
+    private static void setColor5_0(Activity activity, int colorResId) {
         Window window = activity.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
         window.setStatusBarColor(activity.getResources().getColor(colorResId));
-    }
-
-    //6.0才有的设置图标颜色
-    private static void setStatusBarIconColorForM(Activity activity, Boolean isIconDark) {
-        if (isIconDark) {//黑图标
-            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        } else {//白图标
-            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-        }
     }
 
 
