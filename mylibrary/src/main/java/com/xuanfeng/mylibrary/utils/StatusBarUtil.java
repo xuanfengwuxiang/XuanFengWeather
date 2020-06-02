@@ -9,7 +9,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.RequiresApi;
-import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import java.lang.reflect.Field;
@@ -65,16 +64,16 @@ public class StatusBarUtil {
         //预留statusBar空间
         //DrawerLayout比较奇葩，只能设置其子孩子
         if (root instanceof DrawerLayout) {
-            ViewCompat.setFitsSystemWindows(root, false);
+            root.setFitsSystemWindows(false);
 
             View v = ((ViewGroup) root).getChildAt(0);
             if (v != null) {
-                ViewCompat.setFitsSystemWindows(v, true);
+                v.setFitsSystemWindows(true);
             }
             return;
         }
         //其他view
-        ViewCompat.setFitsSystemWindows(root, true);
+        root.setFitsSystemWindows(true);
 
     }
 
@@ -95,7 +94,6 @@ public class StatusBarUtil {
             activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         }
     }
-
 
 
     /**
