@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity<BasePresenter, ActivityMainBindin
         MainUtil.setCheckListener(mBinding.rbParent, this, mBinding.vpMain, mBinding.activityMain);
         MainUtil.setViewPagerAdapter(this, mBinding.vpMain);
         mBinding.rbOne.setChecked(true);
-        StatusBarUtil.setStatusBarColor(this, R.color.baseThemeColor, false);
+        StatusBarUtil.setTranslucent4_4(this);
     }
 
     @Override
