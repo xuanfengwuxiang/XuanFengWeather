@@ -37,12 +37,13 @@ public class MenuFragment extends BaseFragment<BasePresenter, FragmentMenuBindin
             case R.id.tv_lose_weight://减肥计算器
                 Intent intent = new Intent(getContext(), LoseWeightCalculatorActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.anim_enter,R.anim.anim_exit);
                 break;
             case R.id.tv_test://测试界面
                 ComponentUtil.toRouterPage(getActivity(), "666");
                 break;
             case R.id.tv_contacts://联系人
-                 intent = new Intent(getContext(), ContactsActivity.class);
+                intent = new Intent(getContext(), ContactsActivity.class);
                 startActivity(intent);
                 break;
             default:

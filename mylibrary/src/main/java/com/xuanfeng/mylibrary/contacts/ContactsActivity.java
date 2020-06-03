@@ -24,7 +24,7 @@ public class ContactsActivity extends BaseActivity<BasePresenter, ActivityContac
 
     @Override
     public void initData(Bundle bundle) {
-
+        mBinding.setContactsActivity(this);
     }
 
     @Override
@@ -34,6 +34,8 @@ public class ContactsActivity extends BaseActivity<BasePresenter, ActivityContac
 
     @Override
     public void onClick(View v) {
-
+        if (v.getId() == R.id.iv_left) {
+            finish();
+        }
     }
 }
