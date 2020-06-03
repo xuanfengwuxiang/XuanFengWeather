@@ -1,1 +1,1 @@
-include ':app',  ':mylibrary', ':testcomponent'
+include ':app', ':xflibrary', ':testcomponent'

@@ -16,6 +16,9 @@ import com.xuanfeng.mylibrary.mvp.BaseActivity;
 import com.xuanfeng.mylibrary.mvp.BasePresenter;
 import com.xuanfeng.mylibrary.utils.ImageUtil;
 import com.xuanfeng.mylibrary.utils.SoftKeyBoardUtil;
+import com.xuanfeng.mylibrary.utils.ToastUtil;
+import com.xuanfeng.mylibrary.widget.BottomDialog;
+import com.xuanfeng.mylibrary.widget.BottomRecyclerView;
 import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
 import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestBinding;
@@ -29,7 +32,7 @@ import java.util.List;
 import dalvik.system.DexClassLoader;
 
 
-public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBinding> {
+public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBinding> implements View.OnClickListener {
 
 
     private PopupMenu mPopupMenu;
@@ -71,9 +74,29 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
             intent = new Intent(this, TestForGalleryActivity.class);
             startActivity(intent);
         } else if (i == R.id.tv_aidl) {
-            Intent intent;
-            intent = new Intent(this, TestAIDLActivity.class);
-            startActivity(intent);
+            List<String> list = new ArrayList<>();
+            list.add("拍照");
+            list.add("拍照");
+            list.add("拍照");
+            list.add("拍照");
+            list.add("拍照");
+            list.add("拍照");
+            list.add("拍照");
+            list.add("拍照");
+            list.add("拍照");
+            list.add("拍照");
+            list.add("拍照");
+            list.add("拍照");
+            list.add("拍照");
+
+            BottomDialog dialog = new BottomDialog(this);
+            dialog.setData(list, new BottomRecyclerView.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    ToastUtil.showToast(TestActivity.this, list.get(position));
+                }
+            });
+            dialog.show();
         } else if (i == R.id.ll_test_share_anim) {
             Intent intent;
             intent = new Intent(this, TestShareAnimActivity.class);
@@ -161,7 +184,9 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
     @Override
     public void initData(Bundle bundle) {
         mBinding.tvTittle.setText("测试界面");
+        mBinding.setListener(this);
         mSoftKeyBoardUtil = SoftKeyBoardUtil.setListener(this, mKeyBoardListener);
+
     }
 
     SoftKeyBoardUtil.KeyBoardListener mKeyBoardListener = new SoftKeyBoardUtil.KeyBoardListener() {

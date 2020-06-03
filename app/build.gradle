@@ -154,7 +154,7 @@ dependencies {
     implementation('com.airbnb.android:lottie:2.2.5', {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     })
-    implementation project(':mylibrary')
+    implementation project(':xflibrary')
     // compile 'io.netty:netty-all:5.0.0.Alpha2'
     implementation files('libs/netty-all-4.1.4.Final.jar')
     implementation rootProject.ext.dependencies["appcompat-v7"]
