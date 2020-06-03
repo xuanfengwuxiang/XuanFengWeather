@@ -221,6 +221,8 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         }
     }
 
+    Uri outUri;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -232,7 +234,8 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
 
                     String path = ImageUtil.getPathFromUri(this, data.getData());
                     Glide.with(this).load(path).into(mBinding.ivShareAnim);
-                    ImageUtil.cropFromGallery(this, data.getData(), 777);
+                    outUri = Uri.parse("file://" + "/" + Environment.getExternalStorageDirectory().getPath() + "/" + "small.jpg");
+                    ImageUtil.cropFromGallery(this, data.getData(), 777, outUri);
                 } catch (Exception e) {
                     // TODO Auto-generatedcatch block
                     e.printStackTrace();
@@ -244,11 +247,8 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
 
         if (777 == requestCode) {
             if (resultCode == RESULT_OK) {
-                Bundle extras = data.getExtras();
-                if (extras != null) {
-                    Bitmap photo = extras.getParcelable("data");
-                    mBinding.ivShareAnim.setImageBitmap(photo);
-                }
+                String path = ImageUtil.getPathFromUri(this, outUri);
+                Glide.with(this).load(path).into(mBinding.ivShareAnim);
             }
         }
     }

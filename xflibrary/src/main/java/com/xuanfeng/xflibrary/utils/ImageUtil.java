@@ -190,7 +190,9 @@ public class ImageUtil {
         if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {//content://开头
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
             Cursor cursor = context.getContentResolver().query(uri, filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
-
+            if (cursor == null) {
+                return "";
+            }
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             String path = cursor.getString(columnIndex);  //获取照片路径
@@ -202,10 +204,9 @@ public class ImageUtil {
     }
 
     //系统裁剪
-    public static void cropFromGallery(Activity activity, Uri uri, int requestCode) {
+    public static void cropFromGallery(Activity activity, Uri uri, int requestCode, Uri outUri) {
 
         Intent intent = new Intent("com.android.camera.action.CROP");
-//        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
@@ -214,7 +215,11 @@ public class ImageUtil {
         intent.putExtra("outputX", 150);
         intent.putExtra("outputY", 150);
         intent.putExtra("scale", true);
-        intent.putExtra("return-data", true);
+
+        //裁剪后的图片Uri路径，uritempFile为Uri类变量
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+
         intent = Intent.createChooser(intent, "裁剪图片");
         //设置返回码
         activity.startActivityForResult(intent, requestCode);
