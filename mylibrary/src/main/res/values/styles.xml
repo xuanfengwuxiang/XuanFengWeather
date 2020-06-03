@@ -8,9 +8,7 @@
 
     <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/ActivityAnim</item>
-
     </style>
 
 
