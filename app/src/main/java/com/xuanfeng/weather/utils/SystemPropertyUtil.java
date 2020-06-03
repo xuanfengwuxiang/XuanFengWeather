@@ -6,7 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.util.Log;
 
-import com.xuanfeng.mylibrary.utils.SystemUtils;
+import com.xuanfeng.xflibrary.utils.SystemUtils;
 import com.xuanfeng.weather.BuildConfig;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.variable.Variable;

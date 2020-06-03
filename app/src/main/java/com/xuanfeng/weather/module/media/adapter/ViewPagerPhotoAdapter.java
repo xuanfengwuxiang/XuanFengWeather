@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.xuanfeng.mylibrary.utils.ImageUtil;
+import com.bumptech.glide.Glide;
+import com.xuanfeng.xflibrary.utils.ImageUtil;
 import com.xuanfeng.weather.R;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class ViewPagerPhotoAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_photo, container, false);
         ImageView mIvPhoto = (ImageView) view.findViewById(R.id.iv_photo);
-        ImageUtil.loadImage(mContext, mUrls.get(position), mIvPhoto);
+        Glide.with(mContext).asDrawable().load(mUrls.get(position)).into(mIvPhoto);
         container.addView(view);
         return view;
     }

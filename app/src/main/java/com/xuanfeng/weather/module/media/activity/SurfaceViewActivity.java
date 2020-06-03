@@ -3,8 +3,8 @@ package com.xuanfeng.weather.module.media.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.xuanfeng.mylibrary.mvp.BaseActivity;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.mvp.BaseActivity;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 
 public class SurfaceViewActivity extends BaseActivity implements View.OnClickListener {

@@ -2,8 +2,8 @@ package com.xuanfeng.weather.module.media.fragment;
 
 import android.os.Bundle;
 
-import com.xuanfeng.mylibrary.mvp.BaseFragment;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.mvp.BaseFragment;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentGalleryBinding;
 

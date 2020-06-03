@@ -5,6 +5,7 @@ import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -32,7 +33,8 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        ex.printStackTrace();//不能忘记打印异常信息
+        //不能忘记打印异常信息
+        Log.e("uncaughtException",ex.toString());
         Toast.makeText(mApplication, "程序异常,10秒之后自动重启~", Toast.LENGTH_SHORT).show();
         restartActivity();
         // kill current process

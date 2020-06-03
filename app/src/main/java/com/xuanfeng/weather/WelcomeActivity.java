@@ -9,8 +9,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
-import com.xuanfeng.mylibrary.mvp.BaseActivity;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.mvp.BaseActivity;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.databinding.ActivityWelcomeBinding;
 
 

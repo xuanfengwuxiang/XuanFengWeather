@@ -3,9 +3,9 @@ package com.xuanfeng.weather.module.media.presenter;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.google.gson.JsonObject;
-import com.xuanfeng.mylibrary.http.HttpResponse;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
-import com.xuanfeng.mylibrary.utils.StringUtils;
+import com.xuanfeng.xflibrary.http.HttpResponse;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.utils.StringUtils;
 import com.xuanfeng.weather.module.media.model.ChatModel;
 import com.xuanfeng.weather.module.media.view.ChatView;
 import com.xuanfeng.weather.module.media.widget.ChatRecyclerView.ResponseBean;

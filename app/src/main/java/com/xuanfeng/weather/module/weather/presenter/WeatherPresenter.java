@@ -7,10 +7,10 @@ import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
-import com.xuanfeng.mylibrary.http.HttpResponse;
-import com.xuanfeng.mylibrary.http.httpmgr.HttpManager;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
-import com.xuanfeng.mylibrary.utils.StringUtils;
+import com.xuanfeng.xflibrary.http.HttpResponse;
+import com.xuanfeng.xflibrary.http.httpmgr.HttpManager;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.utils.StringUtils;
 import com.xuanfeng.weather.constant.HttpConstant;
 import com.xuanfeng.weather.module.weather.view.WeatherView;
 import com.xuanfeng.weather.module.weather.widget.WeatherRecyclerView.WeatherBean;

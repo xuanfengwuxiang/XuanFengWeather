@@ -1,31 +1,35 @@
 package com.xuanfeng.testcomponent.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.transition.Explode;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 
-import com.xuanfeng.mylibrary.component.ComponentUtil;
-import com.xuanfeng.mylibrary.mvp.BaseActivity;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
-import com.xuanfeng.mylibrary.utils.ImageUtil;
-import com.xuanfeng.mylibrary.utils.SoftKeyBoardUtil;
-import com.xuanfeng.mylibrary.utils.ToastUtil;
-import com.xuanfeng.mylibrary.widget.BottomDialog;
-import com.xuanfeng.mylibrary.widget.BottomRecyclerView;
-import com.xuanfeng.mylibrary.widget.popupmenu.PopupMenu;
+import com.bumptech.glide.Glide;
 import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestBinding;
 import com.xuanfeng.testcomponent.hotfix.ISay;
 import com.xuanfeng.testcomponent.hotfix.SayException;
+import com.xuanfeng.xflibrary.component.ComponentUtil;
+import com.xuanfeng.xflibrary.mvp.BaseActivity;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.utils.ImageUtil;
+import com.xuanfeng.xflibrary.utils.SoftKeyBoardUtil;
+import com.xuanfeng.xflibrary.widget.popupmenu.PopupMenu;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,29 +78,7 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
             intent = new Intent(this, TestForGalleryActivity.class);
             startActivity(intent);
         } else if (i == R.id.tv_aidl) {
-            List<String> list = new ArrayList<>();
-            list.add("拍照");
-            list.add("拍照");
-            list.add("拍照");
-            list.add("拍照");
-            list.add("拍照");
-            list.add("拍照");
-            list.add("拍照");
-            list.add("拍照");
-            list.add("拍照");
-            list.add("拍照");
-            list.add("拍照");
-            list.add("拍照");
-            list.add("拍照");
-
-            BottomDialog dialog = new BottomDialog(this);
-            dialog.setData(list, new BottomRecyclerView.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                    ToastUtil.showToast(TestActivity.this, list.get(position));
-                }
-            });
-            dialog.show();
+            ImageUtil.selectFromGallery(this, 666);
         } else if (i == R.id.ll_test_share_anim) {
             Intent intent;
             intent = new Intent(this, TestShareAnimActivity.class);
@@ -236,6 +218,38 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
             addFlags(mFlags);
         } else {
             removeFlags(mFlags);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (666 == requestCode) {
+            if (resultCode == RESULT_OK) {
+                try {
+
+                    String path = ImageUtil.getPathFromUri(this, data.getData());
+                    Glide.with(this).load(path).into(mBinding.ivShareAnim);
+                    ImageUtil.cropFromGallery(this, data.getData(), 777);
+                } catch (Exception e) {
+                    // TODO Auto-generatedcatch block
+                    e.printStackTrace();
+                }
+
+            }
+            return;
+        }
+
+        if (777 == requestCode) {
+            if (resultCode == RESULT_OK) {
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    Bitmap photo = extras.getParcelable("data");
+                    mBinding.ivShareAnim.setImageBitmap(photo);
+                }
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xuanfeng.mylibrary.utils.AnimUtil;
+import com.xuanfeng.xflibrary.utils.AnimUtil;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.module.weather.widget.WeatherRecyclerView.WeatherBean.DataBean.ForecastBean;
 

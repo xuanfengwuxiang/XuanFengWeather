@@ -10,9 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.xuanfeng.mylibrary.mvp.BaseFragment;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
-import com.xuanfeng.mylibrary.utils.StringUtils;
+import com.xuanfeng.xflibrary.mvp.BaseFragment;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.utils.StringUtils;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentFaceDetectorBinding;
 import com.xuanfeng.weather.module.media.activity.CameraActivity;

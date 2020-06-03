@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.xuanfeng.mylibrary.mvp.BaseFragment" />
+        <import type="com.xuanfeng.xflibrary.mvp.BaseFragment" />
 
         <variable
             name="fragment"

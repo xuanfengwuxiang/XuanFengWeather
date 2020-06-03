@@ -5,7 +5,7 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.google.auto.service.AutoService;
-import com.xuanfeng.mylibrary.component.IComponentInterface;
+import com.xuanfeng.xflibrary.component.IComponentInterface;
 import com.xuanfeng.testcomponent.activity.TestActivity;
 
 /**

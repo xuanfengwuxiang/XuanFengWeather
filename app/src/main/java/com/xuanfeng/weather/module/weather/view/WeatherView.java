@@ -1,6 +1,6 @@
 package com.xuanfeng.weather.module.weather.view;
 
-import com.xuanfeng.mylibrary.mvp.BaseView;
+import com.xuanfeng.xflibrary.mvp.BaseView;
 import com.xuanfeng.weather.module.weather.widget.WeatherRecyclerView.WeatherBean.DataBean.ForecastBean;
 
 import java.util.List;

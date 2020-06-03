@@ -36,7 +36,7 @@ import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
-import com.xuanfeng.mylibrary.utils.ToastUtil;
+import com.xuanfeng.xflibrary.utils.ToastUtil;
 import com.xuanfeng.weather.R;
 
 import java.util.List;

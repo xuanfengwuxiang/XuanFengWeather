@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.xuanfeng.mylibrary.mvp.BaseActivity" />
+        <import type="com.xuanfeng.xflibrary.mvp.BaseActivity" />
 
         <variable
             name="selectCityActivity"

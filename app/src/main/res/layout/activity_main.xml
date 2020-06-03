@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.xuanfeng.mylibrary.widget.NoScrollViewPager
+            <com.xuanfeng.xflibrary.widget.NoScrollViewPager
                 android:id="@+id/vp_main"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

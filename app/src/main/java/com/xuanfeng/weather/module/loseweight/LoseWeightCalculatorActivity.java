@@ -1,11 +1,10 @@
 package com.xuanfeng.weather.module.loseweight;
 
 import android.os.Bundle;
-import android.transition.Explode;
 import android.view.View;
 
-import com.xuanfeng.mylibrary.mvp.BaseActivity;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.mvp.BaseActivity;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.ActivityLoseWeightCalculatorBinding;
 

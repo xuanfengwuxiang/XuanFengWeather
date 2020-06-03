@@ -12,18 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import com.xuanfeng.mylibrary.utils.ImageUtil;
-import com.xuanfeng.mylibrary.utils.ToastUtil;
-import com.xuanfeng.mylibrary.widget.NoScrollViewPager;
+import com.xuanfeng.xflibrary.utils.ImageUtil;
+import com.xuanfeng.xflibrary.utils.ToastUtil;
+import com.xuanfeng.xflibrary.widget.NoScrollViewPager;
 import com.xuanfeng.weather.module.media.fragment.MediaFragment;
 import com.xuanfeng.weather.module.news.NewsFragment;
 import com.xuanfeng.weather.module.weather.fragment.WeatherFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by xuanfengwuxiang on 2018/8/1.

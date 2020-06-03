@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import androidx.multidex.MultiDexApplication;
 
-import com.xuanfeng.mylibrary.component.ComponentFactory;
+import com.xuanfeng.xflibrary.component.ComponentFactory;
 import com.xuanfeng.weather.exception.ExceptionHandler;
 import com.xuanfeng.weather.utils.SystemPropertyUtil;
 import com.xuanfeng.weather.variable.Variable;

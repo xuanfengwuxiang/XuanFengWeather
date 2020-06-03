@@ -6,8 +6,8 @@ import android.view.View;
 
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.xuanfeng.mylibrary.mvp.BaseActivity;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.mvp.BaseActivity;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestForGalleryBinding;
 import com.xuanfeng.testcomponent.ZoomOutPageTransformer;

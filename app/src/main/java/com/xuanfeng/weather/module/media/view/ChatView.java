@@ -1,6 +1,6 @@
 package com.xuanfeng.weather.module.media.view;
 
-import com.xuanfeng.mylibrary.mvp.BaseView;
+import com.xuanfeng.xflibrary.mvp.BaseView;
 
 /**
  * Created by xuanfengwuxiang on 2018/8/20.

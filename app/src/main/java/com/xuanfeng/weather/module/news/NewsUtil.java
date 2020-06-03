@@ -8,10 +8,10 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.xuanfeng.mylibrary.magicindicator.MagicBean;
-import com.xuanfeng.mylibrary.magicindicator.MagicListener;
-import com.xuanfeng.mylibrary.magicindicator.MagicUtil;
-import com.xuanfeng.mylibrary.utils.ImageUtil;
+import com.xuanfeng.xflibrary.magicindicator.MagicBean;
+import com.xuanfeng.xflibrary.magicindicator.MagicListener;
+import com.xuanfeng.xflibrary.magicindicator.MagicUtil;
+import com.xuanfeng.xflibrary.utils.ImageUtil;
 import com.xuanfeng.weather.R;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;

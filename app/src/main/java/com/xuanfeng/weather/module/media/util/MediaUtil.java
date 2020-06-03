@@ -9,9 +9,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.xuanfeng.mylibrary.magicindicator.MagicBean;
-import com.xuanfeng.mylibrary.magicindicator.MagicListener;
-import com.xuanfeng.mylibrary.magicindicator.MagicUtil;
+import com.xuanfeng.xflibrary.magicindicator.MagicBean;
+import com.xuanfeng.xflibrary.magicindicator.MagicUtil;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.ViewPagerAdapter;
 import com.xuanfeng.weather.module.media.fragment.ChatFragment;

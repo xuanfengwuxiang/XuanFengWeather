@@ -6,10 +6,11 @@ import android.transition.Slide;
 import android.view.View;
 import android.widget.Toast;
 
-import com.xuanfeng.mylibrary.mvp.BaseActivity;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
-import com.xuanfeng.mylibrary.utils.FileUtil;
-import com.xuanfeng.mylibrary.utils.ImageUtil;
+import com.bumptech.glide.Glide;
+import com.xuanfeng.xflibrary.mvp.BaseActivity;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.utils.FileUtil;
+import com.xuanfeng.xflibrary.utils.ImageUtil;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.ActivityImageviewDoodleBinding;
 
@@ -31,7 +32,8 @@ public class ImageViewDoodleActivity extends BaseActivity<BasePresenter, Activit
     @Override
     public void initData(Bundle bundle) {
         mBinding.setListener(this);
-        ImageUtil.loadImage(this, R.drawable.ic_scenery1, mBinding.doodleImageView);
+        Glide.with(this).asDrawable().load(R.drawable.ic_scenery1).into(mBinding.doodleImageView);
+
     }
 
     @Override

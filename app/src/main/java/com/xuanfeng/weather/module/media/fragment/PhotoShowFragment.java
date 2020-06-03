@@ -5,8 +5,8 @@ import android.os.Bundle;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
-import com.xuanfeng.mylibrary.mvp.BaseFragment;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.mvp.BaseFragment;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentPhotoShowBinding;
 import com.xuanfeng.weather.module.media.adapter.ViewPagerPhotoAdapter;

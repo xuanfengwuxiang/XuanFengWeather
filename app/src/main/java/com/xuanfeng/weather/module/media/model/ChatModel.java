@@ -3,9 +3,9 @@ package com.xuanfeng.weather.module.media.model;
 
 import androidx.lifecycle.LifecycleOwner;
 
-import com.xuanfeng.mylibrary.http.HttpResponse;
-import com.xuanfeng.mylibrary.mvp.BaseModel;
-import com.xuanfeng.mylibrary.mvp.BaseView;
+import com.xuanfeng.xflibrary.http.HttpResponse;
+import com.xuanfeng.xflibrary.mvp.BaseModel;
+import com.xuanfeng.xflibrary.mvp.BaseView;
 import com.xuanfeng.weather.constant.HttpConstant;
 
 import java.util.LinkedHashMap;

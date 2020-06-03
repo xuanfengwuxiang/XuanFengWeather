@@ -1,14 +1,13 @@
 package com.xuanfeng.weather.module.menu;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.xuanfeng.mylibrary.component.ComponentUtil;
-import com.xuanfeng.mylibrary.contacts.ContactsActivity;
-import com.xuanfeng.mylibrary.mvp.BaseFragment;
-import com.xuanfeng.mylibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.component.ComponentUtil;
+import com.xuanfeng.xflibrary.contacts.ContactsActivity;
+import com.xuanfeng.xflibrary.mvp.BaseFragment;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentMenuBinding;
 import com.xuanfeng.weather.module.loseweight.LoseWeightCalculatorActivity;
