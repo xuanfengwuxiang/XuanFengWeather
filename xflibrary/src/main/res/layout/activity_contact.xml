@@ -4,7 +4,7 @@
     <data>
 
         <variable
-            name="contactsActivity"
+            name="activity"
             type="com.xuanfeng.xflibrary.contacts.ContactsActivity" />
     </data>
 
@@ -27,7 +27,7 @@
                 android:layout_marginLeft="5dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/btn_press"
-                android:onClick="@{contactsActivity::onClick}"
+                android:onClick="@{activity::onClick}"
                 android:paddingLeft="5dp"
                 android:paddingTop="4dp"
                 android:paddingRight="5dp"
