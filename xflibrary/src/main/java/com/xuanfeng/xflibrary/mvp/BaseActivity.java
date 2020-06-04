@@ -69,7 +69,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
     @Override
     protected void onResume() {
         super.onResume();
-        if (-1 != getStatusBarColorResId()) {
+        if (getStatusBarColorResId() > 0) {
             StatusBarUtil.setStatusBarColor(this, getStatusBarColorResId(), false);
         }
     }
