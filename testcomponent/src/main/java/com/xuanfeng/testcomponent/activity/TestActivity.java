@@ -77,7 +77,8 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
             intent = new Intent(this, TestForGalleryActivity.class);
             startActivity(intent);
         } else if (i == R.id.tv_aidl) {
-            ImageUtil.selectFromGallery(this, 666);
+//            ImageUtil.selectFromGallery(this, 666);
+            ImageUtil.takePhoto(this, Uri.fromFile(new File(AppUtil.getAppTempPath(this) + File.separator + "take.jpg")), 999);
         } else if (i == R.id.ll_test_share_anim) {
             Intent intent;
             intent = new Intent(this, TestShareAnimActivity.class);
@@ -225,6 +226,7 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        outUri = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + "/" + "small.jpg"));
 
 
         if (666 == requestCode) {
@@ -234,7 +236,6 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
                     String path = ImageUtil.getPathFromUri(this, data.getData());
                     Glide.with(this).load(path).into(mBinding.ivShareAnim);
                     FileUtil.deleteFile(AppUtil.getAppTempPath(this) + "/" + "small.jpg");
-                    outUri = Uri.parse("file://" + "/" + AppUtil.getAppTempPath(this) + "/" + "small.jpg");
                     ImageUtil.cropFromGallery(this, 777, data.getData(), outUri, 150, 150, 1, 1);
                 } catch (Exception e) {
                     // TODO Auto-generatedcatch block
@@ -248,8 +249,15 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         if (777 == requestCode) {
             if (resultCode == RESULT_OK) {
                 String path = ImageUtil.getPathFromUri(this, outUri);
-                Glide.with(this).load(path).skipMemoryCache(true) // 不使用内存缓存
-                        .diskCacheStrategy(DiskCacheStrategy.NONE).into(mBinding.ivShareAnim);// 不使用磁盘缓存  into(mBinding.ivShareAnim);
+                Glide.with(this).load(path).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(mBinding.ivShareAnim);// 不使用磁盘缓存  into(mBinding.ivShareAnim);
+            }
+        }
+
+        if (999 == requestCode) {
+            if (resultCode == RESULT_OK) {
+                Uri uu =  Uri.fromFile(new File(AppUtil.getAppTempPath(this) + File.separator + "take.jpg"));
+                ImageUtil.cropFromGallery(this, 777, uu, outUri, 150, 150, 1, 1);
+
             }
         }
     }

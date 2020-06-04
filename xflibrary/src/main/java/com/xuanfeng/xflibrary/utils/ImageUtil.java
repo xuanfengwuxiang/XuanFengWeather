@@ -151,7 +151,21 @@ public class ImageUtil {
         return bm;
     }
 
-    //选 相册图片
+    /**
+     * 调用拍照
+     */
+    public static void takePhoto(Activity activity, Uri outUri, int requestCode) {
+
+        Intent intent = new Intent();
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);//设置Action为拍照
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);//将拍取的照片保存到指定URI
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+
+    /**
+     * 选 相册图片
+     */
     public static void selectFromGallery(Activity activity, int requestCode) {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         activity.startActivityForResult(intent, requestCode);
