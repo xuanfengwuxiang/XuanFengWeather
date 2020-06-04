@@ -1,14 +1,12 @@
 package com.xuanfeng.weather;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import androidx.multidex.MultiDexApplication;
 
-import com.xuanfeng.xflibrary.component.ComponentFactory;
 import com.xuanfeng.weather.exception.ExceptionHandler;
-import com.xuanfeng.weather.utils.SystemPropertyUtil;
-import com.xuanfeng.weather.variable.Variable;
+import com.xuanfeng.xflibrary.component.ComponentFactory;
+import com.xuanfeng.xflibrary.utils.AppUtil;
 
 /**
  * Created by zhujh on 2017/7/25.
@@ -28,11 +26,9 @@ public class XFApplication extends MultiDexApplication {
 
     //初始化
     private void init() {
-        if (TextUtils.isEmpty(Variable.FILE_PATH)) {
-            SystemPropertyUtil.initSystemProperties(getApplicationContext());
-        }
         initBugly();
         initComponent();
+        AppUtil.initAppWorkPath(this);
     }
 
 

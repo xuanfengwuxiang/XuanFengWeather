@@ -1,13 +1,10 @@
 package com.xuanfeng.testcomponent.activity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.transition.Explode;
 import android.view.View;
 import android.widget.Toast;
@@ -29,7 +26,6 @@ import com.xuanfeng.xflibrary.utils.SoftKeyBoardUtil;
 import com.xuanfeng.xflibrary.widget.popupmenu.PopupMenu;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -234,7 +230,7 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
 
                     String path = ImageUtil.getPathFromUri(this, data.getData());
                     Glide.with(this).load(path).into(mBinding.ivShareAnim);
-                    outUri = Uri.parse("file://" + "/" + Environment.getExternalStorageDirectory().getPath() + "/" + "small.jpg");
+                    outUri = Uri.parse("file://" + "/" + Environment.getExternalStorageDirectory().getPath() + "/" + getPackageName() + "/" + "small.jpg");
                     ImageUtil.cropFromGallery(this, data.getData(), 777, outUri);
                 } catch (Exception e) {
                     // TODO Auto-generatedcatch block

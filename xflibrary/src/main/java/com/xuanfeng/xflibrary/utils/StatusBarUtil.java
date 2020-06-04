@@ -43,7 +43,7 @@ public class StatusBarUtil {
         }
 
         setTranslucent4_4(activity);
-        switch (SystemUtils.getPhoneBrand()) {
+        switch (Build.BRAND) {
             case "Meizu"://魅族
                 flymeSetStatusBarLightMode(activity.getWindow(), isIconDark);
                 break;

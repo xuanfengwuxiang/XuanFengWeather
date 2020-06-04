@@ -19,7 +19,7 @@ import java.io.OutputStream;
 import okhttp3.ResponseBody;
 
 /**
- * Created by xuanfengwuxiang on 2017/12/18.
+ * 2017/12/18.
  * 文件处理相关
  */
 
@@ -28,38 +28,33 @@ public class FileUtil {
     }
 
     private static final String TAG = "FileUtil";
-    private static final String FILE_ROOT_NAME = "xuanfeng";//工作root目录
+
 
     //获取sdcard的目录
     public static String getSDPath(Context context) {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {// 判断sdcard是否存在
+        if (isSDMounted()) {// 判断sdcard是否存在
             return Environment.getExternalStorageDirectory().getPath();// 获取根目录
         }
         return context.getFilesDir().getPath();//   目录:/data/data/<application package>/files
     }
 
-    //获取app的工作目录
-    public static String getAppWorkPath(Context context) {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {// 判断sdcard是否存在
-            return Environment.getExternalStorageDirectory().getPath() + File.separator + FILE_ROOT_NAME;// 获取根目录
-        }
-        return context.getFilesDir().getPath();
-    }
-
-    //外部存储是否可用
-    public static boolean sdcardUseable() {
-        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
-    }
-
 
     //创建目录
-    public static String createNewFile(String path) {
+    public static File createFolder(String path) {
         File dir = new File(path);
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        return path;
+        return dir;
+
     }
+
+    //外部存储是否可用
+    public static boolean isSDMounted() {
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+    }
+
+
 
     // 复制文件
     public static void copyFile(InputStream inputStream, File targetFile)
@@ -225,5 +220,6 @@ public class FileUtil {
         }
 
     }
+
 
 }

@@ -11,13 +11,11 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.net.Inet4Address;
@@ -70,15 +68,6 @@ public class SystemUtils {
         } catch (PackageManager.NameNotFoundException e) {
             return "Unknown";
         }
-    }
-
-    //由指定的路径创建文件夹
-    public static File createFolder(String path) {
-        File folder = new File(path);
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-        return folder;
     }
 
     /**
@@ -173,11 +162,6 @@ public class SystemUtils {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static String getPhoneBrand() {
-        String brand = Build.BRAND;
-        return brand;
     }
 
     public static boolean isDebug(Context context) {
