@@ -26,6 +26,7 @@ import com.xuanfeng.xflibrary.utils.AppUtil;
 import com.xuanfeng.xflibrary.utils.FileUtil;
 import com.xuanfeng.xflibrary.utils.ImageUtil;
 import com.xuanfeng.xflibrary.utils.SoftKeyBoardUtil;
+import com.xuanfeng.xflibrary.widget.BottomDialog;
 import com.xuanfeng.xflibrary.widget.popupmenu.PopupMenu;
 
 import java.io.File;
@@ -168,7 +169,6 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         mBinding.tvTittle.setText("测试界面");
         mBinding.setListener(this);
         mSoftKeyBoardUtil = SoftKeyBoardUtil.setListener(this, mKeyBoardListener);
-
     }
 
     SoftKeyBoardUtil.KeyBoardListener mKeyBoardListener = new SoftKeyBoardUtil.KeyBoardListener() {
@@ -249,13 +249,16 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         if (777 == requestCode) {
             if (resultCode == RESULT_OK) {
                 String path = ImageUtil.getPathFromUri(this, outUri);
-                Glide.with(this).load(path).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(mBinding.ivShareAnim);// 不使用磁盘缓存  into(mBinding.ivShareAnim);
+                Glide.with(this).load(path).
+                        skipMemoryCache(true).
+                        diskCacheStrategy(DiskCacheStrategy.NONE).
+                        into(mBinding.ivShareAnim);
             }
         }
 
         if (999 == requestCode) {
             if (resultCode == RESULT_OK) {
-                Uri uu =  Uri.fromFile(new File(AppUtil.getAppTempPath(this) + File.separator + "take.jpg"));
+                Uri uu = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + File.separator + "take.jpg"));
                 ImageUtil.cropFromGallery(this, 777, uu, outUri, 150, 150, 1, 1);
 
             }

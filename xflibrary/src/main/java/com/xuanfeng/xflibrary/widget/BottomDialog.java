@@ -31,7 +31,7 @@ public class BottomDialog extends Dialog implements OnItemClickListener, View.On
     private LinearLayout mLlRoot;
 
     public BottomDialog(@NonNull Context context) {
-        super(context, R.style.SheetDialogStyle);
+        super(context, R.style.bottom_dialog_style);
         mContext = context;
         setContentView(R.layout.dialog_xf_bottom);
         init();

@@ -3,6 +3,7 @@
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_xf_top_radius"
     android:orientation="vertical">
 
 
@@ -10,7 +11,8 @@
         android:id="@+id/rv_func"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="@drawable/bg_xf_top_radius" />
 
     <View
         android:layout_width="match_parent"
