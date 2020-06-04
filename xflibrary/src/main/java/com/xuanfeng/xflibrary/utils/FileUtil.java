@@ -54,6 +54,15 @@ public class FileUtil {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
+    //删除文件
+    public static boolean deleteFile(String path) {
+
+        File file = new File(path);
+        if (file.exists()) {
+            return file.delete();
+        }
+        return true;
+    }
 
 
     // 复制文件

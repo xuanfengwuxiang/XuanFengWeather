@@ -203,25 +203,30 @@ public class ImageUtil {
 
     }
 
-    //系统裁剪
-    public static void cropFromGallery(Activity activity, Uri uri, int requestCode, Uri outUri) {
+    /**
+     * 系统裁剪
+     *
+     * @param inUri   输入路径
+     * @param outUri  输出路径
+     * @param outputX 输出宽
+     * @param outputY 输出高
+     * @param aspectX 输出X比
+     * @param aspectY 输出Y比
+     */
+    public static void cropFromGallery(Activity activity, int requestCode, Uri inUri, Uri outUri, int outputX, int outputY, int aspectX, int aspectY) {
 
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
+        intent.setDataAndType(inUri, "image/*");
         intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        //裁剪的大小
-        intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);
+        intent.putExtra("aspectX", aspectX);
+        intent.putExtra("aspectY", aspectY);
+        intent.putExtra("outputX", outputX);
+        intent.putExtra("outputY", outputY);
         intent.putExtra("scale", true);
 
-        //裁剪后的图片Uri路径，uritempFile为Uri类变量
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);//裁剪后Uri路径
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-
         intent = Intent.createChooser(intent, "裁剪图片");
-        //设置返回码
         activity.startActivityForResult(intent, requestCode);
     }
 }

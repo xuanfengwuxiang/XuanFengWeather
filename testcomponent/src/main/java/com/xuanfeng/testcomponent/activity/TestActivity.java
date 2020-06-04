@@ -14,6 +14,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestBinding;
 import com.xuanfeng.testcomponent.hotfix.ISay;
@@ -21,6 +22,8 @@ import com.xuanfeng.testcomponent.hotfix.SayException;
 import com.xuanfeng.xflibrary.component.ComponentUtil;
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.utils.AppUtil;
+import com.xuanfeng.xflibrary.utils.FileUtil;
 import com.xuanfeng.xflibrary.utils.ImageUtil;
 import com.xuanfeng.xflibrary.utils.SoftKeyBoardUtil;
 import com.xuanfeng.xflibrary.widget.popupmenu.PopupMenu;
@@ -230,8 +233,9 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
 
                     String path = ImageUtil.getPathFromUri(this, data.getData());
                     Glide.with(this).load(path).into(mBinding.ivShareAnim);
-                    outUri = Uri.parse("file://" + "/" + Environment.getExternalStorageDirectory().getPath() + "/" + getPackageName() + "/" + "small.jpg");
-                    ImageUtil.cropFromGallery(this, data.getData(), 777, outUri);
+                    FileUtil.deleteFile(AppUtil.getAppTempPath(this) + "/" + "small.jpg");
+                    outUri = Uri.parse("file://" + "/" + AppUtil.getAppTempPath(this) + "/" + "small.jpg");
+                    ImageUtil.cropFromGallery(this, 777, data.getData(), outUri, 150, 150, 1, 1);
                 } catch (Exception e) {
                     // TODO Auto-generatedcatch block
                     e.printStackTrace();
@@ -244,7 +248,8 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         if (777 == requestCode) {
             if (resultCode == RESULT_OK) {
                 String path = ImageUtil.getPathFromUri(this, outUri);
-                Glide.with(this).load(path).into(mBinding.ivShareAnim);
+                Glide.with(this).load(path).skipMemoryCache(true) // 不使用内存缓存
+                        .diskCacheStrategy(DiskCacheStrategy.NONE).into(mBinding.ivShareAnim);// 不使用磁盘缓存  into(mBinding.ivShareAnim);
             }
         }
     }
