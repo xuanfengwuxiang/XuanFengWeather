@@ -10,7 +10,7 @@ allprojects {
   
   
   dependencies {
-	        implementation 'com.github.xuanfengwuxiang:XuanFengWeather:1.0.9'
+	        implementation 'com.github.xuanfengwuxiang:XuanFengWeather:1.1.0'
 	}
 
 
