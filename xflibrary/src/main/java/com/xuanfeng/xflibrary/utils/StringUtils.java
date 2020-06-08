@@ -1,5 +1,6 @@
 package com.xuanfeng.xflibrary.utils;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -9,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Created by zhujh on 2017/7/21.
@@ -72,6 +74,16 @@ public class StringUtils {
     //判断给定字符串是否空白串 空白串是指由空格、制表符、回车符、换行符组成的字符串 若输入字符串为null或空字符串，返回true
     public static boolean isEmpty(String str) {
         return str == null || "".equals(str) || "null".equals(str);
+    }
+
+    //判断手机号
+    public static boolean isTel(String tel) {
+        boolean result = false;
+        if (!TextUtils.isEmpty(tel) && tel.length() == 11) {
+            Pattern pattern = Pattern.compile("[0-9]*");
+            result = pattern.matcher(tel).matches();
+        }
+        return result;
     }
 
 }

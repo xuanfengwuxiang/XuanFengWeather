@@ -26,6 +26,8 @@ import com.xuanfeng.xflibrary.utils.AppUtil;
 import com.xuanfeng.xflibrary.utils.FileUtil;
 import com.xuanfeng.xflibrary.utils.ImageUtil;
 import com.xuanfeng.xflibrary.utils.SoftKeyBoardUtil;
+import com.xuanfeng.xflibrary.utils.StringUtils;
+import com.xuanfeng.xflibrary.utils.ToastUtil;
 import com.xuanfeng.xflibrary.widget.BottomDialog;
 import com.xuanfeng.xflibrary.widget.popupmenu.PopupMenu;
 
@@ -79,7 +81,8 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
             startActivity(intent);
         } else if (i == R.id.tv_aidl) {
 //            ImageUtil.selectFromGallery(this, 666);
-            ImageUtil.takePhoto(this, Uri.fromFile(new File(AppUtil.getAppTempPath(this) + File.separator + "take.jpg")), 999);
+            ToastUtil.showToast(this,StringUtils.isTel("18362939650")+"");
+
         } else if (i == R.id.ll_test_share_anim) {
             Intent intent;
             intent = new Intent(this, TestShareAnimActivity.class);
