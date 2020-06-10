@@ -1,9 +1,9 @@
 package com.xuanfeng.xflibrary.http.httpmgr;
 
-import androidx.lifecycle.LifecycleOwner;
-import androidx.annotation.NonNull;
-
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -82,6 +82,16 @@ public class HttpManager {
         Observable observable = HttpLoader.getInstance().getService().callByPostUseJson(url, body);
         observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
 
+    }
+
+    //post请求，入参key-value
+    public void getJsonObjectByPost(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, HttpResponse<JsonObject> httpResponse) {
+        getJsonObjectByPost(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
+    }
+
+    public void getJsonObjectByPost(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
+        Observable observable = HttpLoader.getInstance().getService().callByGet(url, params);
+        observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
     }
 
 
