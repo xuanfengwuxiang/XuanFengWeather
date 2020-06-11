@@ -41,14 +41,14 @@ public interface HttpService {
     @GET
     Observable<String> callByGetReturnString(
             @Url String url,
-            @QueryMap LinkedHashMap<String, String> params
+            @QueryMap Map<String, String> params
     );
 
     //通用GET请求,返回JsonArray
     @GET
     Observable<JsonArray> callByGetReturnJsonArray(
             @Url String url,
-            @QueryMap LinkedHashMap<String, String> params
+            @QueryMap Map<String, String> params
     );
 
 
@@ -57,7 +57,7 @@ public interface HttpService {
     @FormUrlEncoded
     Observable<JsonObject> callByPost(
             @Url String url,
-            @FieldMap LinkedHashMap<String, String> params);
+            @FieldMap Map<String, String> params);
 
     //通用POST请求(带头信息)
     @POST
@@ -65,7 +65,7 @@ public interface HttpService {
     Observable<JsonObject> callByPostWithHeader(
             @Url String url,
             @Header("Runbey-Secinfo") String runbeySecinfo,
-            @FieldMap LinkedHashMap<String, String> params);
+            @FieldMap Map<String, String> params);
 
     //通用POST请求(json格式上传)
     @POST
