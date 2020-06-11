@@ -36,7 +36,7 @@ public class WeatherPresenter extends BasePresenter implements DefaultLifecycleO
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
         params.put("city", city);
         mWeatherView.showProgress();
-        HttpManager.getInstance().get(lifecycleOwner, HttpConstant.WEATHER_URL, params, new HttpResponse<JsonObject>() {
+        HttpManager.getInstance().getJO(HttpConstant.WEATHER_URL, params, new HttpResponse<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
                 mWeatherView.hideProgress();

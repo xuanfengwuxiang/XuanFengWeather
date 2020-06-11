@@ -24,6 +24,6 @@ public class ChatModel extends BaseModel {
     public void getReply(LifecycleOwner lifecycleOwner, String msg, HttpResponse httpResponse) {
         String url = HttpConstant.CHAT_URL;
         url = url.replace("##content##", msg);
-        get(lifecycleOwner, url, new LinkedHashMap<String, String>(), httpResponse);
+        getJO(url, new LinkedHashMap<String, String>(), httpResponse);
     }
 }
