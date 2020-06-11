@@ -57,40 +57,40 @@ public class HttpManager {
 
 
     //get请求
-    public void getJsonObjectByGet(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, HttpResponse<JsonObject> httpResponse) {
-        getJsonObjectByGet(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
+    public void get(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, HttpResponse<JsonObject> httpResponse) {
+        get(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
     }
 
 
     //get请求
-    public void getJsonObjectByGet(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
-        Observable observable = HttpLoader.getInstance().getService().callByGet(url, params);
+    public void get(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
+        Observable observable = HttpLoader.getInstance().getService().getJO(url, params);
         observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
     }
 
     //post请求，入参使用json
-    public <T> void getJsonObjectByPostJson(LifecycleOwner lifecycleOwner, String url, T t, HttpResponse<JsonObject> httpResponse) {
-        getJsonObjectByPostJson(lifecycleOwner, url, t, System.currentTimeMillis() + "", httpResponse);
+    public <T> void postJson(LifecycleOwner lifecycleOwner, String url, T t, HttpResponse<JsonObject> httpResponse) {
+        postJson(lifecycleOwner, url, t, System.currentTimeMillis() + "", httpResponse);
 
     }
 
 
     //post请求，入参使用json
-    public <T> void getJsonObjectByPostJson(LifecycleOwner lifecycleOwner, String url, T t, String cancelTag, HttpResponse<JsonObject> httpResponse) {
+    public <T> void postJson(LifecycleOwner lifecycleOwner, String url, T t, String cancelTag, HttpResponse<JsonObject> httpResponse) {
         String jsonString = new Gson().toJson(t);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonString);
-        Observable observable = HttpLoader.getInstance().getService().callByPostUseJson(url, body);
+        Observable observable = HttpLoader.getInstance().getService().postJsonJO(url, body);
         observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
 
     }
 
     //post请求，入参key-value
-    public void getJsonObjectByPost(LifecycleOwner lifecycleOwner, String url, LinkedHashMap<String, String> params, HttpResponse<JsonObject> httpResponse) {
-        getJsonObjectByPost(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
+    public void post(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, HttpResponse<JsonObject> httpResponse) {
+        post(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
     }
 
-    public void getJsonObjectByPost(LifecycleOwner lifecycleOwner, String url, LinkedHashMap<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
-        Observable observable = HttpLoader.getInstance().getService().callByPost(url, params);
+    public void post(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
+        Observable observable = HttpLoader.getInstance().getService().postJO(url, params);
         observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
     }
 

@@ -30,46 +30,60 @@ import retrofit2.http.Url;
 public interface HttpService {
 
 
-    //通用GET请求
+    //GET请求==================
     @GET
-    Observable<JsonObject> callByGet(
+    Observable<JsonObject> getJO(
             @Url String url,
             @QueryMap Map<String, String> params
     );
 
-    //通用GET请求,返回String
     @GET
-    Observable<String> callByGetReturnString(
+    Observable<String> getS(
             @Url String url,
             @QueryMap Map<String, String> params
     );
 
-    //通用GET请求,返回JsonArray
     @GET
-    Observable<JsonArray> callByGetReturnJsonArray(
+    Observable<JsonArray> getJA(
             @Url String url,
             @QueryMap Map<String, String> params
     );
 
 
-    //通用POST请求
+    //POST请求===================
     @POST
     @FormUrlEncoded
-    Observable<JsonObject> callByPost(
+    Observable<JsonObject> postJO(
             @Url String url,
             @FieldMap Map<String, String> params);
+
+
+    @POST
+    @FormUrlEncoded
+    Observable<String> postS(
+            @Url String url,
+            @FieldMap Map<String, String> params);
+
+
+    @POST
+    @FormUrlEncoded
+    Observable<JsonArray> postJA(
+            @Url String url,
+            @FieldMap Map<String, String> params);
+
+
 
     //通用POST请求(带头信息)
     @POST
     @FormUrlEncoded
-    Observable<JsonObject> callByPostWithHeader(
+    Observable<JsonObject> postHeaderJO(
             @Url String url,
             @Header("Runbey-Secinfo") String runbeySecinfo,
             @FieldMap Map<String, String> params);
 
     //通用POST请求(json格式上传)
     @POST
-    Observable<JsonObject> callByPostUseJson(
+    Observable<JsonObject> postJsonJO(
             @Url String url,
             @Body RequestBody jsonBody);
 
