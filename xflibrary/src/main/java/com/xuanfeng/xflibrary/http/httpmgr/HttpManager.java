@@ -57,13 +57,13 @@ public class HttpManager {
 
 
     //get请求
-    public void get(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, HttpResponse<JsonObject> httpResponse) {
-        get(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
+    public void getJO(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, HttpResponse<JsonObject> httpResponse) {
+        getJO(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
     }
 
 
     //get请求
-    public void get(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
+    public void getJO(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
         Observable observable = HttpLoader.getInstance().getService().getJO(url, params);
         observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
     }
@@ -85,11 +85,11 @@ public class HttpManager {
     }
 
     //post请求，入参key-value
-    public void post(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, HttpResponse<JsonObject> httpResponse) {
-        post(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
+    public void postJO(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, HttpResponse<JsonObject> httpResponse) {
+        postJO(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
     }
 
-    public void post(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
+    public void postJO(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
         Observable observable = HttpLoader.getInstance().getService().postJO(url, params);
         observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
     }
