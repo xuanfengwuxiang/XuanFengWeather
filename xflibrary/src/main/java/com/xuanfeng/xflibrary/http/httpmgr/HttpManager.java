@@ -85,12 +85,12 @@ public class HttpManager {
     }
 
     //post请求，入参key-value
-    public void getJsonObjectByPost(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, HttpResponse<JsonObject> httpResponse) {
+    public void getJsonObjectByPost(LifecycleOwner lifecycleOwner, String url, LinkedHashMap<String, String> params, HttpResponse<JsonObject> httpResponse) {
         getJsonObjectByPost(lifecycleOwner, url, params, System.currentTimeMillis() + "", httpResponse);
     }
 
-    public void getJsonObjectByPost(LifecycleOwner lifecycleOwner, String url, Map<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
-        Observable observable = HttpLoader.getInstance().getService().callByGet(url, params);
+    public void getJsonObjectByPost(LifecycleOwner lifecycleOwner, String url, LinkedHashMap<String, String> params, String cancelTag, HttpResponse<JsonObject> httpResponse) {
+        Observable observable = HttpLoader.getInstance().getService().callByPost(url, params);
         observeOnUI(lifecycleOwner, observable, httpResponse, cancelTag);
     }
 
