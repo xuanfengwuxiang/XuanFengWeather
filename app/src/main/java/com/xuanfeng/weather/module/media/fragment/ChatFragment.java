@@ -5,14 +5,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.xuanfeng.xflibrary.mvp.BaseFragment;
-import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentChatBinding;
-import com.xuanfeng.weather.module.media.model.ChatModel;
 import com.xuanfeng.weather.module.media.presenter.ChatPresenter;
 import com.xuanfeng.weather.module.media.view.ChatView;
 import com.xuanfeng.weather.module.media.widget.ChatRecyclerView.ChatBean;
+import com.xuanfeng.xflibrary.mvp.BaseFragment;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
 //聊天界面
 public class ChatFragment extends BaseFragment<ChatPresenter, FragmentChatBinding> implements ChatView {
@@ -26,7 +25,7 @@ public class ChatFragment extends BaseFragment<ChatPresenter, FragmentChatBindin
         }
         mBinding.rvChat.setData(new ChatBean("me", content));
         mBinding.etInput.getText().clear();
-        mPresenter.getReply(this, content);
+        mPresenter.getReply(content);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class ChatFragment extends BaseFragment<ChatPresenter, FragmentChatBindin
     @Override
     public BasePresenter initPresenter() {
         mBinding.setFragment(this);
-        return new ChatPresenter(this, new ChatModel(this));
+        return new ChatPresenter(this);
     }
 
     @Override

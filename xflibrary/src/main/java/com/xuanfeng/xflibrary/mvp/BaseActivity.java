@@ -22,7 +22,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
     private Disposable mDisposable;
     private LoadingDialog mLoadingDialog;
     protected V mBinding;
-    protected P mPresentor;
+    protected P mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
         }
         mBinding = DataBindingUtil.setContentView(this, getLayoutId());
 
-        mPresentor = (P) initPresenter();
+        mPresenter = (P) initPresenter();
         initData(getIntent().getExtras());
 
     }

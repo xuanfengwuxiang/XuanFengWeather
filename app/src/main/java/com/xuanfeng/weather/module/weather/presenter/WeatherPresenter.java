@@ -1,19 +1,19 @@
 package com.xuanfeng.weather.module.weather.presenter;
 
-import androidx.lifecycle.DefaultLifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.annotation.NonNull;
-
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+
 import com.google.gson.JsonObject;
+import com.xuanfeng.weather.constant.HttpConstant;
+import com.xuanfeng.weather.module.weather.view.WeatherView;
+import com.xuanfeng.weather.module.weather.widget.WeatherRecyclerView.WeatherBean;
 import com.xuanfeng.xflibrary.http.HttpResponse;
 import com.xuanfeng.xflibrary.http.httpmgr.HttpManager;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.xflibrary.utils.StringUtils;
-import com.xuanfeng.weather.constant.HttpConstant;
-import com.xuanfeng.weather.module.weather.view.WeatherView;
-import com.xuanfeng.weather.module.weather.widget.WeatherRecyclerView.WeatherBean;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,7 +27,7 @@ public class WeatherPresenter extends BasePresenter implements DefaultLifecycleO
     private WeatherView mWeatherView;
 
     public WeatherPresenter(WeatherView weatherView) {
-        super(weatherView, null);
+        super(weatherView);
         mWeatherView = weatherView;
     }
 
