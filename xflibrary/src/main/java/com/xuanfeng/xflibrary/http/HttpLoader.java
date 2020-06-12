@@ -20,7 +20,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class HttpLoader {
     private static final int TIME_OUT = 20000;//超时
-    private String mBaseUrl = "http://api.mnks.cn/v1/jiaxiao/";
+    private String mBaseUrl = "https://www.xfmall.club";
     private static volatile HttpLoader httpLoader;//强制编译器不重新排序
     private final HttpService mHttpService;
 
@@ -61,6 +61,8 @@ public class HttpLoader {
     private OkHttpClient getOkHttpClient() {
         return new OkHttpClient.Builder()
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+                .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())
+                .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))//log日志
                 .addInterceptor(getHeaders())//请求头
                 .build();
