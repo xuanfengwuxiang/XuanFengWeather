@@ -8,10 +8,6 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
-import com.xuanfeng.xflibrary.mvp.BaseFragment;
-import com.xuanfeng.xflibrary.mvp.BasePresenter;
-import com.xuanfeng.xflibrary.utils.StringUtils;
-import com.xuanfeng.xflibrary.utils.ToastUtil;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentWeatherBinding;
 import com.xuanfeng.weather.module.weather.activity.SelectCityActivity;
@@ -19,6 +15,10 @@ import com.xuanfeng.weather.module.weather.presenter.WeatherPresenter;
 import com.xuanfeng.weather.module.weather.utils.WeatherUtil;
 import com.xuanfeng.weather.module.weather.view.WeatherView;
 import com.xuanfeng.weather.module.weather.widget.WeatherRecyclerView.WeatherBean.DataBean.ForecastBean;
+import com.xuanfeng.xflibrary.mvp.BaseFragment;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
+import com.xuanfeng.xflibrary.utils.StringUtils;
+import com.xuanfeng.xflibrary.utils.ToastUtil;
 
 import java.util.List;
 
@@ -110,7 +110,7 @@ public class WeatherFragment extends BaseFragment<WeatherPresenter, FragmentWeat
 
     @Override
     public BasePresenter initPresenter() {
-        WeatherPresenter presenter = new WeatherPresenter(this);
+        WeatherPresenter presenter = new WeatherPresenter();
         getLifecycle().addObserver(presenter);
         mBinding.setListener(this);
         return presenter;

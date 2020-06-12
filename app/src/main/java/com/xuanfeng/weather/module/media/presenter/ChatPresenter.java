@@ -15,11 +15,9 @@ import java.util.LinkedHashMap;
  * Created by xuanfengwuxiang on 2018/8/20.
  */
 
-public class ChatPresenter extends BasePresenter<ChatView> {
+public class ChatPresenter implements BasePresenter<ChatView> {
 
-    public ChatPresenter(ChatView view) {
-        super(view);
-    }
+    ChatView mView;
 
     public void getReply(String msg) {
         String url = HttpConstant.CHAT_URL;
@@ -50,5 +48,15 @@ public class ChatPresenter extends BasePresenter<ChatView> {
                 //do nothing
             }
         });
+    }
+
+    @Override
+    public void attachView(ChatView chatView) {
+        mView = chatView;
+    }
+
+    @Override
+    public void detachView() {
+
     }
 }

@@ -36,6 +36,9 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
         mBinding = DataBindingUtil.setContentView(this, getLayoutId());
 
         mPresenter = (P) initPresenter();
+        if (mPresenter != null) {
+            mPresenter.attachView(this);
+        }
         initData(getIntent().getExtras());
 
     }
@@ -85,6 +88,9 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
         }
         if (mBinding != null) {
             mBinding.unbind();
+        }
+        if (mPresenter != null) {
+            mPresenter.detachView();
         }
     }
 }

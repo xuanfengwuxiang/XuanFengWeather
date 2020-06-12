@@ -26,6 +26,9 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), getLayoutId(), container, false);
 
         mPresenter = (P) initPresenter();//数据请求
+        if (mPresenter != null) {
+            mPresenter.attachView(this);
+        }
         initData(getArguments());
         return mBinding.getRoot();
     }
@@ -60,6 +63,9 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         super.onDestroyView();
         if (mBinding != null) {
             mBinding.unbind();
+        }
+        if (mPresenter != null) {
+            mPresenter.detachView();
         }
     }
 }

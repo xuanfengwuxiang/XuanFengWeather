@@ -22,15 +22,19 @@ import java.util.List;
  * Created by xuanfengwuxiang on 2017/12/13.
  */
 
-public class WeatherPresenter extends BasePresenter implements DefaultLifecycleObserver {
+public class WeatherPresenter implements BasePresenter<WeatherView>, DefaultLifecycleObserver {
 
     private WeatherView mWeatherView;
 
-    public WeatherPresenter(WeatherView weatherView) {
-        super(weatherView);
+    @Override
+    public void attachView(WeatherView weatherView) {
         mWeatherView = weatherView;
     }
 
+    @Override
+    public void detachView() {
+
+    }
 
     public void getWeather(LifecycleOwner lifecycleOwner, String city) {
         LinkedHashMap<String, String> params = new LinkedHashMap<>();

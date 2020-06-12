@@ -36,7 +36,7 @@ public class ChatFragment extends BaseFragment<ChatPresenter, FragmentChatBindin
     @Override
     public BasePresenter initPresenter() {
         mBinding.setFragment(this);
-        return new ChatPresenter(this);
+        return new ChatPresenter();
     }
 
     @Override

@@ -5,11 +5,9 @@ package com.xuanfeng.xflibrary.mvp;
  * MVP网络请求与视图交互部分
  */
 
-public abstract class BasePresenter<V extends BaseView> {
-    protected V mView;
+public interface BasePresenter<V extends BaseView> {
 
-    public BasePresenter(V view) {
-        mView = view;
-    }
+    void attachView(V v);
 
+    void detachView();
 }
