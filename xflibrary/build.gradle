@@ -46,39 +46,39 @@ dependencies {
     })
     implementation 'androidx.appcompat:appcompat:1.0.0'
     testImplementation 'junit:junit:4.12'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    api 'androidx.recyclerview:recyclerview:1.0.0'
     //网络框架
-    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.2.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    implementation('com.squareup.retrofit2:converter-simplexml:2.1.0') {
+    api 'com.squareup.retrofit2:retrofit:2.0.2'
+    api 'com.squareup.retrofit2:converter-gson:2.0.2'
+    api 'com.squareup.retrofit2:converter-scalars:2.2.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    api('com.squareup.retrofit2:converter-simplexml:2.1.0') {
         exclude group: 'xpp3', module: 'xpp3'
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
     }
     //Rxjava
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    api 'io.reactivex.rxjava2:rxjava:2.2.4'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
     //MagicIndicator
-    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
+    api 'com.github.hackware1993:MagicIndicator:1.5.0'
     //glide
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    api 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-    implementation 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    api 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
     //https加载必用
-    implementation 'jp.wasabeef:glide-transformations:2.0.0'
+    api 'jp.wasabeef:glide-transformations:2.0.0'
     //加载圆角图片
     //下拉刷新
-    implementation 'in.srain.cube:ultra-ptr:1.0.11'
-    implementation 'com.uber.autodispose:autodispose:0.8.0'
-    implementation 'com.uber.autodispose:autodispose-android-archcomponents:0.8.0'
+    api 'in.srain.cube:ultra-ptr:1.0.11'
+    api 'com.uber.autodispose:autodispose:0.8.0'
+    api 'com.uber.autodispose:autodispose-android-archcomponents:0.8.0'
 
     implementation rootProject.ext.dependencies["support-v4"]
     annotationProcessor 'androidx.annotation:annotation:1.0.0'
-    implementation 'com.github.xuanfengwuxiang:LetterViewMaster:1.3'
-    implementation 'com.google.auto.service:auto-service:1.0-rc6'
+    api 'com.github.xuanfengwuxiang:LetterViewMaster:1.3'
+    api 'com.google.auto.service:auto-service:1.0-rc6'
 
 
 }
