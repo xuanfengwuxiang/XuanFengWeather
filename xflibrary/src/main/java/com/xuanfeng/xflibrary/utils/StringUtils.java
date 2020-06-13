@@ -23,19 +23,6 @@ public class StringUtils {
     private StringUtils() {
     }
 
-    //将json转化为对象.
-    public static Object fromJson(String json, Class<?> clazz) {
-        Object obj = null;
-        try {
-            GsonBuilder gsonb = new GsonBuilder();
-            Gson gson = gsonb.create();
-            obj = gson.fromJson(json, clazz);
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return obj;
-    }
-
     //将json转化为列表1.
     public static <T> List<T> fromJson(Object json, TypeToken<T> typeToken) {
         if (json == null) {

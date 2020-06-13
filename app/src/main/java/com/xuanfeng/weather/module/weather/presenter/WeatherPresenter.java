@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.xuanfeng.weather.constant.HttpConstant;
 import com.xuanfeng.weather.module.weather.view.WeatherView;
@@ -13,7 +14,6 @@ import com.xuanfeng.weather.module.weather.widget.WeatherRecyclerView.WeatherBea
 import com.xuanfeng.xflibrary.http.HttpResponse;
 import com.xuanfeng.xflibrary.http.httpmgr.HttpManager;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
-import com.xuanfeng.xflibrary.utils.StringUtils;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -48,7 +48,7 @@ public class WeatherPresenter implements BasePresenter<WeatherView>, DefaultLife
                     onError(new Throwable("返回了空数据"));
                     return;
                 }
-                WeatherBean weatherBean = (WeatherBean) StringUtils.fromJson(jsonObject.toString(), WeatherBean.class);
+                WeatherBean weatherBean = new Gson().fromJson(jsonObject.toString(), WeatherBean.class);
                 if (weatherBean != null) {
                     WeatherBean.DataBean dataBean = weatherBean.getData();
                     if (dataBean != null) {

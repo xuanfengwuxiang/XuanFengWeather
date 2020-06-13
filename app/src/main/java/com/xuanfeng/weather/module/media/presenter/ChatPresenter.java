@@ -1,5 +1,6 @@
 package com.xuanfeng.weather.module.media.presenter;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.xuanfeng.weather.constant.HttpConstant;
 import com.xuanfeng.weather.module.media.view.ChatView;
@@ -7,7 +8,6 @@ import com.xuanfeng.weather.module.media.widget.ChatRecyclerView.ResponseBean;
 import com.xuanfeng.xflibrary.http.HttpResponse;
 import com.xuanfeng.xflibrary.http.httpmgr.HttpManager;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
-import com.xuanfeng.xflibrary.utils.StringUtils;
 
 import java.util.LinkedHashMap;
 
@@ -28,7 +28,7 @@ public class ChatPresenter implements BasePresenter<ChatView> {
                 if (jsonObject == null) {
                     return;
                 }
-                ResponseBean responseBean = (ResponseBean) StringUtils.fromJson(jsonObject.toString(), ResponseBean.class);
+                ResponseBean responseBean = new Gson().fromJson(jsonObject.toString(), ResponseBean.class);
                 if (responseBean != null) {
                     ResponseBean.ResultBean resultBean = responseBean.getResult();
                     if (resultBean != null) {
