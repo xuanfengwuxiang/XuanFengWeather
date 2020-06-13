@@ -3,12 +3,14 @@ package com.xuanfeng.weather.module.loseweight;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.lifecycle.ViewModel;
+
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.ActivityLoseWeightCalculatorBinding;
 
-public class LoseWeightCalculatorActivity extends BaseActivity<BasePresenter, ActivityLoseWeightCalculatorBinding> implements View.OnClickListener {
+public class LoseWeightCalculatorActivity extends BaseActivity<BasePresenter, ViewModel,ActivityLoseWeightCalculatorBinding> implements View.OnClickListener {
 
 
     @Override

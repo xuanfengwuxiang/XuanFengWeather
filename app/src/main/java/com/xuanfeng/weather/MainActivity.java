@@ -2,12 +2,14 @@ package com.xuanfeng.weather;
 
 import android.os.Bundle;
 
+import androidx.lifecycle.ViewModel;
+
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.xflibrary.utils.StatusBarUtil;
 import com.xuanfeng.weather.databinding.ActivityMainBinding;
 
-public class MainActivity extends BaseActivity<BasePresenter, ActivityMainBinding> {
+public class MainActivity extends BaseActivity<BasePresenter, ViewModel, ActivityMainBinding> {
 
 
     @Override

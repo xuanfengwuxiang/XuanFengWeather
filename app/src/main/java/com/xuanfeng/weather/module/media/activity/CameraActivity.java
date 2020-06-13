@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModel;
+
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.xflibrary.utils.ToastUtil;
@@ -33,7 +35,7 @@ import java.io.IOException;
 /**
  * 人脸识别,相机界面
  */
-public class CameraActivity extends BaseActivity<BasePresenter, ActivityCameraBinding> implements FaceView.FaceViewListener , View.OnClickListener {
+public class CameraActivity extends BaseActivity<BasePresenter, ViewModel, ActivityCameraBinding> implements FaceView.FaceViewListener , View.OnClickListener {
 
     private SurfaceHolder mSurfaceHolder;
     private int cameraId;

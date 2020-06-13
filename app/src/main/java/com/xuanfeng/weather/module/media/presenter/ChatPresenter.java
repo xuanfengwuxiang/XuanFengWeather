@@ -1,5 +1,7 @@
 package com.xuanfeng.weather.module.media.presenter;
 
+import androidx.lifecycle.ViewModel;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.xuanfeng.weather.constant.HttpConstant;
@@ -15,7 +17,7 @@ import java.util.LinkedHashMap;
  * Created by xuanfengwuxiang on 2018/8/20.
  */
 
-public class ChatPresenter implements BasePresenter<ChatView> {
+public class ChatPresenter implements BasePresenter<ChatView, ViewModel> {
 
     ChatView mView;
 
@@ -51,7 +53,7 @@ public class ChatPresenter implements BasePresenter<ChatView> {
     }
 
     @Override
-    public void attachView(ChatView chatView) {
+    public void attachView(ChatView chatView, ViewModel viewModel) {
         mView = chatView;
     }
 

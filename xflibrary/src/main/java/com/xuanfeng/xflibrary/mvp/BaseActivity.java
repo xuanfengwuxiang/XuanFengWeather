@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModel;
 
 import com.xuanfeng.xflibrary.rxbus.RxBean;
 import com.xuanfeng.xflibrary.rxbus.RxBus;
@@ -17,12 +18,13 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 
-public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBinding> extends AppCompatActivity implements BaseView {
+public abstract class BaseActivity<P extends BasePresenter, M extends ViewModel, V extends ViewDataBinding> extends AppCompatActivity implements BaseView {
 
     private Disposable mDisposable;
     private LoadingDialog mLoadingDialog;
     protected V mBinding;
     protected P mPresenter;
+    protected M mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,9 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
         mBinding = DataBindingUtil.setContentView(this, getLayoutId());
 
         mPresenter = (P) initPresenter();
+        mViewModel = (M) initViewModel();
         if (mPresenter != null) {
-            mPresenter.attachView(this);
+            mPresenter.attachView(this, mViewModel);
         }
         initData(getIntent().getExtras());
 
@@ -48,6 +51,10 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
         return false;
     }
 
+    @Override
+    public ViewModel initViewModel() {
+        return null;
+    }
 
     @Override
     public void showProgress() {

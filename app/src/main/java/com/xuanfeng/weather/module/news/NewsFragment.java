@@ -6,6 +6,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.lifecycle.ViewModel;
+
 import com.xuanfeng.xflibrary.magicindicator.MagicListener;
 import com.xuanfeng.xflibrary.mvp.BaseFragment;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
@@ -13,7 +15,7 @@ import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentNewsBinding;
 
 //新闻界面
-public class NewsFragment extends BaseFragment<BasePresenter, FragmentNewsBinding> implements View.OnClickListener {
+public class NewsFragment extends BaseFragment<BasePresenter, ViewModel,FragmentNewsBinding> implements View.OnClickListener {
 
 
     private WebSettings mWebSettings;

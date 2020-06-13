@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModel;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -27,7 +29,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 天气界面
  */
-public class WeatherFragment extends BaseFragment<WeatherPresenter, FragmentWeatherBinding> implements WeatherView, BDLocationListener, Consumer {
+public class WeatherFragment extends BaseFragment<WeatherPresenter, ViewModel, FragmentWeatherBinding> implements WeatherView, BDLocationListener, Consumer {
 
 
     private LocationClient mLocationClient;//百度定位

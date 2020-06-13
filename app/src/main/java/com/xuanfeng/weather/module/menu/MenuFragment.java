@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.lifecycle.ViewModel;
+
 import com.xuanfeng.xflibrary.component.ComponentUtil;
 import com.xuanfeng.xflibrary.contacts.ContactsActivity;
 import com.xuanfeng.xflibrary.mvp.BaseFragment;
@@ -13,7 +15,7 @@ import com.xuanfeng.weather.databinding.FragmentMenuBinding;
 import com.xuanfeng.weather.module.loseweight.LoseWeightCalculatorActivity;
 
 //侧滑界面
-public class MenuFragment extends BaseFragment<BasePresenter, FragmentMenuBinding> {
+public class MenuFragment extends BaseFragment<BasePresenter, ViewModel,FragmentMenuBinding> {
 
     @Override
     public int getLayoutId() {

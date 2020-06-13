@@ -2,6 +2,8 @@ package com.xuanfeng.testcomponent.activity;
 
 import android.os.Bundle;
 
+import androidx.lifecycle.ViewModel;
+
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.testcomponent.R;
@@ -11,7 +13,7 @@ import com.xuanfeng.testcomponent.databinding.ActivityTestTouchEventBinding;
 /**
  * 事件分发测试界面
  */
-public class TestTouchEventActivity extends BaseActivity<BasePresenter, ActivityTestTouchEventBinding> {
+public class TestTouchEventActivity extends BaseActivity<BasePresenter, ViewModel,ActivityTestTouchEventBinding> {
 
 
     @Override

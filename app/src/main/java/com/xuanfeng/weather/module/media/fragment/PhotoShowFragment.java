@@ -2,21 +2,22 @@ package com.xuanfeng.weather.module.media.fragment;
 
 import android.os.Bundle;
 
+import androidx.lifecycle.ViewModel;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
-import com.xuanfeng.xflibrary.mvp.BaseFragment;
-import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentPhotoShowBinding;
 import com.xuanfeng.weather.module.media.adapter.ViewPagerPhotoAdapter;
 import com.xuanfeng.weather.widget.ZoomOutPageTransformer;
+import com.xuanfeng.xflibrary.mvp.BaseFragment;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class PhotoShowFragment extends BaseFragment<BasePresenter, FragmentPhotoShowBinding> {
+public class PhotoShowFragment extends BaseFragment<BasePresenter, ViewModel, FragmentPhotoShowBinding> {
 
 
     private List<String> mTittleList;

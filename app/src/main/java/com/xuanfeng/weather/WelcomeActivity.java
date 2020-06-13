@@ -8,13 +8,14 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModel;
 
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.databinding.ActivityWelcomeBinding;
 
 
-public class WelcomeActivity extends BaseActivity<BasePresenter, ActivityWelcomeBinding> {
+public class WelcomeActivity extends BaseActivity<BasePresenter, ViewModel,ActivityWelcomeBinding> {
 
     protected static final String[] PERMISSIONS = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_EXTERNAL_STORAGE};// 需要的权限
     private static final int REQUEST_CODE = 1;

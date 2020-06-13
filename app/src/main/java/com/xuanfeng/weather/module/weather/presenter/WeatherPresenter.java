@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -22,12 +23,12 @@ import java.util.List;
  * Created by xuanfengwuxiang on 2017/12/13.
  */
 
-public class WeatherPresenter implements BasePresenter<WeatherView>, DefaultLifecycleObserver {
+public class WeatherPresenter implements BasePresenter<WeatherView, ViewModel>, DefaultLifecycleObserver {
 
     private WeatherView mWeatherView;
 
     @Override
-    public void attachView(WeatherView weatherView) {
+    public void attachView(WeatherView weatherView,ViewModel viewModel) {
         mWeatherView = weatherView;
     }
 

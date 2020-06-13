@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModel;
+
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.MainActivity;
@@ -39,7 +41,7 @@ import java.util.List;
 /**
  * 横屏预览人脸识别
  */
-public class CameraHorientalActivity extends BaseActivity<BasePresenter,ActivityCameraHorientalBinding> implements FaceView.FaceViewListener, View.OnClickListener {
+public class CameraHorientalActivity extends BaseActivity<BasePresenter, ViewModel, ActivityCameraHorientalBinding> implements FaceView.FaceViewListener, View.OnClickListener {
 
     private SurfaceHolder mSurfaceHolder;
     private int cameraId;

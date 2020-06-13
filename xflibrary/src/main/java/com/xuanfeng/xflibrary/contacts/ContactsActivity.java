@@ -3,13 +3,15 @@ package com.xuanfeng.xflibrary.contacts;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.lifecycle.ViewModel;
+
 import com.xuanfeng.xflibrary.R;
 import com.xuanfeng.xflibrary.databinding.ActivityContactBinding;
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
 
-public class ContactsActivity extends BaseActivity<BasePresenter, ActivityContactBinding> implements View.OnClickListener {
+public class ContactsActivity extends BaseActivity<BasePresenter, ViewModel, ActivityContactBinding> implements View.OnClickListener {
 
 
     @Override
@@ -19,6 +21,11 @@ public class ContactsActivity extends BaseActivity<BasePresenter, ActivityContac
 
     @Override
     public BasePresenter initPresenter() {
+        return null;
+    }
+
+    @Override
+    public ViewModel initViewModel() {
         return null;
     }
 

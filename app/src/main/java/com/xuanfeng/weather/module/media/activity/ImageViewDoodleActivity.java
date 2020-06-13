@@ -6,6 +6,8 @@ import android.transition.Slide;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModel;
+
 import com.bumptech.glide.Glide;
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
@@ -15,7 +17,7 @@ import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.ActivityImageviewDoodleBinding;
 
 
-public class ImageViewDoodleActivity extends BaseActivity<BasePresenter, ActivityImageviewDoodleBinding> {
+public class ImageViewDoodleActivity extends BaseActivity<BasePresenter, ViewModel,ActivityImageviewDoodleBinding> {
 
 
     @Override

@@ -9,15 +9,17 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 
 import com.xuanfeng.xflibrary.widget.LoadingDialog;
 
 //基类Fragment
-public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBinding> extends Fragment implements BaseView {
+public abstract class BaseFragment<P extends BasePresenter, M extends ViewModel, V extends ViewDataBinding> extends Fragment implements BaseView {
 
     private LoadingDialog mLoadingDialog;
     protected V mBinding;
     protected P mPresenter;
+    protected M mViewModel;
 
 
     @Nullable
@@ -26,8 +28,9 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), getLayoutId(), container, false);
 
         mPresenter = (P) initPresenter();//数据请求
+        mViewModel = (M) initViewModel();
         if (mPresenter != null) {
-            mPresenter.attachView(this);
+            mPresenter.attachView(this, mViewModel);
         }
         initData(getArguments());
         return mBinding.getRoot();
@@ -36,6 +39,11 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     @Override//默认不全屏
     public boolean isFullScreen() {
         return false;
+    }
+
+    @Override
+    public ViewModel initViewModel() {
+        return null;
     }
 
     @Override
