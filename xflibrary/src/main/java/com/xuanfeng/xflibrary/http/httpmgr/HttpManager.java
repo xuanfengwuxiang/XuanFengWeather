@@ -75,6 +75,11 @@ public class HttpManager {
         uploadFiles(url, filePaths, "image/jpg", httpResponse);
     }
 
+    //图片上传--附带信息
+    public void uploadImages(String url, List<String> filePaths, Map<String, String> infos, HttpResponse<JsonObject> httpResponse) {
+        uploadFiles(url, filePaths, "image/jpg", infos, httpResponse);
+    }
+
     //文件上传
     public void uploadFiles(String url, List<String> filePaths, HttpResponse<JsonObject> httpResponse) {
         uploadFiles(url, filePaths, "multipart/form-data", httpResponse);
@@ -96,6 +101,25 @@ public class HttpManager {
             }
         }
         Observable observable = HttpLoader.getInstance().getService().uploadFiles(url, params);
+        observeOnUI(observable, httpResponse);
+    }
+
+    //文件上传--附带信息
+    public void uploadFiles(String url, List<String> filePaths, String contentType, Map<String, String> infos, HttpResponse<JsonObject> httpResponse) {
+        if (filePaths == null || filePaths.isEmpty()) {
+            return;
+        }
+        LinkedHashMap<String, RequestBody> params = new LinkedHashMap<>();
+        for (String path : filePaths) {
+            if (!TextUtils.isEmpty(path)) {
+                File file = new File(path);
+                if (file.exists()) {
+                    RequestBody requestFile = RequestBody.create(MediaType.parse(contentType), file);
+                    params.put("file\"; filename=\"" + file.getName() + "", requestFile);
+                }
+            }
+        }
+        Observable observable = HttpLoader.getInstance().getService().uploadFiles(url, params, infos);
         observeOnUI(observable, httpResponse);
     }
 

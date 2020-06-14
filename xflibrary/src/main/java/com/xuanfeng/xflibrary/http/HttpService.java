@@ -95,6 +95,14 @@ public interface HttpService {
             @Url String url,
             @PartMap Map<String, RequestBody> params);
 
+    //多个文件上传--附带信息
+    @Multipart
+    @POST
+    Observable<JsonObject> uploadFiles(
+            @Url String url,
+            @PartMap Map<String, RequestBody> params,
+            @FieldMap Map<String, String> infos);
+
     //文件下载
     @Streaming
     @GET
