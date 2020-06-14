@@ -1,5 +1,6 @@
 package com.xuanfeng.weather.module.weather.presenter;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,9 @@ public class WeatherPresenter implements BasePresenter<WeatherView, ViewModel>, 
     }
 
     public void getWeather(LifecycleOwner lifecycleOwner, String city) {
+        if(TextUtils.isEmpty(city)){
+            return;
+        }
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
         params.put("city", city);
         mWeatherView.showProgress();
