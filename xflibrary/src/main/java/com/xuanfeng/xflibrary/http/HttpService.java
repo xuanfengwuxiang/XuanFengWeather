@@ -98,6 +98,7 @@ public interface HttpService {
     //多个文件上传--附带信息
     @Multipart
     @POST
+    @FormUrlEncoded
     Observable<JsonObject> uploadFiles(
             @Url String url,
             @PartMap Map<String, RequestBody> params,
