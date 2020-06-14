@@ -21,6 +21,7 @@ import com.xuanfeng.testcomponent.databinding.ActivityTestBinding;
 import com.xuanfeng.testcomponent.hotfix.ISay;
 import com.xuanfeng.testcomponent.hotfix.SayException;
 import com.xuanfeng.xflibrary.component.ComponentUtil;
+import com.xuanfeng.xflibrary.http.httpmgr.HttpManager;
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.xflibrary.utils.AppUtil;
@@ -34,12 +35,13 @@ import com.xuanfeng.xflibrary.widget.popupmenu.PopupMenu;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import dalvik.system.DexClassLoader;
 
 
-public class TestActivity extends BaseActivity<BasePresenter, ViewModel,ActivityTestBinding> implements View.OnClickListener {
+public class TestActivity extends BaseActivity<BasePresenter, ViewModel, ActivityTestBinding> implements View.OnClickListener {
 
 
     private PopupMenu mPopupMenu;
@@ -82,7 +84,7 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel,Activity
             startActivity(intent);
         } else if (i == R.id.tv_aidl) {
 //            ImageUtil.selectFromGallery(this, 666);
-            ToastUtil.showToast(this,StringUtils.isTel("18362939650")+"");
+            ToastUtil.showToast(this, StringUtils.isTel("18362939650") + "");
 
         } else if (i == R.id.ll_test_share_anim) {
             Intent intent;
@@ -173,6 +175,14 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel,Activity
         mBinding.tvTittle.setText("测试界面");
         mBinding.setListener(this);
         mSoftKeyBoardUtil = SoftKeyBoardUtil.setListener(this, mKeyBoardListener);
+        List<String> list = new ArrayList<>();
+        list.add("/storage/emulated/0/com.xuanfeng.xfstore/temp/temp_crop.jpg");
+        list.add("/storage/emulated/0/small.jpg");
+
+
+        HashMap<String, String> ll = new HashMap<>();
+        ll.put("tel", "777777");
+        HttpManager.getInstance().uploadImages("https://192.168.31.195/uploadImageWithExtra", list, null, null);
     }
 
     SoftKeyBoardUtil.KeyBoardListener mKeyBoardListener = new SoftKeyBoardUtil.KeyBoardListener() {
