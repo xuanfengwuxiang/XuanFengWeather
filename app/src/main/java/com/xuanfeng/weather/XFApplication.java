@@ -4,9 +4,17 @@ import android.content.Context;
 
 import androidx.multidex.MultiDexApplication;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.xuanfeng.weather.exception.ExceptionHandler;
 import com.xuanfeng.xflibrary.component.ComponentFactory;
+import com.xuanfeng.xflibrary.http.SSLSocketClient;
 import com.xuanfeng.xflibrary.utils.AppUtil;
+
+import java.io.InputStream;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Created by zhujh on 2017/7/25.
@@ -29,6 +37,16 @@ public class XFApplication extends MultiDexApplication {
         initBugly();
         initComponent();
         AppUtil.initAppWorkPath(this);
+        try {
+            Glide.get(this).getRegistry().replace(
+                    GlideUrl.class, InputStream.class,
+                    new OkHttpUrlLoader.Factory(new OkHttpClient.Builder()
+                            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())
+                            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+                            .build()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

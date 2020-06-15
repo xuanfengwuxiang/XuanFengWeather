@@ -16,12 +16,13 @@ import androidx.lifecycle.ViewModel;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestBinding;
 import com.xuanfeng.testcomponent.hotfix.ISay;
 import com.xuanfeng.testcomponent.hotfix.SayException;
 import com.xuanfeng.xflibrary.component.ComponentUtil;
-import com.xuanfeng.xflibrary.http.httpmgr.HttpManager;
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.xflibrary.utils.AppUtil;
@@ -30,12 +31,10 @@ import com.xuanfeng.xflibrary.utils.ImageUtil;
 import com.xuanfeng.xflibrary.utils.SoftKeyBoardUtil;
 import com.xuanfeng.xflibrary.utils.StringUtils;
 import com.xuanfeng.xflibrary.utils.ToastUtil;
-import com.xuanfeng.xflibrary.widget.BottomDialog;
 import com.xuanfeng.xflibrary.widget.popupmenu.PopupMenu;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import dalvik.system.DexClassLoader;
@@ -175,14 +174,10 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
         mBinding.tvTittle.setText("测试界面");
         mBinding.setListener(this);
         mSoftKeyBoardUtil = SoftKeyBoardUtil.setListener(this, mKeyBoardListener);
-        List<String> list = new ArrayList<>();
-        list.add("/storage/emulated/0/com.xuanfeng.xfstore/temp/temp_crop.jpg");
-        list.add("/storage/emulated/0/small.jpg");
+        Glide.with(this).load("https://111.229.132.124/image/20200615/35274f02bf37454b86cac85059eaa73f.jpg").
 
+                apply(RequestOptions.bitmapTransform(new CircleCrop())).into(mBinding.ivShareAnim);
 
-        HashMap<String, String> ll = new HashMap<>();
-        ll.put("tel", "777777");
-        HttpManager.getInstance().uploadImages("https://192.168.31.195/uploadImageWithExtra", list, null, null);
     }
 
     SoftKeyBoardUtil.KeyBoardListener mKeyBoardListener = new SoftKeyBoardUtil.KeyBoardListener() {
