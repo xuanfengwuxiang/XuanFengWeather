@@ -237,7 +237,7 @@ public class ImageUtil {
         intent.putExtra("outputX", outputX);
         intent.putExtra("outputY", outputY);
         intent.putExtra("scale", true);
-
+        intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);//裁剪后Uri路径
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         intent = Intent.createChooser(intent, "裁剪图片");
