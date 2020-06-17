@@ -46,6 +46,11 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
     private PopupMenu mPopupMenu;
     private SoftKeyBoardUtil mSoftKeyBoardUtil;
 
+    int GALLERY_CODE = 666;
+    int CROP_CODE = 777;
+    int TAKE_CODE = 888;
+
+
     public void onClick(View view) {
         int i = view.getId();//测试自定义EditText
         if (i == R.id.tv_test_for_edittext) {
@@ -82,8 +87,11 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
             intent = new Intent(this, TestForGalleryActivity.class);
             startActivity(intent);
         } else if (i == R.id.tv_aidl) {
-//            ImageUtil.selectFromGallery(this, 666);
-            ToastUtil.showToast(this, StringUtils.isTel("18362939650") + "");
+            ImageUtil.selectFromGallery(this, GALLERY_CODE);
+
+            Uri  outUri = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + "/" + "small.jpg"));
+
+//            ImageUtil.takePhoto(this,outUri, TAKE_CODE);
 
         } else if (i == R.id.ll_test_share_anim) {
             Intent intent;
@@ -238,14 +246,14 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
         outUri = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + "/" + "small.jpg"));
 
 
-        if (666 == requestCode) {
+        if (GALLERY_CODE == requestCode) {
             if (resultCode == RESULT_OK) {
                 try {
 
                     String path = ImageUtil.getPathFromUri(this, data.getData());
                     Glide.with(this).load(path).into(mBinding.ivShareAnim);
                     FileUtil.deleteFile(AppUtil.getAppTempPath(this) + "/" + "small.jpg");
-                    ImageUtil.cropFromGallery(this, 777, data.getData(), outUri, 150, 150, 1, 1);
+                    ImageUtil.cropFromGallery(this, CROP_CODE, data.getData(), outUri, 150, 150, 1, 1);
                 } catch (Exception e) {
                     // TODO Auto-generatedcatch block
                     e.printStackTrace();
@@ -255,7 +263,7 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
             return;
         }
 
-        if (777 == requestCode) {
+        if (CROP_CODE == requestCode) {
             if (resultCode == RESULT_OK) {
                 String path = ImageUtil.getPathFromUri(this, outUri);
                 Glide.with(this).load(path).
@@ -265,10 +273,10 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
             }
         }
 
-        if (999 == requestCode) {
+        if (TAKE_CODE == requestCode) {
             if (resultCode == RESULT_OK) {
                 Uri uu = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + File.separator + "take.jpg"));
-                ImageUtil.cropFromGallery(this, 777, uu, outUri, 150, 150, 1, 1);
+                ImageUtil.cropFromGallery(this, CROP_CODE, uu, outUri, 150, 150, 1, 1);
 
             }
         }

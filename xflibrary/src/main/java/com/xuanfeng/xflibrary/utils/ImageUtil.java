@@ -15,6 +15,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -240,8 +241,10 @@ public class ImageUtil {
         intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);//裁剪后Uri路径
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//不加会出现无法加载此图片的错误
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);// 这两句是在7.0以上版本当targeVersion大于23时需要
+        //7.0才需要
+        if (Build.VERSION.SDK_INT >= 24) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
         intent = Intent.createChooser(intent, "裁剪图片");
         activity.startActivityForResult(intent, requestCode);
     }
