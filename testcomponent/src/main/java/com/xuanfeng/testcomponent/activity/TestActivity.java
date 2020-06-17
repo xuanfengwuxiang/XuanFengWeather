@@ -87,11 +87,11 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
             intent = new Intent(this, TestForGalleryActivity.class);
             startActivity(intent);
         } else if (i == R.id.tv_aidl) {
-            ImageUtil.selectFromGallery(this, GALLERY_CODE);
+//            ImageUtil.selectFromGallery(this, GALLERY_CODE);
 
-            Uri  outUri = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + "/" + "small.jpg"));
+            Uri  outUri = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + "/" + "take.jpg"));
 
-//            ImageUtil.takePhoto(this,outUri, TAKE_CODE);
+            ImageUtil.takePhoto(this,outUri, TAKE_CODE);
 
         } else if (i == R.id.ll_test_share_anim) {
             Intent intent;
