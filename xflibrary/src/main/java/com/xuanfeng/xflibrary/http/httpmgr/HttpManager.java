@@ -104,7 +104,9 @@ public class HttpManager {
         if (extra != null && !extra.isEmpty()) {
             for (Map.Entry<String, String> entry : extra.entrySet()) {
                 if (entry != null) {
-                    params.put(entry.getKey(), RequestBody.create(MediaType.parse("text/plain"), entry.getValue()));
+                    String key = entry.getKey() != null ? entry.getKey() : "";
+                    String value = entry.getValue() != null ? entry.getValue() : "";
+                    params.put(key, RequestBody.create(MediaType.parse("text/plain"), value));
                 }
             }
         }
