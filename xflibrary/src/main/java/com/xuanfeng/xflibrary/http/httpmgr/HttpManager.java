@@ -103,7 +103,9 @@ public class HttpManager {
 
         if (extra != null && !extra.isEmpty()) {
             for (Map.Entry<String, String> entry : extra.entrySet()) {
-                params.put(entry.getKey(), RequestBody.create(MediaType.parse("text/plain"), entry.getValue()));
+                if (entry != null) {
+                    params.put(entry.getKey(), RequestBody.create(MediaType.parse("text/plain"), entry.getValue()));
+                }
             }
         }
         Observable observable = HttpLoader.getInstance().getService().uploadFiles(url, params);
@@ -160,7 +162,7 @@ public class HttpManager {
 
             @Override
             public void onSubscribe(Disposable d) {
-
+                //todo nothing
             }
 
             @Override
