@@ -72,7 +72,7 @@ public class WelcomeActivity extends BaseActivity<BasePresenter, ViewModel,Activ
 
     public void onClick(View view) {
         mBinding.countDownProgressBar.removeOnCountDownFinishListener();
-        goToMainActivity();
+        requestPermission();
     }
 
     @Override
