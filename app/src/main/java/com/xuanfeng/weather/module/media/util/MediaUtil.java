@@ -35,7 +35,6 @@ public class MediaUtil {
     //初始化设置ViewPager的适配器指示器
     public static void initMagicIndicator(Context context, MagicIndicator mMagicIndicator, final ViewPager mViewPager) {
         List<MagicBean> titleList = new ArrayList<>();
-        titleList.add(new MagicBean("视频", ""));
         titleList.add(new MagicBean("图片", ""));
         titleList.add(new MagicBean("人脸识别", ""));
         titleList.add(new MagicBean("AI智能聊天", ""));
@@ -46,7 +45,6 @@ public class MediaUtil {
     //设置ViewPager的适配器
     public static void setViewPagerAdapter(Fragment fragment, ViewPager viewPager) {
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new VideoFragment());
         fragmentList.add(new PhotoShowFragment());
         fragmentList.add(new FaceDetectorFragment());
         fragmentList.add(new ChatFragment());
