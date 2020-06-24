@@ -29,8 +29,7 @@ import com.xuanfeng.xflibrary.utils.AppUtil;
 import com.xuanfeng.xflibrary.utils.FileUtil;
 import com.xuanfeng.xflibrary.utils.ImageUtil;
 import com.xuanfeng.xflibrary.utils.SoftKeyBoardUtil;
-import com.xuanfeng.xflibrary.utils.StringUtils;
-import com.xuanfeng.xflibrary.utils.ToastUtil;
+import com.xuanfeng.xflibrary.widget.ConfirmDialog;
 import com.xuanfeng.xflibrary.widget.popupmenu.PopupMenu;
 
 import java.io.File;
@@ -89,10 +88,12 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
         } else if (i == R.id.tv_aidl) {
 //            ImageUtil.selectFromGallery(this, GALLERY_CODE);
 
-            Uri  outUri = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + "/" + "take.jpg"));
+//            Uri  outUri = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + "/" + "take.jpg"));
+//
+//            ImageUtil.takePhoto(this,outUri, TAKE_CODE);
 
-            ImageUtil.takePhoto(this,outUri, TAKE_CODE);
-
+            ConfirmDialog dialog = new ConfirmDialog(this);
+            dialog.show();
         } else if (i == R.id.ll_test_share_anim) {
             Intent intent;
             intent = new Intent(this, TestShareAnimActivity.class);

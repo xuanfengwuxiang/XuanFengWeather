@@ -22,5 +22,8 @@
 
     //主题颜色
     <color name="baseThemeColor">#538BC5</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_line">#E6E6E6</color>
+
 
 </resources>
