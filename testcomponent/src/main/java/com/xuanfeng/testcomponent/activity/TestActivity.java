@@ -1,23 +1,26 @@
 package com.xuanfeng.testcomponent.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.transition.Explode;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.lifecycle.ViewModel;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.xuanfeng.server.IMyAidlInterface;
+import com.xuanfeng.server.Person;
 import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestBinding;
 import com.xuanfeng.testcomponent.hotfix.ISay;
@@ -25,11 +28,8 @@ import com.xuanfeng.testcomponent.hotfix.SayException;
 import com.xuanfeng.xflibrary.component.ComponentUtil;
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
-import com.xuanfeng.xflibrary.utils.AppUtil;
-import com.xuanfeng.xflibrary.utils.FileUtil;
 import com.xuanfeng.xflibrary.utils.ImageUtil;
 import com.xuanfeng.xflibrary.utils.SoftKeyBoardUtil;
-import com.xuanfeng.xflibrary.widget.ConfirmDialog;
 import com.xuanfeng.xflibrary.widget.popupmenu.PopupMenu;
 
 import java.io.File;
@@ -86,14 +86,12 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
             intent = new Intent(this, TestForGalleryActivity.class);
             startActivity(intent);
         } else if (i == R.id.tv_aidl) {
-//            ImageUtil.selectFromGallery(this, GALLERY_CODE);
+            try {
+                iTest.addLog(new Person("够烦"));
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
 
-//            Uri  outUri = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + "/" + "take.jpg"));
-//
-//            ImageUtil.takePhoto(this,outUri, TAKE_CODE);
-
-            ConfirmDialog dialog = new ConfirmDialog(this);
-            dialog.show();
         } else if (i == R.id.ll_test_share_anim) {
             Intent intent;
             intent = new Intent(this, TestShareAnimActivity.class);
@@ -210,6 +208,15 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setEnterTransition(new Explode());
         super.onCreate(savedInstanceState);
+
+        //软件一启动就绑定服务
+        bindService();
+    }
+
+    private void bindService() {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("com.xuanfeng.server", "com.xuanfeng.server.MyService"));//第一个参数包名，第二个参数文件名
+        bindService(intent, connection, BIND_AUTO_CREATE);
     }
 
     private int mFlags = 0b000;
@@ -239,47 +246,22 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
         }
     }
 
-    Uri outUri;
+    IMyAidlInterface iTest;
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        outUri = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + "/" + "small.jpg"));
-
-
-        if (GALLERY_CODE == requestCode) {
-            if (resultCode == RESULT_OK) {
-                try {
-
-                    String path = ImageUtil.getPathFromUri(this, data.getData());
-                    Glide.with(this).load(path).into(mBinding.ivShareAnim);
-                    FileUtil.deleteFile(AppUtil.getAppTempPath(this) + "/" + "small.jpg");
-                    ImageUtil.cropFromGallery(this, CROP_CODE, data.getData(), outUri, 150, 150, 1, 1);
-                } catch (Exception e) {
-                    // TODO Auto-generatedcatch block
-                    e.printStackTrace();
-                }
-
-            }
-            return;
+    private ServiceConnection connection = new ServiceConnection() {
+        //绑定上服务的时候
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            //拿到远程服务
+            iTest = IMyAidlInterface.Stub.asInterface(service);
         }
 
-        if (CROP_CODE == requestCode) {
-            if (resultCode == RESULT_OK) {
-                String path = ImageUtil.getPathFromUri(this, outUri);
-                Glide.with(this).load(path).
-                        skipMemoryCache(true).
-                        diskCacheStrategy(DiskCacheStrategy.NONE).
-                        into(mBinding.ivShareAnim);
-            }
+        //断开服务的时候
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            //回收资源
+            iTest = null;
         }
+    };
 
-        if (TAKE_CODE == requestCode) {
-            if (resultCode == RESULT_OK) {
-                Uri uu = Uri.fromFile(new File(AppUtil.getAppTempPath(this) + File.separator + "take.jpg"));
-                ImageUtil.cropFromGallery(this, CROP_CODE, uu, outUri, 150, 150, 1, 1);
-
-            }
-        }
-    }
 }
