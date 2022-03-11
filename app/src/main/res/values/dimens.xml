@@ -6,4 +6,7 @@
     <dimen name="separate_line_height">0.5dp</dimen>
     <dimen name="app_header_height">48dp</dimen>
     <dimen name="header_title_size">17sp</dimen>
+    <dimen name="common_text_size">15dp</dimen>
+
+
 </resources>
