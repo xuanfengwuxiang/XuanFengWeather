@@ -36,10 +36,10 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
         //不能忘记打印异常信息
         Log.e("uncaughtException",ex.toString());
         Toast.makeText(mApplication, "程序异常,10秒之后自动重启~", Toast.LENGTH_SHORT).show();
-        restartActivity();
+//        restartActivity();
         // kill current process
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
+//        android.os.Process.killProcess(android.os.Process.myPid());
+//        System.exit(1);
     }
 
     private long restartTime = 10000;//重新启动应用程序指定Activity间隔时间.  毫秒.  1000ms = 1s

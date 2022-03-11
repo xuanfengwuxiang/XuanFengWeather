@@ -34,7 +34,7 @@ public class XFApplication extends MultiDexApplication {
 
     //初始化
     private void init() {
-        initBugly();
+//        initBugly();
         initComponent();
         AppUtil.initAppWorkPath(this);
         try {
