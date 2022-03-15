@@ -76,6 +76,14 @@
                     android:textColor="@color/tittle_color"
                     android:textSize="@dimen/header_title_size"
                     android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_more"
+                    android:layout_alignParentEnd="true"
+                    android:onClick="@{listener::onClick}"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@android:drawable/ic_menu_manage"/>
             </RelativeLayout>
 
             <LinearLayout

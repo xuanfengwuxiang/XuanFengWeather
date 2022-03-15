@@ -10,10 +10,11 @@
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.xuanfeng.weather.MainActivity"
-        tools:openDrawer="start">
+        tools:openDrawer="right">
 
         <LinearLayout
             android:id="@+id/activity_main"
@@ -79,7 +80,7 @@
             android:name="com.xuanfeng.weather.module.menu.MenuFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
+            android:layout_gravity="right"
             tools:layout="@layout/fragment_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>

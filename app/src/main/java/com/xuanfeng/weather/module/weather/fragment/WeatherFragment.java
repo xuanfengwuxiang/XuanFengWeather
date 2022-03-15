@@ -2,9 +2,11 @@ package com.xuanfeng.weather.module.weather.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModel;
 
 import com.baidu.location.BDLocation;
@@ -98,6 +100,9 @@ public class WeatherFragment extends BaseFragment<WeatherPresenter, ViewModel, F
                 break;
             case R.id.tv_today_temperature:
                 ToastUtil.showToast(getContext(), mBinding.tvTodayTemperature.getText().toString());
+                break;
+            case R.id.iv_more:
+                ((DrawerLayout)getActivity().findViewById(R.id.drawLayout)).openDrawer(Gravity.RIGHT);
                 break;
             default:
                 break;
