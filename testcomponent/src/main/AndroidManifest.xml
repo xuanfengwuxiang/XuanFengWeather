@@ -28,6 +28,13 @@
             android:enabled="true"
             android:exported="true"></service>
 
+
+
+        <service
+            android:name=".service.ForegroundService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity android:name=".activity.TestForEditTextActivity" />
         <activity android:name=".activity.TestForGalleryActivity" />
     </application>

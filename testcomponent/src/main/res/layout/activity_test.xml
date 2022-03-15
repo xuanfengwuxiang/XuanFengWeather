@@ -237,6 +237,13 @@
                     android:gravity="center"
                     android:onClick="@{listener::onClick}"
                     android:text="热修复测试" />
+                <TextView
+                    android:id="@+id/tv_foreground_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:onClick="@{listener::onClick}"
+                    android:text="启动前台Service" />
             </LinearLayout>
 
         </ScrollView>

@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
@@ -25,6 +26,7 @@ import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestBinding;
 import com.xuanfeng.testcomponent.hotfix.ISay;
 import com.xuanfeng.testcomponent.hotfix.SayException;
+import com.xuanfeng.testcomponent.service.ForegroundService;
 import com.xuanfeng.xflibrary.component.ComponentUtil;
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
@@ -106,6 +108,12 @@ public class TestActivity extends BaseActivity<BasePresenter, ViewModel, Activit
             finishAfterTransition();
         } else if (i == R.id.tv_hot_fix) {
             hotFix();
+        } else if (i == R.id.tv_foreground_service) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(new Intent(this, ForegroundService.class));
+            } else {
+                startService(new Intent(this, ForegroundService.class));
+            }
         }
     }
 

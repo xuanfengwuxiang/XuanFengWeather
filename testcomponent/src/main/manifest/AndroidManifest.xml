@@ -2,20 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xuanfeng.testcomponent">
 
-    <application
-        >
-        <activity android:name=".activity.TestActivity"/>
+    <application>
+        <service
+            android:name=".service.ForegroundService"
+            android:enabled="true"
+            android:exported="true"></service>
 
-
+        <activity android:name=".activity.TestActivity" />
         <activity android:name=".activity.TestAIDLActivity" />
         <activity android:name=".activity.TestShareAnimActivity" />
-
         <activity android:name=".activity.TestTouchEventActivity" />
 
         <service
             android:name=".service.TestService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity android:name=".activity.TestForEditTextActivity" />
         <activity android:name=".activity.TestForGalleryActivity" />
