@@ -102,21 +102,15 @@ public class WeatherFragment extends BaseFragment<WeatherPresenter, ViewModel, F
     }
 
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_left:
-                Intent intent = new Intent(getContext(), SelectCityActivity.class);
-                intent.putExtra(SelectCityActivity.LATITUDE, mLa);
-                intent.putExtra(SelectCityActivity.LONGITUDE, mLo);
-                startActivity(intent);
-                break;
-            case R.id.tv_today_temperature:
-                ToastUtil.showToast(getContext(), mBinding.tvTodayTemperature.getText().toString());
-                break;
-            case R.id.iv_more:
-                ((DrawerLayout) getActivity().findViewById(R.id.drawLayout)).openDrawer(Gravity.RIGHT);
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.tv_left) {
+            Intent intent = new Intent(getContext(), SelectCityActivity.class);
+            intent.putExtra(SelectCityActivity.LATITUDE, mLa);
+            intent.putExtra(SelectCityActivity.LONGITUDE, mLo);
+            startActivity(intent);
+        } else if (view.getId() == R.id.tv_today_temperature) {
+            ToastUtil.showToast(getContext(), mBinding.tvTodayTemperature.getText().toString());
+        } else if (view.getId() == R.id.iv_more) {
+            ((DrawerLayout) getActivity().findViewById(R.id.drawLayout)).openDrawer(Gravity.RIGHT);
         }
     }
 
