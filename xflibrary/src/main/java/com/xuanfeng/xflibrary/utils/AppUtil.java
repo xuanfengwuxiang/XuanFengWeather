@@ -24,7 +24,7 @@ public class AppUtil {
 
     //获取 app 根目录
     public static String getAppRootPath(Context context) {
-        return FileUtil.getSDPath(context) + File.separator + context.getPackageName();
+        return FileUtil.getSDPath(context);
     }
 
     //获取 app temp文件夹

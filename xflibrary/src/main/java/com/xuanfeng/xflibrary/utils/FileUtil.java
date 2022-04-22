@@ -30,10 +30,16 @@ public class FileUtil {
     private static final String TAG = "FileUtil";
 
 
-    //获取sdcard的目录
+    /**
+     * 获取sdcard的目录
+     *
+     *
+     * @param context context
+     * @return 路径
+     */
     public static String getSDPath(Context context) {
         if (isSDMounted()) {// 判断sdcard是否存在
-            return Environment.getExternalStorageDirectory().getPath();// 获取根目录
+            return context.getExternalFilesDir(null).getPath();// 获取根目录
         }
         return context.getFilesDir().getPath();//   目录:/data/data/<application package>/files
     }
