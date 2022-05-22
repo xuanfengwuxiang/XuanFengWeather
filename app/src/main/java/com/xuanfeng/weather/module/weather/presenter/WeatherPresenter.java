@@ -42,7 +42,7 @@ public class WeatherPresenter implements BasePresenter<WeatherView, ViewModel>, 
         if(TextUtils.isEmpty(city)){
             return;
         }
-        LinkedHashMap<String, String> params = new LinkedHashMap<>();
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("city", city);
         mWeatherView.showProgress();
         HttpManager.getInstance().getJO(HttpConstant.WEATHER_URL, params, new HttpResponse<JsonObject>() {

@@ -34,7 +34,7 @@ public interface HttpService {
     @GET
     Observable<JsonObject> getJO(
             @Url String url,
-            @QueryMap Map<String, String> params
+            @QueryMap Map<String, Object> params
     );
 
     @GET

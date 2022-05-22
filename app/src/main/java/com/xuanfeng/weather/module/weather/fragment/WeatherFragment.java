@@ -84,7 +84,7 @@ public class WeatherFragment extends BaseFragment<WeatherPresenter, ViewModel, F
         mLa = bdLocation.getLatitude();
         mLo = bdLocation.getLongitude();
         mBinding.tvLeft.setText(mCity == null ? "" : mCity);
-        mPresenter.getWeather(getActivity(), mCity);
+        mPresenter.getWeather(getActivity(), "南京");
 
     }
 

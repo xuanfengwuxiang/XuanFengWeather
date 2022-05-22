@@ -51,7 +51,7 @@ public class HttpManager {
 
 
     //get请求
-    public void getJO(String url, Map<String, String> params, HttpResponse<JsonObject> httpResponse) {
+    public void getJO(String url, Map<String, Object> params, HttpResponse<JsonObject> httpResponse) {
         Observable observable = HttpLoader.getInstance().getService().getJO(url, params);
         observeOnUI(observable, httpResponse);
     }

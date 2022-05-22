@@ -24,7 +24,7 @@ public class ChatPresenter implements BasePresenter<ChatView, ViewModel> {
     public void getReply(String msg) {
         String url = HttpConstant.CHAT_URL;
         url = url.replace("##content##", msg);
-        HttpManager.getInstance().getJO(url, new LinkedHashMap<String, String>(), new HttpResponse<JsonObject>() {
+        HttpManager.getInstance().getJO(url, new LinkedHashMap<String, Object>(), new HttpResponse<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
                 if (jsonObject == null) {
