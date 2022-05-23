@@ -6,7 +6,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -24,12 +23,12 @@ import java.util.List;
  * Created by xuanfengwuxiang on 2017/12/13.
  */
 
-public class WeatherPresenter implements BasePresenter<WeatherView, ViewModel>, DefaultLifecycleObserver {
+public class WeatherPresenter implements BasePresenter<WeatherView>, DefaultLifecycleObserver {
 
     private WeatherView mWeatherView;
 
     @Override
-    public void attachView(WeatherView weatherView,ViewModel viewModel) {
+    public void attachView(WeatherView weatherView) {
         mWeatherView = weatherView;
     }
 
@@ -39,7 +38,7 @@ public class WeatherPresenter implements BasePresenter<WeatherView, ViewModel>, 
     }
 
     public void getWeather(LifecycleOwner lifecycleOwner, String city) {
-        if(TextUtils.isEmpty(city)){
+        if (TextUtils.isEmpty(city)) {
             return;
         }
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();

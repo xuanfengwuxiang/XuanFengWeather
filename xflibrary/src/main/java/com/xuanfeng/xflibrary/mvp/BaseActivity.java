@@ -40,7 +40,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends ViewModel,
         mPresenter = (P) initPresenter();
         mViewModel = (M) initViewModel();
         if (mPresenter != null) {
-            mPresenter.attachView(this, mViewModel);
+            mPresenter.attachView(this);
         }
         initData(getIntent().getExtras());
 

@@ -30,7 +30,7 @@ public abstract class BaseFragment<P extends BasePresenter, M extends ViewModel,
         mPresenter = (P) initPresenter();//数据请求
         mViewModel = (M) initViewModel();
         if (mPresenter != null) {
-            mPresenter.attachView(this, mViewModel);
+            mPresenter.attachView(this);
         }
         initData(getArguments());
         return mBinding.getRoot();
