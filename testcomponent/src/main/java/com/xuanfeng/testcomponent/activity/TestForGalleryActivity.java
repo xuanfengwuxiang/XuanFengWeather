@@ -4,16 +4,14 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.lifecycle.ViewModel;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.xuanfeng.xflibrary.mvp.BaseActivity;
-import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.testcomponent.R;
-import com.xuanfeng.testcomponent.databinding.ActivityTestForGalleryBinding;
 import com.xuanfeng.testcomponent.ZoomOutPageTransformer;
 import com.xuanfeng.testcomponent.adapter.ViewPagerPhotoTestAdapter;
-
+import com.xuanfeng.testcomponent.databinding.ActivityTestForGalleryBinding;
+import com.xuanfeng.xflibrary.mvp.BaseActivity;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +22,7 @@ import java.util.List;
  * 此界面实现，ViewPager一屏展示3张图片
  */
 
-public class TestForGalleryActivity extends BaseActivity<BasePresenter, ViewModel,ActivityTestForGalleryBinding> {
+public class TestForGalleryActivity extends BaseActivity<BasePresenter,ActivityTestForGalleryBinding> {
 
 
 

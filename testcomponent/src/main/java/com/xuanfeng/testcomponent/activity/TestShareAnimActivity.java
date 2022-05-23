@@ -3,15 +3,13 @@ package com.xuanfeng.testcomponent.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.lifecycle.ViewModel;
-
-import com.xuanfeng.xflibrary.mvp.BaseActivity;
-import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestShareAnimBinding;
+import com.xuanfeng.xflibrary.mvp.BaseActivity;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
 
-public class TestShareAnimActivity extends BaseActivity<BasePresenter, ViewModel, ActivityTestShareAnimBinding> implements View.OnClickListener {
+public class TestShareAnimActivity extends BaseActivity<BasePresenter, ActivityTestShareAnimBinding> implements View.OnClickListener {
 
 
     @Override

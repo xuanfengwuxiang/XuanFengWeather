@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
-import androidx.lifecycle.ViewModel;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -41,7 +40,7 @@ import java.util.List;
 import dalvik.system.DexClassLoader;
 
 
-public class TestActivity extends BaseActivity<BasePresenter, ViewModel, ActivityTestBinding> implements View.OnClickListener {
+public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBinding> implements View.OnClickListener {
 
 
     private PopupMenu mPopupMenu;

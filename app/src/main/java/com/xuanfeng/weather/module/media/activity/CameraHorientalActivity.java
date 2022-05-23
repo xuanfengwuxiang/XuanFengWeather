@@ -41,7 +41,7 @@ import java.util.List;
 /**
  * 横屏预览人脸识别
  */
-public class CameraHorientalActivity extends BaseActivity<BasePresenter, ViewModel, ActivityCameraHorientalBinding> implements FaceView.FaceViewListener, View.OnClickListener {
+public class CameraHorientalActivity extends BaseActivity<BasePresenter, ActivityCameraHorientalBinding> implements FaceView.FaceViewListener, View.OnClickListener {
 
     private SurfaceHolder mSurfaceHolder;
     private int cameraId;

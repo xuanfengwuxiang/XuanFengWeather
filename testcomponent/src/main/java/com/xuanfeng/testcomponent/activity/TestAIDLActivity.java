@@ -3,16 +3,14 @@ package com.xuanfeng.testcomponent.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.lifecycle.ViewModel;
-
-import com.xuanfeng.xflibrary.mvp.BaseActivity;
-import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.testcomponent.R;
 import com.xuanfeng.testcomponent.databinding.ActivityTestAidlBinding;
+import com.xuanfeng.xflibrary.mvp.BaseActivity;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
 
 //AIDL测试界面
-public class TestAIDLActivity extends BaseActivity<BasePresenter, ViewModel, ActivityTestAidlBinding> {
+public class TestAIDLActivity extends BaseActivity<BasePresenter, ActivityTestAidlBinding> {
 
 
     @Override

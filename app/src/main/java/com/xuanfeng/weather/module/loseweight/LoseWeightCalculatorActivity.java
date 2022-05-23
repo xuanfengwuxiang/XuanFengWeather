@@ -3,14 +3,12 @@ package com.xuanfeng.weather.module.loseweight;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.lifecycle.ViewModel;
-
-import com.xuanfeng.xflibrary.mvp.BaseActivity;
-import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.ActivityLoseWeightCalculatorBinding;
+import com.xuanfeng.xflibrary.mvp.BaseActivity;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
-public class LoseWeightCalculatorActivity extends BaseActivity<BasePresenter, ViewModel,ActivityLoseWeightCalculatorBinding> implements View.OnClickListener {
+public class LoseWeightCalculatorActivity extends BaseActivity<BasePresenter, ActivityLoseWeightCalculatorBinding> implements View.OnClickListener {
 
 
     @Override
@@ -39,7 +37,7 @@ public class LoseWeightCalculatorActivity extends BaseActivity<BasePresenter, Vi
         switch (view.getId()) {
             case R.id.iv_left:
                 finish();
-                overridePendingTransition(R.anim.back_enter,R.anim.back_exit);
+                overridePendingTransition(R.anim.back_enter, R.anim.back_exit);
                 break;
 
             case R.id.bt_get_rate://获取燃脂心率

@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.lifecycle.ViewModel;
-
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
@@ -17,7 +15,7 @@ import com.xuanfeng.weather.module.weather.utils.WeatherUtil;
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
-public class SelectCityActivity extends BaseActivity<BasePresenter, ViewModel, ActivitySelectCityBinding> implements View.OnClickListener {
+public class SelectCityActivity extends BaseActivity<BasePresenter, ActivitySelectCityBinding> implements View.OnClickListener {
 
     public static final String LONGITUDE = "longitude";
     public static final String LATITUDE = "latitude";

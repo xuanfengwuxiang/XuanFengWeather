@@ -11,7 +11,7 @@ import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
 
-public class ContactsActivity extends BaseActivity<BasePresenter, ViewModel, ActivityContactBinding> implements View.OnClickListener {
+public class ContactsActivity extends BaseActivity<BasePresenter, ActivityContactBinding> implements View.OnClickListener {
 
 
     @Override

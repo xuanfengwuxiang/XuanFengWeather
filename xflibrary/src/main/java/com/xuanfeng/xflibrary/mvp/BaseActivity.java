@@ -18,13 +18,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 
-public abstract class BaseActivity<P extends BasePresenter, M extends ViewModel, V extends ViewDataBinding> extends AppCompatActivity implements BaseView {
+public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBinding> extends AppCompatActivity implements BaseView {
 
     private Disposable mDisposable;
     private LoadingDialog mLoadingDialog;
     protected V mBinding;
     protected P mPresenter;
-    protected M mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,6 @@ public abstract class BaseActivity<P extends BasePresenter, M extends ViewModel,
         mBinding = DataBindingUtil.setContentView(this, getLayoutId());
 
         mPresenter = (P) initPresenter();
-        mViewModel = (M) initViewModel();
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
