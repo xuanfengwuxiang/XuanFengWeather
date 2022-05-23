@@ -2,15 +2,13 @@ package com.xuanfeng.weather.module.media.fragment;
 
 import android.os.Bundle;
 
-import androidx.lifecycle.ViewModel;
-
-import com.xuanfeng.xflibrary.mvp.BaseFragment;
-import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentGalleryBinding;
+import com.xuanfeng.xflibrary.mvp.BaseFragment;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
 //todo 换新的视频播放
-public class VideoFragment extends BaseFragment<BasePresenter, ViewModel, FragmentGalleryBinding> {
+public class VideoFragment extends BaseFragment<BasePresenter, FragmentGalleryBinding> {
 
     @Override
     public int getLayoutId() {

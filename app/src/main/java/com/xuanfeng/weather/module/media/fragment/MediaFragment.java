@@ -3,16 +3,14 @@ package com.xuanfeng.weather.module.media.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.lifecycle.ViewModel;
-
-import com.xuanfeng.xflibrary.mvp.BaseFragment;
-import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentMediaBinding;
 import com.xuanfeng.weather.module.media.util.MediaUtil;
+import com.xuanfeng.xflibrary.mvp.BaseFragment;
+import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
 //第二个模块的总fragment
-public class MediaFragment extends BaseFragment<BasePresenter, ViewModel, FragmentMediaBinding> implements View.OnClickListener {
+public class MediaFragment extends BaseFragment<BasePresenter, FragmentMediaBinding> implements View.OnClickListener {
 
 
     public int getLayoutId() {

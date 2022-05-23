@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModel;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -34,7 +33,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 天气界面
  */
-public class WeatherFragment extends BaseFragment<WeatherPresenter, ViewModel, FragmentWeatherBinding> implements WeatherView, BDLocationListener, Consumer {
+public class WeatherFragment extends BaseFragment<WeatherPresenter, FragmentWeatherBinding> implements WeatherView, BDLocationListener, Consumer {
 
     private final String TAG = "WeatherFragment";
     private final String[] PERMISSIONS = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};

@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.lifecycle.ViewModel;
-
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentFaceDetectorBinding;
 import com.xuanfeng.weather.module.media.activity.CameraActivity;
@@ -30,7 +28,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * 人脸识别界面
  */
-public class FaceDetectorFragment extends BaseFragment<BasePresenter, ViewModel, FragmentFaceDetectorBinding> implements FaceDetectorView, View.OnClickListener {
+public class FaceDetectorFragment extends BaseFragment<BasePresenter, FragmentFaceDetectorBinding> implements FaceDetectorView, View.OnClickListener {
     private Paint paint;//画人脸区域用到的Paint
     private Bitmap bm;//选择的图片的Bitmap对象
     private static final int MAX_FACE_NUM = 5;//最大可以检测出的人脸数量

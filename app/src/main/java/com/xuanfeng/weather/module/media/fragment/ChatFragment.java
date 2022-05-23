@@ -5,8 +5,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.lifecycle.ViewModel;
-
 import com.xuanfeng.weather.R;
 import com.xuanfeng.weather.databinding.FragmentChatBinding;
 import com.xuanfeng.weather.module.media.presenter.ChatPresenter;
@@ -16,7 +14,7 @@ import com.xuanfeng.xflibrary.mvp.BaseFragment;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 
 //聊天界面
-public class ChatFragment extends BaseFragment<ChatPresenter, ViewModel, FragmentChatBinding> implements ChatView {
+public class ChatFragment extends BaseFragment<ChatPresenter, FragmentChatBinding> implements ChatView {
 
 
     public void onClick(View view) {

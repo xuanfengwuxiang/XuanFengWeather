@@ -2,7 +2,6 @@ package com.xuanfeng.weather.module.media.fragment;
 
 import android.os.Bundle;
 
-import androidx.lifecycle.ViewModel;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PhotoShowFragment extends BaseFragment<BasePresenter, ViewModel, FragmentPhotoShowBinding> {
+public class PhotoShowFragment extends BaseFragment<BasePresenter, FragmentPhotoShowBinding> {
 
 
     private List<String> mTittleList;

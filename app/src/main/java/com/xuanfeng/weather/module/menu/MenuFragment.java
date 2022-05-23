@@ -4,18 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.lifecycle.ViewModel;
-
+import com.xuanfeng.weather.R;
+import com.xuanfeng.weather.databinding.FragmentMenuBinding;
+import com.xuanfeng.weather.module.loseweight.LoseWeightCalculatorActivity;
 import com.xuanfeng.xflibrary.component.ComponentUtil;
 import com.xuanfeng.xflibrary.contacts.ContactsActivity;
 import com.xuanfeng.xflibrary.mvp.BaseFragment;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
-import com.xuanfeng.weather.R;
-import com.xuanfeng.weather.databinding.FragmentMenuBinding;
-import com.xuanfeng.weather.module.loseweight.LoseWeightCalculatorActivity;
 
 //侧滑界面
-public class MenuFragment extends BaseFragment<BasePresenter, ViewModel,FragmentMenuBinding> {
+public class MenuFragment extends BaseFragment<BasePresenter, FragmentMenuBinding> {
 
     @Override
     public int getLayoutId() {
@@ -38,7 +36,7 @@ public class MenuFragment extends BaseFragment<BasePresenter, ViewModel,Fragment
             case R.id.tv_lose_weight://减肥计算器
                 Intent intent = new Intent(getContext(), LoseWeightCalculatorActivity.class);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.anim_enter,R.anim.anim_exit);
+                getActivity().overridePendingTransition(R.anim.anim_enter, R.anim.anim_exit);
                 break;
             case R.id.tv_test://测试界面
                 ComponentUtil.toRouterPage(getActivity(), "666");
