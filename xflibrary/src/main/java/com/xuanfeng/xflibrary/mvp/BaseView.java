@@ -17,8 +17,6 @@ public interface BaseView {
 
     BasePresenter initPresenter();//P层
 
-    ViewModel initViewModel();
-
     void initData(Bundle bundle);//初始化数据
 
     int getStatusBarColorResId();
