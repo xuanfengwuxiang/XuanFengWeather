@@ -23,11 +23,7 @@ public class ContactsActivity extends BaseActivity<BasePresenter, ActivityContac
     public BasePresenter initPresenter() {
         return null;
     }
-
-    @Override
-    public ViewModel initViewModel() {
-        return null;
-    }
+    
 
     @Override
     public void initData(Bundle bundle) {

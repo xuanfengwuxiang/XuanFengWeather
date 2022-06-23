@@ -50,11 +50,6 @@ public abstract class BaseActivity<P extends BasePresenter, V extends ViewDataBi
     }
 
     @Override
-    public ViewModel initViewModel() {
-        return null;
-    }
-
-    @Override
     public void showProgress() {
         if (mLoadingDialog == null) {
             mLoadingDialog = new LoadingDialog(this);

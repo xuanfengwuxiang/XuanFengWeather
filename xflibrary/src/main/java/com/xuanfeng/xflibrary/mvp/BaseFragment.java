@@ -40,11 +40,6 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     }
 
     @Override
-    public ViewModel initViewModel() {
-        return null;
-    }
-
-    @Override
     public int getStatusBarColorResId() {
         return -1;
     }
