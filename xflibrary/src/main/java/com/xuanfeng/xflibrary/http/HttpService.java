@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
@@ -17,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Streaming;
@@ -95,6 +97,12 @@ public interface HttpService {
             @Url String url,
             @PartMap Map<String, RequestBody> params);
 
+    //单个文件上传
+    @Multipart
+    @POST
+    Observable<JsonObject> uploadFile(
+            @Url String url,
+            @Part MultipartBody.Part part);
 
     //文件下载
     @Streaming

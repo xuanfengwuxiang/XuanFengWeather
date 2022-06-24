@@ -205,30 +205,13 @@
                     android:layout_height="wrap_content"
                     android:lines="3" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/tv_upload"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="中心居中"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintCircle="@id/dot"
-                        app:layout_constraintCircleAngle="270"
-                        app:layout_constraintCircleRadius="200dp"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/dot"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:onClick="@{listener::onClick}"
+                    android:text="上传测试" />
 
                 <TextView
                     android:id="@+id/tv_hot_fix"

@@ -23,6 +23,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
@@ -114,6 +115,21 @@ public class HttpManager {
         observeOnUI(observable, httpResponse);
     }
 
+    //上传单个图片
+    public void uploadImage(String url, String filePath, HttpResponse<JsonObject> httpResponse) {
+        uploadFile(url, filePath, "multipart/form-data", "image", httpResponse);
+    }
+
+    // 上传单个文件
+    public void uploadFile(String url, String filePath, String contentType, String formDataName, HttpResponse<JsonObject> httpResponse) {
+        File file = new File(filePath);
+        RequestBody requestFile = RequestBody.create(MediaType.parse(contentType), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData(formDataName, file.getName(), requestFile);
+
+        Observable observable = HttpLoader.getInstance().getService().uploadFile(url, body);
+        observeOnUI(observable, httpResponse);
+    }
+
     //文件下载
     public void downloadFile(String url, final String savePath, final HttpResponse<String> httpResponse) {
         Observable observable = HttpLoader.getInstance().getService().downloadFile(url);
@@ -123,17 +139,17 @@ public class HttpManager {
             public void onSuccess(final ResponseBody responseBody) {
                 Observable.create(new ObservableOnSubscribe<String>() {
 
-                    @Override
-                    public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                            @Override
+                            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
 
-                        boolean result = FileUtil.writeResponseBodyToDisk(responseBody, savePath);
-                        if (result) {
-                            emitter.onNext("success");
-                        } else {
-                            emitter.onError(new Throwable("write to disk error"));
-                        }
-                    }
-                }).subscribeOn(Schedulers.io())
+                                boolean result = FileUtil.writeResponseBodyToDisk(responseBody, savePath);
+                                if (result) {
+                                    emitter.onNext("success");
+                                } else {
+                                    emitter.onError(new Throwable("write to disk error"));
+                                }
+                            }
+                        }).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(getObserver(httpResponse));
             }

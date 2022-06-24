@@ -3,22 +3,28 @@ package com.xuanfeng.testcomponent.activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.provider.MediaStore;
 import android.transition.Explode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.JsonObject;
 import com.xuanfeng.server.IMyAidlInterface;
 import com.xuanfeng.server.Person;
 import com.xuanfeng.testcomponent.R;
@@ -27,6 +33,8 @@ import com.xuanfeng.testcomponent.hotfix.ISay;
 import com.xuanfeng.testcomponent.hotfix.SayException;
 import com.xuanfeng.testcomponent.service.ForegroundService;
 import com.xuanfeng.xflibrary.component.ComponentUtil;
+import com.xuanfeng.xflibrary.http.HttpResponse;
+import com.xuanfeng.xflibrary.http.httpmgr.HttpManager;
 import com.xuanfeng.xflibrary.mvp.BaseActivity;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.xflibrary.utils.ImageUtil;
@@ -113,7 +121,41 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
             } else {
                 startService(new Intent(this, ForegroundService.class));
             }
+        }else if(i == R.id.tv_upload){
+
+            ImageUtil.selectFromGallery(this,22);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Uri selectedImage = data.getData(); //获取系统返回的照片的Uri
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(selectedImage,
+                filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String path = cursor.getString(columnIndex); //获取照片路径
+        Log.i("!@#","path ="+path);
+        String uu = "http://139.196.88.41:9025/functionMenu/image/smallUploadImage";
+
+        HttpManager.getInstance().uploadImage(uu, path, new HttpResponse<JsonObject>() {
+            @Override
+            public void onSuccess(JsonObject jsonObject) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
     private void hotFix() {
