@@ -139,8 +139,7 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         String path = cursor.getString(columnIndex); //获取照片路径
         Log.i("!@#","path ="+path);
         String uu = "http://139.196.88.41:9025/functionMenu/image/smallUploadImage";
-
-        HttpManager.getInstance().uploadImage(uu, path, new HttpResponse<JsonObject>() {
+        HttpManager.Companion.getInstance().uploadImage(uu, path, new HttpResponse<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
 

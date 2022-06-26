@@ -52,6 +52,8 @@ public class WeatherFragment extends BaseFragment<WeatherPresenter, FragmentWeat
             WeatherUtil.getLocationClient(getContext(), this, this);
         else
             requestPermissions(PERMISSIONS, REQUEST_CODE);
+        mPresenter.getWeather(getActivity(), "南京");
+
     }
 
     @Override//请求权限后的回调
@@ -83,7 +85,6 @@ public class WeatherFragment extends BaseFragment<WeatherPresenter, FragmentWeat
         mLa = bdLocation.getLatitude();
         mLo = bdLocation.getLongitude();
         mBinding.tvLeft.setText(mCity == null ? "" : mCity);
-        mPresenter.getWeather(getActivity(), "南京");
 
     }
 
