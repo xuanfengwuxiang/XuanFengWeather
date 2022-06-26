@@ -7,7 +7,8 @@ import com.google.gson.JsonObject
 import com.xuanfeng.xflibrary.http.HttpLoader
 import com.xuanfeng.xflibrary.http.HttpResponse
 import com.xuanfeng.xflibrary.utils.FileUtil
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -28,7 +29,7 @@ class HttpManager {
 
     //get请求
     fun getJO(url: String?, params: Map<String?, Any?>?, httpResponse: HttpResponse<JsonObject?>?) {
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.Main).launch {
             try {
                 val jsonObject = HttpLoader.getInstance().service.getJO(url, params)
                 httpResponse?.onSuccess(jsonObject)
@@ -42,7 +43,7 @@ class HttpManager {
 
     //post请求
     fun postJO(url: String?, params: Map<String?, String?>?, httpResponse: HttpResponse<JsonObject?>?) {
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.Main).launch {
             try {
                 val jsonObject = HttpLoader.getInstance().service.postJO(url, params)
                 httpResponse?.onSuccess(jsonObject)
@@ -57,7 +58,7 @@ class HttpManager {
     //post请求，入参使用json
     fun <T> postJson(url: String?, t: T, httpResponse: HttpResponse<JsonObject?>?) {
 
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.Main).launch {
             try {
                 val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Gson().toJson(t))
                 val jsonObject = HttpLoader.getInstance().service.postJsonJO(url, body)
@@ -110,7 +111,7 @@ class HttpManager {
             }
         }
 
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.Main).launch {
             try {
                 val jsonObject = HttpLoader.getInstance().service.uploadFiles(url, params)
                 httpResponse?.onSuccess(jsonObject)
@@ -130,7 +131,7 @@ class HttpManager {
     // 上传单个文件
     fun uploadFile(url: String?, filePath: String?, contentType: String?, formDataName: String?, httpResponse: HttpResponse<JsonObject?>?) {
 
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.Main).launch {
             try {
                 val file = File(filePath)
                 val requestFile = RequestBody.create(MediaType.parse(contentType), file)
@@ -149,7 +150,7 @@ class HttpManager {
 
     //文件下载
     fun downloadFile(url: String?, savePath: String?, httpResponse: HttpResponse<String?>?) {
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.Main).launch {
             try {
                 val responseBody = HttpLoader.getInstance().service.downloadFile(url)
                 val result = FileUtil.writeResponseBodyToDisk(responseBody, savePath)
