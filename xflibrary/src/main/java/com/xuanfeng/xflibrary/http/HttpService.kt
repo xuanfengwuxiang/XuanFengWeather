@@ -2,7 +2,6 @@ package com.xuanfeng.xflibrary.http
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -18,10 +17,10 @@ interface HttpService {
     suspend fun getJO(@Url url: String?, @QueryMap params: Map<String?, @JvmSuppressWildcards Any?>?): JsonObject?
 
     @GET
-    suspend fun getS(@Url url: String?, @QueryMap params: Map<String?, String?>?): Observable<String?>?
+    suspend fun getS(@Url url: String?, @QueryMap params: Map<String?, String?>?): String?
 
     @GET
-    suspend fun getJA(@Url url: String?, @QueryMap params: Map<String?, String?>?): Observable<JsonArray?>?
+    suspend fun getJA(@Url url: String?, @QueryMap params: Map<String?, String?>?): JsonArray?
 
     //POST请求===================
     @POST
@@ -30,16 +29,16 @@ interface HttpService {
 
     @POST
     @FormUrlEncoded
-    suspend fun postS(@Url url: String?, @FieldMap params: Map<String?, String?>?): Observable<String?>?
+    suspend fun postS(@Url url: String?, @FieldMap params: Map<String?, String?>?): String?
 
     @POST
     @FormUrlEncoded
-    suspend fun postJA(@Url url: String?, @FieldMap params: Map<String?, String?>?): Observable<JsonArray?>?
+    suspend fun postJA(@Url url: String?, @FieldMap params: Map<String?, String?>?): JsonArray?
 
     //通用POST请求(带头信息)
     @POST
     @FormUrlEncoded
-    suspend fun postHeaderJO(@Url url: String?, @Header("Runbey-Secinfo") runbeySecinfo: String?, @FieldMap params: Map<String?, String?>?): Observable<JsonObject?>?
+    suspend fun postHeaderJO(@Url url: String?, @Header("Runbey-Secinfo") runbeySecinfo: String?, @FieldMap params: Map<String?, String?>?): JsonObject?
 
     //通用POST请求(json格式上传)
     @POST
