@@ -9,7 +9,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
@@ -30,7 +29,6 @@ public class HttpLoader {
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())//Gson转换
                 .addConverterFactory(ScalarsConverterFactory.create())//String转换
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//请求回参设为RxJava
                 .baseUrl(mBaseUrl)
                 .build()
                 .create(HttpService.class);
