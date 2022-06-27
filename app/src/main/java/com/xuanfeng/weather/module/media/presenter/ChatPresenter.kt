@@ -1,62 +1,40 @@
-package com.xuanfeng.weather.module.media.presenter;
+package com.xuanfeng.weather.module.media.presenter
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.xuanfeng.weather.constant.HttpConstant;
-import com.xuanfeng.weather.module.media.view.ChatView;
-import com.xuanfeng.weather.module.media.widget.ChatRecyclerView.ResponseBean;
-import com.xuanfeng.xflibrary.http.HttpResponse;
-import com.xuanfeng.xflibrary.http.httpmgr.HttpManager;
-import com.xuanfeng.xflibrary.mvp.BasePresenter;
-
-import java.util.LinkedHashMap;
+import com.google.gson.Gson
+import com.xuanfeng.weather.constant.HttpConstant
+import com.xuanfeng.weather.module.media.view.ChatView
+import com.xuanfeng.weather.module.media.widget.ChatRecyclerView.ResponseBean
+import com.xuanfeng.xflibrary.http.httpmgr.HttpManager.Companion.instance
+import com.xuanfeng.xflibrary.mvp.BasePresenter
 
 /**
  * Created by xuanfengwuxiang on 2018/8/20.
  */
+class ChatPresenter : BasePresenter<ChatView?> {
+    var mView: ChatView? = null
+    fun getReply(msg: String?) {
+        var url = HttpConstant.CHAT_URL
+        url = url.replace("##content##", msg!!)
+        instance.getJO(url, LinkedHashMap()) {
+            onSuccess {
 
-public class ChatPresenter implements BasePresenter<ChatView> {
-
-    ChatView mView;
-
-    public void getReply(String msg) {
-        String url = HttpConstant.CHAT_URL;
-        url = url.replace("##content##", msg);
-        HttpManager.Companion.getInstance().getJO(url, new LinkedHashMap<String, Object>(), new HttpResponse<JsonObject>() {
-            @Override
-            public void onSuccess(JsonObject jsonObject) {
-                if (jsonObject == null) {
-                    return;
-                }
-                ResponseBean responseBean = new Gson().fromJson(jsonObject.toString(), ResponseBean.class);
+                val responseBean = Gson().fromJson(it?.toString(), ResponseBean::class.java)
                 if (responseBean != null) {
-                    ResponseBean.ResultBean resultBean = responseBean.getResult();
+                    val resultBean = responseBean.result
                     if (resultBean != null) {
-                        String response = resultBean.getContent();
-                        mView.onGetReply(response);
+                        val response = resultBean.content
+                        mView!!.onGetReply(response)
                     }
                 }
             }
 
-            @Override
-            public void onError(Throwable e) {
-                //do nothing
-            }
-
-            @Override
-            public void onComplete() {
-                //do nothing
-            }
-        });
-    }
-
-    @Override
-    public void attachView(ChatView chatView) {
-        mView = chatView;
-    }
-
-    @Override
-    public void detachView() {
+        }
 
     }
+
+    override fun attachView(chatView: ChatView?) {
+        mView = chatView
+    }
+
+    override fun detachView() {}
 }

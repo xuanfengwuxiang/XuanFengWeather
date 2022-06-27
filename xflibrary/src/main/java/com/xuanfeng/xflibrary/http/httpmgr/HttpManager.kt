@@ -28,66 +28,69 @@ class HttpManager {
     }
 
     //get请求
-    fun getJO(url: String?, params: Map<String?, Any?>?, httpResponse: HttpResponse<JsonObject?>?) {
+    fun getJO(url: String, params: Map<String?, Any?>?, httpResponse: HttpResponse<JsonObject>.() -> Unit) {
         CoroutineScope(Dispatchers.Main).launch {
+            val response = HttpResponse<JsonObject>().apply(httpResponse)
             try {
                 val jsonObject = HttpLoader.getInstance().service.getJO(url, params)
-                httpResponse?.onSuccess(jsonObject)
+                response.mOnSuccess?.invoke(jsonObject)
             } catch (e: Exception) {
                 Log.e("HttpManager", e.toString())
-                httpResponse?.onError(e)
+                response.mOnError?.invoke(e.toString())
             }
-            httpResponse?.onComplete()
+            response.mOnComplete?.invoke()
         }
     }
 
     //post请求
-    fun postJO(url: String?, params: Map<String?, String?>?, httpResponse: HttpResponse<JsonObject?>?) {
+    fun postJO(url: String?, params: Map<String?, String?>?, httpResponse: HttpResponse<JsonObject>.() -> Unit) {
         CoroutineScope(Dispatchers.Main).launch {
+            val response = HttpResponse<JsonObject>().apply(httpResponse)
             try {
                 val jsonObject = HttpLoader.getInstance().service.postJO(url, params)
-                httpResponse?.onSuccess(jsonObject)
+                response.mOnSuccess?.invoke(jsonObject)
             } catch (e: Exception) {
                 Log.e("HttpManager", e.toString())
-                httpResponse?.onError(e)
+                response.mOnError?.invoke(e.toString())
             }
-            httpResponse?.onComplete()
+            response.mOnComplete?.invoke()
         }
     }
 
     //post请求，入参使用json
-    fun <T> postJson(url: String?, t: T, httpResponse: HttpResponse<JsonObject?>?) {
+    fun <T> postJson(url: String?, t: T, httpResponse: HttpResponse<JsonObject>.() -> Unit) {
 
         CoroutineScope(Dispatchers.Main).launch {
+            val response = HttpResponse<JsonObject>().apply(httpResponse)
             try {
                 val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Gson().toJson(t))
                 val jsonObject = HttpLoader.getInstance().service.postJsonJO(url, body)
-                httpResponse?.onSuccess(jsonObject)
+                response.mOnSuccess?.invoke(jsonObject)
             } catch (e: Exception) {
                 Log.e("HttpManager", e.toString())
-                httpResponse?.onError(e)
+                response.mOnError?.invoke(e.toString())
             }
-            httpResponse?.onComplete()
+            response.mOnComplete?.invoke()
         }
     }
 
     //图片上传
-    fun uploadImages(url: String?, filePaths: List<String?>?, httpResponse: HttpResponse<JsonObject?>?) {
+    fun uploadImages(url: String?, filePaths: List<String?>?, httpResponse: HttpResponse<JsonObject>.() -> Unit) {
         uploadFiles(url, filePaths, null, "image/jpg", httpResponse)
     }
 
     //图片上传--附带信息
-    fun uploadImages(url: String?, filePaths: List<String?>?, extra: Map<String?, String?>?, httpResponse: HttpResponse<JsonObject?>?) {
+    fun uploadImages(url: String?, filePaths: List<String?>?, extra: Map<String?, String?>?, httpResponse: HttpResponse<JsonObject>.() -> Unit) {
         uploadFiles(url, filePaths, extra, "image/jpg", httpResponse)
     }
 
     //文件上传
-    fun uploadFiles(url: String?, filePaths: List<String?>?, httpResponse: HttpResponse<JsonObject?>?) {
+    fun uploadFiles(url: String?, filePaths: List<String?>?, httpResponse: HttpResponse<JsonObject>.() -> Unit) {
         uploadFiles(url, filePaths, null, "multipart/form-data", httpResponse)
     }
 
     //文件上传
-    fun uploadFiles(url: String?, filePaths: List<String?>?, extra: Map<String?, String?>?, contentType: String?, httpResponse: HttpResponse<JsonObject?>?) {
+    fun uploadFiles(url: String?, filePaths: List<String?>?, extra: Map<String?, String?>?, contentType: String?, httpResponse: HttpResponse<JsonObject>.() -> Unit) {
         if (filePaths == null || filePaths.isEmpty()) {
             return
         }
@@ -112,58 +115,63 @@ class HttpManager {
         }
 
         CoroutineScope(Dispatchers.Main).launch {
+            val response = HttpResponse<JsonObject>().apply(httpResponse)
             try {
                 val jsonObject = HttpLoader.getInstance().service.uploadFiles(url, params)
-                httpResponse?.onSuccess(jsonObject)
+                response.mOnSuccess?.invoke(jsonObject)
             } catch (e: Exception) {
                 Log.e("HttpManager", e.toString())
-                httpResponse?.onError(e)
+                response.mOnError?.invoke(e.toString())
             }
-            httpResponse?.onComplete()
+            response.mOnComplete?.invoke()
         }
     }
 
     //上传单个图片
-    fun uploadImage(url: String?, filePath: String?, httpResponse: HttpResponse<JsonObject?>?) {
+    fun uploadImage(url: String?, filePath: String?, httpResponse: HttpResponse<JsonObject>.() -> Unit) {
         uploadFile(url, filePath, "multipart/form-data", "image", httpResponse)
     }
 
     // 上传单个文件
-    fun uploadFile(url: String?, filePath: String?, contentType: String?, formDataName: String?, httpResponse: HttpResponse<JsonObject?>?) {
+    fun uploadFile(url: String?, filePath: String?, contentType: String?, formDataName: String?, httpResponse: HttpResponse<JsonObject>.() -> Unit) {
 
         CoroutineScope(Dispatchers.Main).launch {
+            val response = HttpResponse<JsonObject>().apply(httpResponse)
+
             try {
-                val file = File(filePath)
-                val requestFile = RequestBody.create(MediaType.parse(contentType), file)
-                val body = MultipartBody.Part.createFormData(formDataName, file.name, requestFile)
+
+                val requestFile = RequestBody.create(MediaType.parse(contentType), File(filePath))
+                val body = MultipartBody.Part.createFormData(formDataName, File(filePath).name, requestFile)
 
                 val jsonObject = HttpLoader.getInstance().service.uploadFile(url, body)
-                httpResponse?.onSuccess(jsonObject)
+                response.mOnSuccess?.invoke(jsonObject)
             } catch (e: Exception) {
                 Log.e("HttpManager", e.toString())
-                httpResponse?.onError(e)
+                response.mOnError?.invoke(e.toString())
             }
-            httpResponse?.onComplete()
+            response.mOnComplete?.invoke()
         }
 
     }
 
     //文件下载
-    fun downloadFile(url: String?, savePath: String?, httpResponse: HttpResponse<String?>?) {
+    fun downloadFile(url: String?, savePath: String?, httpResponse: HttpResponse<String>.() -> Unit) {
         CoroutineScope(Dispatchers.Main).launch {
+            val response = HttpResponse<String>().apply(httpResponse)
             try {
                 val responseBody = HttpLoader.getInstance().service.downloadFile(url)
                 val result = FileUtil.writeResponseBodyToDisk(responseBody, savePath)
                 if (result) {
-                    httpResponse?.onSuccess("success")
+                    response.mOnSuccess?.invoke("success")
+
                 } else {
-                    httpResponse?.onError(Throwable("write to disk error"))
+                    response.mOnError?.invoke("write to disk error")
                 }
             } catch (e: Exception) {
                 Log.e("HttpManager", e.toString())
-                httpResponse?.onError(e)
+                response.mOnError?.invoke(e.toString())
             }
-            httpResponse?.onComplete()
+            response.mOnComplete?.invoke()
 
         }
     }

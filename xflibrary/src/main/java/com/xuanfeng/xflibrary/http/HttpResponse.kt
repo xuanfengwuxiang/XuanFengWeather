@@ -1,14 +1,24 @@
-package com.xuanfeng.xflibrary.http;
+package com.xuanfeng.xflibrary.http
 
 /**
  * Created by zhujh on 2017/7/19.
  * 描述：网络请求回调
  */
+class HttpResponse<T> {
 
-public interface HttpResponse<W> {
-    void onSuccess(W w);
+    var mOnSuccess: ((T?) -> Unit)? = null
+    var mOnError: ((String) -> Unit)? = null
+    var mOnComplete: (() -> Unit)? = null
 
-    void onError(Throwable e);
+    fun onSuccess(action: (T?) -> Unit) {
+        this.mOnSuccess = action
+    }
 
-    void onComplete();
+    fun onError(action: (String) -> Unit) {
+        this.mOnError = action
+    }
+
+    fun onComplete(action: () -> Unit) {
+        this.mOnComplete = action
+    }
 }

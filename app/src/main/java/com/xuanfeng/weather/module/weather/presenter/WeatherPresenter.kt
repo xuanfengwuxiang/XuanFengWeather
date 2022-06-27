@@ -1,90 +1,55 @@
-package com.xuanfeng.weather.module.weather.presenter;
+package com.xuanfeng.weather.module.weather.presenter
 
-import android.text.TextUtils;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.DefaultLifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.xuanfeng.weather.constant.HttpConstant;
-import com.xuanfeng.weather.module.weather.view.WeatherView;
-import com.xuanfeng.weather.module.weather.widget.WeatherRecyclerView.WeatherBean;
-import com.xuanfeng.xflibrary.http.HttpResponse;
-import com.xuanfeng.xflibrary.http.httpmgr.HttpManager;
-import com.xuanfeng.xflibrary.mvp.BasePresenter;
-
-import java.util.LinkedHashMap;
-import java.util.List;
+import android.text.TextUtils
+import android.util.Log
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import com.google.gson.Gson
+import com.xuanfeng.weather.constant.HttpConstant
+import com.xuanfeng.weather.module.weather.view.WeatherView
+import com.xuanfeng.weather.module.weather.widget.WeatherRecyclerView.WeatherBean
+import com.xuanfeng.xflibrary.http.httpmgr.HttpManager.Companion.instance
+import com.xuanfeng.xflibrary.mvp.BasePresenter
 
 /**
  * Created by xuanfengwuxiang on 2017/12/13.
  */
+class WeatherPresenter : BasePresenter<WeatherView?>, DefaultLifecycleObserver {
+    private var mWeatherView: WeatherView? = null
 
-public class WeatherPresenter implements BasePresenter<WeatherView>, DefaultLifecycleObserver {
-
-    private WeatherView mWeatherView;
-
-    @Override
-    public void attachView(WeatherView weatherView) {
-        mWeatherView = weatherView;
+    override fun attachView(weatherView: WeatherView?) {
+        mWeatherView = weatherView
     }
 
-    @Override
-    public void detachView() {
-
-    }
-
-    public void getWeather(LifecycleOwner lifecycleOwner, String city) {
+    override fun detachView() {}
+    fun getWeather(lifecycleOwner: LifecycleOwner?, city: String?) {
         if (TextUtils.isEmpty(city)) {
-            return;
+            return
         }
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("city", city);
-        mWeatherView.showProgress();
-        HttpManager.Companion.getInstance().getJO(HttpConstant.WEATHER_URL, params, new HttpResponse<JsonObject>() {
-            @Override
-            public void onSuccess(JsonObject jsonObject) {
-                mWeatherView.hideProgress();
-                if (jsonObject == null) {
-                    onError(new Throwable("返回了空数据"));
-                    return;
-                }
-                WeatherBean weatherBean = new Gson().fromJson(jsonObject.toString(), WeatherBean.class);
-                if (weatherBean != null) {
-                    WeatherBean.DataBean dataBean = weatherBean.getData();
-                    if (dataBean != null) {
-                        List<WeatherBean.DataBean.ForecastBean> list = dataBean.getForecast();
-                        if (list != null && !list.isEmpty()) {
-                            mWeatherView.onGetWeatherSuccess(list);
-                        }
-                    }
-                } else {
-                    onError(new Throwable("返回了空数据"));
+        val params = LinkedHashMap<String?, Any?>()
+        params["city"] = city
+        mWeatherView!!.showProgress()
+        instance.getJO(HttpConstant.WEATHER_URL, params) {
+            onSuccess {
+                mWeatherView!!.hideProgress()
+                val weatherBean = Gson().fromJson(it.toString(), WeatherBean::class.java)
+                val list = weatherBean?.data?.forecast
+                if (list != null && list.isNotEmpty()) {
+                    mWeatherView!!.onGetWeatherSuccess(list)
                 }
             }
 
-            @Override
-            public void onError(Throwable e) {
-                mWeatherView.hideProgress();
+            onError {
+                mWeatherView!!.hideProgress()
             }
-
-            @Override
-            public void onComplete() {
-                mWeatherView.hideProgress();
-            }
-        });
+        }
     }
 
-    @Override
-    public void onResume(@NonNull LifecycleOwner owner) {
-        Log.i("WeatherPresenter", "onResume了");
+    override fun onResume(owner: LifecycleOwner) {
+        Log.i("WeatherPresenter", "onResume了")
     }
 
-    @Override
-    public void onDestroy(@NonNull LifecycleOwner owner) {
-        Log.i("WeatherPresenter", "onDestroy走了");
+    override fun onDestroy(owner: LifecycleOwner) {
+        Log.i("WeatherPresenter", "onDestroy走了")
     }
 }
